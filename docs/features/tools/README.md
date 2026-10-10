@@ -57,3 +57,8 @@ This is local convenience protection, not server authentication. Same-origin scr
 ## Verification
 
 Run `node --test tests/tools*.test.mjs` for synthetic RFC vectors, vault tamper and wrong-password rejection, supported PDF operations, source-byte preservation, table round trips, encoding round trips, malformed sources and byte bounds. Queue tests use `fake-indexeddb` 6.2.4 and cover 75 queued files, page bounds, crash recovery, retry limits, persisted pause, cancellation/late output, cross-tab removal without orphan output and storage preflight. Vault concurrency tests use real encryption and independently controlled interleavings to verify concurrent add/remove preservation, lock during encryption, queued-write invalidation, revision conflicts and creation cancellation. Genuine generated QR matrices are independently decoded by `jsqr`, and parameters round-trip through the URI parser. Pairing tests reject wrong codes and enforce bounded skew. These source-level checks do not establish installed-runtime, camera, screen-reader or responsive-layout acceptance.
+
+## Transient drafts
+
+See [Transient local tool drafts](drafts.md) for tab-close providers, partial durable intake recovery and authenticated registration acknowledgement. Unsaved inputs are never serialized by the draft registry.
+
