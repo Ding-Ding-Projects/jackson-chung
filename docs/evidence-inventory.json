@@ -17,14 +17,40 @@
       "interactionProofId": "installed-caption-save-and-close",
       "interactionReceiptSha256": "4d5cf92a4b37ca44e427b7260748cfc162ddb5b9c6ee202ceb3d6114f22dd320",
       "inspectionStatus": "inspected",
-      "capturedAt": "2026-10-10T08:50:46.246216+00:00",
+      "capturedAt": "2026-10-10T04:50:46.246216-04:00",
       "route": "cheap-lowlevel-headless",
       "limitations": [
         "Runtime diagnostics cover the recorded CDP observation interval, not full startup or native-click delivery.",
         "Verification package excludes production registration, shortcuts, broker and updater.",
         "Caption close is verified; operating-system keyboard-close acceptance is not."
       ]
+    },
+    {
+      "id": "home-light-9c654dc",
+      "active": true,
+      "path": "public/captures/home-light-9c654dc.png",
+      "sourceCommit": "9c654dcc4629ca878f2132d41156e0ff3892ec3d",
+      "artifactSha256": "271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67",
+      "captureSha256": "99b711ee8396e04b0a3e112a9300c67d7027c225933b4c73a47034e247d5e54b",
+      "screen": "home",
+      "state": "normal-English-light",
+      "theme": "light",
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "scale": 1,
+      "interactionProofId": "normal-home-navigation",
+      "interactionReceiptSha256": "4cd9e16d30a64d9ba35632bbdec7a3c5ebb85b53c8ff180cdf5c69a67449594c",
+      "inspectionStatus": "inspected",
+      "capturedAt": "2026-10-10T10:52:54.612Z",
+      "route": "cheap-lowlevel-headless",
+      "limitations": [
+        "Cleanup pending exact owned teardown; promotion validation not yet run.",
+        "Actual git HEAD start/end match expected source and immutable build metadata; derived binding does not claim another build execution.",
+        "Requested DPR1, actual reported scale recorded in producer; no native OS scaling claim.",
+        "Representative visible Home only; no whole-page layout or full acceptance claim.",
+        "Owned Edge and server process trees exited after identity-bound teardown; the hidden desktop is closed."
+      ]
     }
   ],
-  "coverage": "One bounded installed verification state. Other surfaces and full contract acceptance remain incomplete."
+  "coverage": "Two bounded states: installed verification at cee79f8 and browser Home at 9c654dc. Complete surface and contract acceptance remain incomplete."
 }
