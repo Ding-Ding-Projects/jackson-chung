@@ -1,0 +1,10 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import QRCode from 'qrcode';
+import jsQR from 'jsqr';
+import {otpUri,parseOtpUri,confirmOtp} from '../src/features/authenticator/registration.mjs';
+import {totp} from '../src/features/authenticator/totp.mjs';
+const entry={name:'Synthetic test account',issuer:'Synthetic test issuer',secret:'GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ',algorithm:'SHA-1',digits:8,period:30};
+test('genuine QR matrix independently decodes to matching RFC registration parameters',async()=>{const uri=otpUri(entry),qr=QRCode.create(uri,{errorCorrectionLevel:'M'}),scale=5,margin=4,width=(qr.modules.size+margin*2)*scale,data=new Uint8ClampedArray(width*width*4);for(let y=0;y<width;y++)for(let x=0;x<width;x++){const row=Math.floor(y/scale)-margin,col=Math.floor(x/scale)-margin;const black=row>=0&&col>=0&&row<qr.modules.size&&col<qr.modules.size&&qr.modules.get(row,col);const offset=(y*width+x)*4;data[offset]=data[offset+1]=data[offset+2]=black?0:255;data[offset+3]=255;}const decoded=jsQR(data,width,width);assert.equal(decoded?.data,uri);assert.deepEqual(await parseOtpUri(decoded.data),entry);});
+test('pairing rejects wrong codes and accepts bounded adjacent-period skew',async()=>{const time=59000;assert.equal(await confirmOtp(entry,'00000000',time),false);assert.equal(await confirmOtp(entry,await totp(entry.secret,{...entry,time}),time),true);assert.equal(await confirmOtp(entry,await totp(entry.secret,{...entry,time:time+30000}),time),true);assert.equal(await confirmOtp(entry,await totp(entry.secret,{...entry,time:time+90000}),time),false);});
+test('import rejects duplicate and unsupported registration parameters',async()=>{await assert.rejects(parseOtpUri(otpUri(entry)+'&digits=6'));await assert.rejects(parseOtpUri(otpUri(entry).replace('totp','hotp')));await assert.rejects(parseOtpUri(otpUri(entry).replace('algorithm=SHA1','algorithm=MD5')));});
