@@ -1,4 +1,5 @@
 import {LitElement,html,css,nothing} from 'lit';import '@material/web/button/filled-button.js';import '@material/web/button/outlined-button.js';import '@material/web/switch/switch.js';import '@material/web/slider/slider.js';
+import {connectNativeDraftClose} from './shell-integration';
 import {draftStatus,applyDraftDecision,type DraftEntry} from '../state/drafts';
 class DraftConfirm extends LitElement{
  static properties={locale:{type:String},entries:{state:true},keyOne:{state:true},keyTwo:{state:true},value:{state:true},busy:{state:true},message:{state:true},discarding:{state:true},indices:{state:true}};
@@ -16,3 +17,10 @@ customElements.define('jc-draft-confirm',DraftConfirm);
 let pending:Promise<boolean>|null=null;
 export function resolveDrafts(tabIds?:string[],anchor?:HTMLElement,locale='en'){const status=draftStatus(tabIds);if(status.blocked)return Promise.resolve(false);if(!status.dirty.length)return Promise.resolve(true);if(pending)return Promise.resolve(false);pending=new Promise<boolean>(resolve=>{const view=document.createElement('jc-draft-confirm') as DraftConfirm;view.tabIds=tabIds;view.anchor=anchor;view.locale=locale;view.finish=ok=>{pending=null;resolve(ok);};document.body.append(view);});return pending;}
 
+
+// The isolated preload exposes only a scoped close-request subscription.
+let disconnectNativeClose:(()=>void)|undefined;
+const attachNativeClose=()=>{disconnectNativeClose?.();disconnectNativeClose=connectNativeDraftClose(window.jacksonNative as typeof window.jacksonNative & {onCloseRequested?:(callback:()=>Promise<boolean>)=>()=>void},()=>resolveDrafts(undefined,document.activeElement as HTMLElement,document.documentElement.dataset.locale||'en'));};
+if(document.readyState==='loading')window.addEventListener('DOMContentLoaded',attachNativeClose,{once:true});else attachNativeClose();
+window.addEventListener('pagehide',()=>{disconnectNativeClose?.();disconnectNativeClose=undefined;});
+window.addEventListener('pageshow',()=>{if(!disconnectNativeClose)attachNativeClose();});

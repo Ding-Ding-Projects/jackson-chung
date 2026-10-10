@@ -13,3 +13,11 @@ Only registered providers are protected. Unregistered forms and arbitrary extern
 ## Focus clearance
 
 The shell measures rendered sticky/fixed header heights through ResizeObserver and viewport changes. The document uses that real clearance for scroll padding, focus margins, and the skip link. Focus entering a covered control scrolls it below the measured header. Actual native/browser geometry and keyboard operation remain separate runtime acceptance.
+
+## Native close handshake
+
+The native main process intercepts the BrowserWindow close event before any renderer content is disposed. It creates one random request ID and asks the isolated preload's registered close callback to resolve the shared draft providers. Only a response from the exact trusted packaged main frame, carrying the current request ID and a strict boolean decision, is accepted. Approval authorizes one repeated close event, then removes the scoped listeners. Concurrent close attempts reuse the pending decision rather than opening competing prompts.
+
+The preload exposes only `onCloseRequested(callback)`, not raw IPC or a separately callable approval function. Cancellation, callback rejection, renderer loss, navigation, malformed or stale responses, and a two-minute timeout leave the window open. The in-app native close operation reaches the same BrowserWindow close event. Native broker teardown occurs at successful `will-quit`, so a cancelled close does not disconnect the still-running workspace.
+
+Source tests exercise the close-event state machine, sender/request validation, cancellation, repeat attempts, timeout/navigation/renderer-loss invalidation, strict preload approval and listener teardown. Actual installed OS close, Alt+F4, unsaved provider UI, cancellation and reopened operation remain unverified until exercised against the rebuilt packaged desktop. This handshake does not defend against process termination or a compromised trusted renderer.
