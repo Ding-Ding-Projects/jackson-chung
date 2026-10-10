@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import ts from 'typescript';
-const source=readFileSync(new URL('../src/components/documentation.ts',import.meta.url),'utf8').split('class Documentation')[0].replace(/^import .*;$/gm,'');
+const source=readFileSync(new URL('../src/components/documentation.ts',import.meta.url),'utf8').split('class Documentation')[0].replaceAll('import.meta.env.BASE_URL',"'/jackson-chung/'").replace(/^import .*;$/gm,'');
 const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
 const exports={};const html=(strings,...values)=>({strings:[...strings],values});
 new Function('exports','html','location',compiled)(exports,html,{href:'https://example.com/profile/'});
