@@ -7,7 +7,7 @@ Homepage: https://ding-ding-projects.github.io/jackson-chung/
 
 ## Publication boundary
 
-The live deployment before this checkpoint is faffef21f4c2c2be7fe9c8b70d71c4e37074c409, workflow 38030711850. It already contains six selected public organization projects. The next publication contains the independently verified browser improvements below. A successful source push does not itself establish deployment or live acceptance. Verify the resulting workflow, live build metadata, required assets, complete documentation inventory and exact About homepage.
+The verified live browser deployment is ca634187f8d795e9399a53eb12e8512c75f53662, workflow 38047013556. Fresh HTTP checks verified its source, seventeen current English/Cantonese articles, ten required resources and exact About homepage; an isolated live browser pass is in progress. It already contains six selected public organization projects. The next independent units are School management and the schedule editor. A successful source push does not itself establish deployment or live acceptance. Verify the resulting workflow, live build metadata, required assets, complete documentation inventory and exact About homepage.
 
 ## Implemented and verified browser unit
 
@@ -21,7 +21,7 @@ The genuine Home capture at source 9c654dc was inspected and its formal receipt 
 
 ## Pending independent units
 
-School controls: 8424c89f7bdbcff81423c7d5df287bbc44d60476 and b7444a3c5eae847bd260fdc3ef93a8d8100ce350. Schedules: 220da5df99d87c7e5dcd6bb6c7d5913c5c78e2fa and d4673773442cb295f7bae244e3b30bc4a174549a. Source reviews are complete, but integration, complete English/Cantonese documentation inventory and actual built workflow acceptance remain pending.
+School controls: 8424c89f7bdbcff81423c7d5df287bbc44d60476 and b7444a3c5eae847bd260fdc3ef93a8d8100ce350. Schedules: 220da5df99d87c7e5dcd6bb6c7d5913c5c78e2fa and d4673773442cb295f7bae244e3b30bc4a174549a. These units are integrated through 9893f73 with a complete nineteen-article inventory. All 265 tests and TypeScript passed. Exact build and actual built workflow acceptance remain pending.
 
 Updater work through 6b70306bea06f126b8727d32c3819a5ce6de7353 remains isolated and unintegrated. Independent review reproduced stale restart authority and stale cleanup affecting a newer close request. A bounded repair is implementing request-scoped authorization ownership, followed by independent regression review. No installed update or release acceptance is claimed.
 

@@ -1,3 +1,13 @@
+# Current integration checkpoint
+
+The public browser unit is now on remote main at ca634187f8d795e9399a53eb12e8512c75f53662. Deployment run 38047013556 succeeded. Fresh HTTP checks verified the live source, 17 current English/Cantonese articles, ten home/resource/capture/resume assets and the exact public About homepage. An isolated live browser acceptance pass is in progress.
+
+School management and the local schedule editor are integrated through 9893f73, with a complete 19-article inventory. All 265 tests and TypeScript passed after integration. Exact build and actual browser workflow, persistence, accessibility and responsive acceptance remain pending. These units are not yet a production-acceptance claim. Updater source remains isolated while attempt-scoped authorization is repaired and independently reviewed.
+
+The separately installed cee79f8 verification candidate and prior captures retain their historical bounds. Production lifecycle, installed updates, uninstall, fresh-machine bootstrap, normal desktop release and universal contract evidence remain incomplete. Preserve all active worktrees and announcement originals.
+
+## Historical checkpoints
+
 # Implementation handoff
 
 ## Completed browser unit awaiting publication
