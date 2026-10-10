@@ -4,7 +4,7 @@ The browser stores visitor choices locally under versioned `jc.settings.v1` and 
 
 ## Personal wording
 
-The always-visible settings file picker accepts UTF-8 JSON with exactly `version` (1) and `entries`. Each entry has exactly `original` and `replacement`, both nonempty strings of at most 160 characters. Limits are 256 KiB, 1000 entries and eight nesting levels. Duplicate JSON keys, duplicate original strings, unsafe object keys, unknown fields and versions, and control characters are rejected before caching. Validation is atomic. No default mappings ship. The separate local cache is revalidated on startup, never exported, recorded in history, logged or transmitted. Clearing restores shipped wording. Replacement occurs in one pass so replacements cannot cascade into other replacements. Source filenames are not stored.
+The always-visible settings file picker accepts UTF-8 JSON with exactly `schemaVersion` (1) and an `entries` object. Each entry key contains 1 through 160 characters; each replacement is a string of at most 1000 characters. Limits are 256 KiB, 4096 entries and eight nesting levels. Empty replacements intentionally remove text. Duplicate JSON keys, duplicate original strings, unsafe object keys, unknown fields and versions, and control characters are rejected before caching. Validation is atomic. No default mappings ship. The separate local cache is revalidated on startup, never exported, recorded in history, logged or transmitted. Clearing restores shipped wording. Replacement occurs in one pass so replacements cannot cascade into other replacements. Source filenames are not stored.
 
 ## History and portability
 
@@ -18,7 +18,7 @@ The appearance lab edits a sample's colour, radius, padding, text size and weigh
 
 ## Narration
 
-Narration is off by default. Voice pickers enumerate platform voices, update after late enumeration and retain stable voice identities. Missing voices fall back honestly; network-backed voices are identified. Preview queues English then Cantonese using browser speech synthesis. Browser screen-reader detection is unavailable, so users are told to pause narration when using one. Application event debouncing, category cooldowns and reliable assistive-technology yielding remain incomplete.
+Narration is off by default. Voice pickers enumerate platform voices, update after late enumeration and retain stable voice identities. Missing voices fall back honestly; network-backed voices are identified. Preview queues English then Cantonese using browser speech synthesis. Browser screen-reader detection is unavailable, so users are told to pause narration when using one. The shell may send `jc-narrate` events with English and Cantonese text, category and an optional error flag. The event queue debounces ordinary lines for 250 ms, uses a three-second category cooldown, replaces pending lines in the same category, and serializes tracks. Error facts are not suppressed by cooldown. `setScreenReaderMode` provides an explicit integration boundary, since reliable automatic screen-reader detection is unavailable.
 
 ## Remaining contracts
 
@@ -29,3 +29,7 @@ This first unit does not complete all mandatory product contracts. Shared cross-
 `tests/preferences.test.mjs` checks bounded settings validation, atomic wording rejection, duplicate keys, private-data export/history exclusion, append-only restore and parser limits. TypeScript is checked separately. Browser interaction and the full viewport/language/theme/display-scale matrix remain required.
 
 No HTTP API belongs to this feature, so a Postman collection is not applicable.
+
+## Local timed rules
+
+The timed-appearance destination adds daily local theme rules with optional dates, native time and date inputs, enable and remove actions. Its bounded version-1 store holds at most 50 rules. Overnight intervals use their starting day, start is inclusive, end exclusive, equal times are rejected, and later matching rules win. `effectiveSettings` and `jc-effective-state` provide temporary values to the shell without overwriting base settings. Browser local timezone and daylight-saving semantics are disclosed. The rules support validated setting patches internally, but visible controls currently cover theme only. Weekday editing, complete rule editing, undo/history, import/export, other setting controls and external sources remain incomplete.
