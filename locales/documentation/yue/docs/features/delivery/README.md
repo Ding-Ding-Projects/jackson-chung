@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"526b3db220485bad64d5dc4b31d10d5f5c0342b0a950167f3d860400d7732919","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
+<!-- documentation-locale: {"sourceSha256":"cb4f2cca3427bb9c0b99efcb28385f977d9e0c300e4569b0617a0b6c7dc140e3","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
 # 交付與驗證
 
 - [套件內容完整性](package-integrity.md)
@@ -25,3 +25,7 @@
 ## 驗證安裝
 
 另外識別嘅 Squirrel 套件同確切限制，請參閱[獨立驗證安裝](isolated-installation.md)。
+
+## Squirrel 生命週期結果
+
+正式安裝同更新掛鉤會先建立捷徑，再登記瀏覽器原生主機。解除安裝會先移除捷徑，再取消相符原生主機嘅登記。兩個子程序都以隱藏視窗執行，逾時限制為 15 秒。即使捷徑子程序失敗，登記或取消登記仍然會執行；任何一個子程序回報錯誤、非零或缺失結束狀態，掛鉤都會以非零結束。驗證模式同過時版本掛鉤唔會啟動任何一個子程序。集中測試會執行實際擷取嘅掛鉤，涵蓋成功、失敗、逾時同無法啟動嘅子程序結果。呢啲來源測試唔代表已安裝捷徑、登錄或解除安裝驗收已通過。

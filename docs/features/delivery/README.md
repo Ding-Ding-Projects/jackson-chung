@@ -24,3 +24,7 @@ Installers are unsigned and may display an unknown-publisher or SmartScreen warn
 ## Verification installation
 
 See [isolated verification installation](isolated-installation.md) for the separately identified Squirrel package and its exact limitations.
+
+## Squirrel lifecycle results
+
+Production install and update hooks create shortcuts before registering the browser native host. Uninstall removes shortcuts before unregistering the matching native host. Both children run with hidden windows and a 15-second timeout. Registration or unregistration still runs if the shortcut child fails; the hook exits nonzero if either child reports an error or a nonzero or missing exit status. Verification mode and obsolete-version hooks launch neither child. Focused tests execute the actual extracted hook with successful, failed, timed-out and unavailable child results. These source tests do not establish installed shortcut, registry or uninstall acceptance.
