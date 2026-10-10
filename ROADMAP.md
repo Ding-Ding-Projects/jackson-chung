@@ -13,6 +13,7 @@
 - [x] Implement internal documentation article and heading routes with focused source checks.
 
 ## Full capability delivery
+- [ ] Verify and publish adopted browser-local Support workflows and23-article inventory.
 - [ ] Implement browser-supported features directly on the website.
 - [ ] Implement and verify the native desktop companion.
 - [ ] Verify all feature contracts and supporting documentation.

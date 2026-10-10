@@ -2,7 +2,7 @@
 
 Jackson Chung’s personal portfolio: IT support experience, selected public projects, community work and a downloadable public résumé. An editorial ink-and-paper design puts the person and work first, with bilingual controls and supporting local tools in secondary navigation. The separately installable desktop companion remains a working interface.
 
-Implementation is in progress. The public portfolio deployment is verified at its recorded source. Complete feature coverage, installed workflows, production integration and updater acceptance remain separate milestones.
+Implementation is in progress. A browser-local Support candidate adds fictional local tickets, recovery guidance and a23rd localized article; its built acceptance and publication remain pending. The public portfolio deployment is verified at its recorded source. Complete feature coverage, installed workflows, production integration and updater acceptance remain separate milestones.
 
 Public contact information is limited to email and Toronto. The original supplied résumé is private and is not included here.
 

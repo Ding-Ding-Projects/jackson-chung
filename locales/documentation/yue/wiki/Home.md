@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"e158570b6d29b2b7aed3a4200aa128e3f9130a410a862ef8111044c79b052b57","title":"Jackson Chung 項目 Wiki","category":"概覽","related":["docs-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"56dd7ca85c07ef75113126553e48b386ebb61ae1b5f5bfa68017129ea5ce2952","title":"Jackson Chung 項目 Wiki","category":"概覽","related":["docs-README"]} -->
 # Jackson Chung 項目 Wiki
 
 呢個 Wiki 同原始碼一齊維護，並隨附於公開網頁。讀者唔使離開網頁，都可以瀏覽完整內容。
@@ -27,3 +27,5 @@ Jackson Chung 專業個人頁以零售顧客服務為重點，介紹可轉移嘅
 公開個人作品集以 Jackson 嘅個人介紹、實際經驗、精選作品同聯絡方式為主。墨色、象牙白同橙色嘅編輯式風格，與桌面工作區分開。工具同文件仍然可以由更多選單開啟。
 
 擁有人批准嘅網頁外觀例外，只限網頁嘅 Material Design 合約。桌面、擴充功能、無障礙同語言要求仍然有效。完整範圍決定記錄喺個人內容導覽文章。
+
+- [瀏覽器本機支援及重設](../docs/features/preferences/support-tickets.md)
