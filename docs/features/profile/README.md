@@ -20,3 +20,9 @@ Source-level type checks and the one-page PDF rendering have been inspected. Pub
 - [Notifications](notifications.md)
 
 - [Unsaved draft decisions](drafts.md)
+
+## Bundled documentation images
+
+Markdown images render only bundled raster files directly inside `public/captures/`. Use a relative article path such as `../../../public/captures/example.png` from this category. The reader resolves that path against the article and maps it to the deployment's local `captures/` URL. PNG, JPEG, WebP and GIF are supported. Plain nonempty alt text is required and is escaped by Lit. Images scale to the available article width and keep their natural aspect ratio.
+
+Remote images, protocol-relative addresses, data URLs, credentials, absolute/private paths, encoded paths, traversal after named path segments, nested capture folders and SVG are unsupported and do not become image requests. Raw HTML is never executed. Rejected image markup falls back to its plain alt text. A valid path does not prove that the file exists or that its pixels are accepted evidence; actual bundled asset delivery and rendered layout require separate verification. Existing article links, heading anchors and independent reading routes remain unchanged.
