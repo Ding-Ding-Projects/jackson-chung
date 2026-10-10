@@ -20,7 +20,7 @@ Enable this mode to see one explicitly chosen next action above the current cont
 
 ## Momentum
 
-An opt-in gentle prompt appears after at least five minutes without observed interaction, only while the page is visible and no registered draft provider reports an active operation. It appears once per idle episode. Dismiss keeps it closed until another interaction begins a new episode. Not now snoozes it for exactly fifteen minutes. Interaction postpones the next prompt, and returning from the background starts a fresh idle period. English and Cantonese humour levels independently style the reassurance without changing the timing facts. School mode keeps its English-only presentation.
+An opt-in gentle prompt appears after at least five minutes without observed interaction, only while the page is visible and no registered draft provider reports an active operation. It appears once per idle episode. Pointer or keyboard interaction within its controls, and Tab navigation toward them, keep the prompt mounted until the chosen snooze or dismiss action completes. Dismiss keeps it closed until another interaction begins a new episode. Not now snoozes it for exactly fifteen minutes. Interaction postpones the next prompt, and returning from the background starts a fresh idle period. English and Cantonese humour levels independently style the reassurance without changing the timing facts. School mode keeps its English-only presentation.
 
 ## Storage and verification boundaries
 
