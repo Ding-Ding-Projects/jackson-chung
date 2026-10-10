@@ -17,3 +17,5 @@ The shell connects the reusable tab host with independent DOM nodes keyed by tab
 Documentation tabs own separate in-memory article and heading routes. Only the active documentation tab updates the browser fragment. Global history navigation updates the active tab rather than changing every retained reader. Reload restores metadata, not private form contents or per-tab reading state.
 
 The shared command overlay receives all registered destinations, owns Ctrl+Shift+F, and has a visible opener in the shell. The older shell shortcut does not compete with it. Interaction, focus, privacy and overflow acceptance still require the real built browser or desktop surface.
+
+The public website uses an editorial portfolio header with About, Experience, Projects and Contact. More opens secondary profile sections, documentation and local tools. Profile destinations keep the retained tab state without showing a workspace tab strip. Tool destinations retain their tab controls. Search opened through More returns focus to the visible disclosure summary when closed. The desktop companion retains its separate working interface.

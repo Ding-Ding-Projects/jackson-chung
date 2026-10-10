@@ -1,6 +1,6 @@
 # Jackson Chung
 
-A retail-focused professional profile and local desktop companion, with selected public projects, a downloadable public résumé, bilingual visitor controls, and local tools.
+Jackson Chung’s personal portfolio: IT support experience, selected public projects, community work and a downloadable public résumé. An editorial ink-and-paper design puts the person and work first, with bilingual controls and supporting local tools in secondary navigation. The separately installable desktop companion remains a working interface.
 
 Implementation is in progress. The public portfolio deployment is verified at its recorded source. Complete feature coverage, installed workflows, production integration and updater acceptance remain separate milestones.
 

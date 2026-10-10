@@ -1,6 +1,6 @@
 # Profile design reference
 
-The interface uses a warm ivory canvas, a muted teal accent, an anchored left navigation rail, editorial serif headings, and a compact service-oriented profile. At widths below 760px the rail becomes an explicitly opened drawer. Every public fact comes from the supplied résumé. Project links describe selected organization work without claiming sole authorship or production completeness.
+The public portfolio uses an ivory canvas, ink typography, a burnt-orange accent, an editorial name heading and compact top navigation. The homepage prioritizes identity, factual experience, selected work and contact. Supporting tools live in a secondary More disclosure. The desktop working interface remains separate. The new direction and deterministic reference are in portfolio-direction.md and portfolio-reference.html. Every public fact comes from the supplied résumé. Project links describe selected organization work without claiming sole authorship or production completeness.
 
 Material Designer repository metadata and published releases were inspected through the GitHub CLI. This session exposes no Material Designer creation/export API and no installed interactive design target has been verified. These local references therefore record the implementation intent, not a claim of a hosted design export or built-surface verification.
 

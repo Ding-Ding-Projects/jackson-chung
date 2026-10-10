@@ -1,5 +1,13 @@
 # Continuation state
 
+## Current portfolio redesign
+
+A fresh active goal has a new 15,000,000 token cap. The prior goal's last verified use was 13,701,882, final total unknown. Account allowance was not reset. Latest direction: make this a tailored personal portfolio without Material Design styling while retaining the complete unfinished original scope.
+
+The publication feature branch starts from verified public main 386410d and carries only design references, public portfolio implementation and related documentation. Unfinished Support remains preserved separately at ea7597fa6177146826627cbae4b8df07e0a148f2. The public header exposes About, Experience, Projects and Contact; More retains secondary tools, search, preferences and documents. Editorial ivory, ink and burnt-orange presentation replaces the dashboard rail. All 335 baseline tests and TypeScript passed; the later notification appearance adjustment passed its two affected layout checks. Twenty-two localized articles have valid bindings. Final build/runtime/publication remains pending.
+
+Run20 at recovery ea7597f produced one inspected initial whole-window capture, then stopped with zero accepted matrix rows at strict target cardinality rejection. Historical rejection count/types are unknown. Owned process trees, ports and hidden desktop closed; profile and original evidence retained. Never relabel it as proof for the publication candidate. Next: build the pinned candidate, verify desktop/narrow language/theme/scale and actual menu/focus behavior, then publish verified changes to main and verify live source/assets/articles/About. Keep unfinished Support and companion work retained, never infer whole-goal completion from the redesign.
+
 Build Jackson Chung's public portfolio and separately installable Windows companion with every applicable contract. Browser-capable workflows belong directly on GitHub Pages and support mobile. Latest user steering: include selected public Ding-Ding-Projects projects. Six factual public project links are deployed. Publish Jackson Chung, Toronto and email only; keep the original resume and phone private.
 
 ## Published source

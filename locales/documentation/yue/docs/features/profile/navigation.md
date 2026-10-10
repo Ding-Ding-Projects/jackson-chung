@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"62e972305fa294fa6dffbd2adbf3194700f4cc915efaa5212b71312a9d73bf90","title":"個人頁及文件導覽","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
+<!-- documentation-locale: {"sourceSha256": "6da265fb3e094986038caf70d02e4b9f5f6b33d1ac7ed70af9f6ed995a509dd9", "title": "個人頁及文件導覽", "category": "功能／個人頁", "related": ["docs-features-profile-README", "docs-features-preferences-README"]} -->
 # 個人頁及文件導覽
 
 個人頁主要部分使用片段目的地。文件路徑格式係 `#docs/<encoded article identifier>/<encoded heading identifier>`。文章識別碼可以包含斜線，斜線會連同識別碼一齊編碼。瀏覽器上一頁同下一頁會還原所選文章同標題。
@@ -18,3 +18,5 @@ Markdown 透過安全文字範本呈現。原始 HTML 保持為文字，執行�
 文件分頁喺記憶體保留自己嘅文章同標題路徑。只有作用中文件分頁會更新瀏覽器片段。全域歷史導覽只更新作用中分頁，唔會改動所有保留閱讀器。重新載入會還原中繼資料，唔會還原私人表單內容或每個分頁嘅閱讀狀態。
 
 共用指令浮層接收所有已登記目的地，負責 Ctrl+Shift+F，頁面框架亦有可見開啟掣。舊有框架快捷鍵唔會同佢競爭。操作、焦點、私隱同溢出版面接納，仍然要喺實際建置瀏覽器或桌面畫面驗證。
+
+公開網頁採用個人作品集頁首，主要導覽包括關於我、工作經驗、作品同聯絡。更多選單提供其他個人內容、文件同本機工具。個人內容保留分頁狀態，但不顯示工作區分頁列；工具內容仍然提供分頁控制。由更多選單開啟搜尋後，關閉時會將焦點返回仍然可見嘅選單標題。桌面配套保留獨立工作介面。

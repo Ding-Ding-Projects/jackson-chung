@@ -1,5 +1,11 @@
 # Current handoff
 
+## Portfolio redesign in progress
+
+The current feature branch starts from verified public main 386410d and contains only the portfolio redesign and documentation changes. It excludes the unfinished Support integration preserved at recovery ea7597fa6177146826627cbae4b8df07e0a148f2. The public header now prioritizes About, Experience, Projects and Contact. More retains supporting pages, tools, search and preferences. The homepage uses a large personal name, factual IT support and education, selected projects and approved email, with ivory, ink and burnt-orange styling rather than a permanent dashboard rail.
+
+Independent source review confirmed the Focus styling and palette return-focus repairs. TypeScript and all 335 public-baseline tests passed before the final notification appearance adjustment; its two affected layout checks passed afterward. All 22 English/Cantonese articles have current source bindings. Final candidate build and actual responsive acceptance are pending. Run20 retained one inspected initial whole-window capture at recovery source ea7597f, then stopped before matrix acceptance at the strict target-list check. Its rejection-time count/types are unavailable, so the cause is unknown. Owned browser/server processes, ports and desktop closed; profile and original evidence remain retained. No new deployment or complete redesign acceptance is claimed yet.
+
 ## Current rebuilt candidate at 098563a
 
 Source 098563a4e4e2e2c2b5aca29b30a9336743937142 integrates settings explanations, truthful record provenance, metadata-backed search and the expanded notification-builder containment repair. The preceding settings integration passed all 335 tests and TypeScript. The final notification/settings affected checks passed 25 tests, and exact build.bat /s exited zero. Index SHA-256: d133dd4cbdf6c1b42f936f536909245ac8e4308eb0e68e37ca7adcb5eb59f6cb. All twenty-two English/Cantonese articles have valid inventory/source bindings. Current built interaction is in progress; this source is not claimed deployed.

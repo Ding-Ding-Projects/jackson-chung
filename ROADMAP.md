@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Foundation
+- [ ] Verify and publish the profile-led editorial redesign, preserving secondary tools and accessible navigation.
 - [x] Create the public source repository.
 - [x] Configure GitHub Pages to deploy from the workflow.
 - [ ] Implement the professional profile and revised public résumé.

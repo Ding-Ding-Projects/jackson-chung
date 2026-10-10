@@ -23,3 +23,7 @@ html[data-theme=dark] .portfolio-shell{--paper:#20221f;--ink:#f2eee5;--muted:#c1
 jc-app[data-attention-away] .portfolio-shell #retained-tab-host{filter:saturate(.35)}
 jc-app[data-attention-focus] .portfolio-nav a:not([aria-current=page]){filter:saturate(.35)}
 jc-app[data-attention-low] .portfolio-shell *,html[data-motion=reduced] .portfolio-shell *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+
+.portfolio-intro h1{overflow-wrap:anywhere}
+jc-app:has(.portfolio-shell) jc-notifications{--jc-notice-radius:2px;--jc-notice-shadow:0 3px 12px #0001;--md-sys-color-surface-container:#f4f0e8;--md-sys-color-on-surface:#22231f;--md-sys-color-outline-variant:#cbc9be;--md-text-button-label-text-color:#22231f;--md-text-button-label-text-font:system-ui,sans-serif;--md-text-button-label-text-size:.75rem}
+html[data-theme=dark] jc-app:has(.portfolio-shell) jc-notifications{--md-sys-color-surface-container:#20221f;--md-sys-color-on-surface:#f2eee5;--md-sys-color-outline-variant:#51564c;--md-text-button-label-text-color:#f2eee5}

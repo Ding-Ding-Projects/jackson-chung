@@ -18,3 +18,5 @@ Use the website's Documentation and Wiki destinations to browse category indexes
 - [Scheduled settings](../docs/features/preferences/schedules.md)
 - [Local presentation restriction management](../docs/features/preferences/school.md)
 - [Local workspace display name](../docs/features/preferences/display-name.md)
+
+The public portfolio prioritizes Jackson’s identity, factual experience, selected projects and contact details. Its editorial ink, ivory and burnt-orange presentation is separate from the desktop workspace. Supporting tools and documentation remain available through More.
