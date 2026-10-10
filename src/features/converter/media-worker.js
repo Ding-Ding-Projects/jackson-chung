@@ -4,11 +4,16 @@ self.onmessage=async event=>{
  if(running)return;running=true;let core;
  try{
   const {mediaType,planMedia,validateMedia,MEDIA_LIMIT}=await import(new URL('media-plan.mjs',self.location.href).href);
-  const {inputs,operation,options={}}=event.data;if(!Array.isArray(inputs)||inputs.length!==1)throw Error();const bytes=inputs[0],type=mediaType(bytes);
+  const {inputs,operation,options={}}=event.data;
   const coreURL=new URL('ffmpeg-core.js',self.location.href).href,wasmURL=new URL('ffmpeg-core.wasm',self.location.href).href;
   importScripts(coreURL);
   core=await self.createFFmpegCore({mainScriptUrlOrBlob:`${coreURL}#${btoa(JSON.stringify({wasmURL}))}`});
   core.setLogger(()=>{});core.setTimeout(30000);
+  if(operation==='discover'){
+   const encoders=new Set();core.setLogger(({message})=>{const match=/^\s*[VAS][A-Z.]{5}\s+([a-zA-Z0-9_]+)\s/.exec(message);if(match&&encoders.size<1000)encoders.add(match[1]);});
+   core.exec('-hide_banner','-encoders');if(core.ret!==0)throw Error();self.postMessage({ok:true,encoders:[...encoders]});return;
+  }
+  if(!Array.isArray(inputs)||inputs.length!==1)throw Error();const bytes=inputs[0],type=mediaType(bytes);
   const source=`source.${type}`;core.FS.writeFile(source,bytes);
   const probe=(path,name)=>{core.setTimeout(5000);core.ffprobe('-v','error','-protocol_whitelist','file','-i',path,'-show_entries','format=duration:stream=codec_type,width,height,avg_frame_rate,channels,sample_rate','-of','json','-o',name);const exit=core.ret;core.reset();if(exit!==0)throw Error();const file=core.FS.readFile(name);if(file.length>65536)throw Error();return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(file));};
   const plan=planMedia(bytes,operation,options,probe(source,'input-probe.json'));let last=0;
