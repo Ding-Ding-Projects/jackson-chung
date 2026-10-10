@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"ec57ad908adcbfccad6e4e1ab9d9077347a08731a8693457b19f47906aae865c","title":"專業個人頁及作品","category":"功能／個人頁","related":["docs-features-preferences-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"dd1226336b93cb3e7b4918e955151386828a7e7c6c39e0b69b44b0f037330c91","title":"專業個人頁及作品","category":"功能／個人頁","related":["docs-features-preferences-README"]} -->
 # 專業個人頁及作品
 
 - [個人頁及文件導覽](navigation.md)
@@ -8,6 +8,8 @@
 作品部分連接 Ding Ding Projects 旗下六個現有公開項目。介紹按各項目公開 README 撰寫，保留開發狀態限制。列出項目唔代表個人獨立創作，亦唔代表已驗證全部執行行為。
 
 公開履歷係獨立產生、唔含電話號碼嘅 PDF。原先提供嘅附件唔會加入呢個儲存庫或部署。
+
+文件搜尋使用旁邊嘅字面及正規表示式建構器，搜尋完整本地化文章。每個保留分頁嘅閱讀器都有獨立搜尋欄位。非作用中閱讀器會取消文章搜尋；再次啟用時會用保留嘅查詢重新搜尋。處理中、無效或過期回覆會清空相符文章清單。搜尋只喺本機進行，唔會將文章或查詢傳送至託管服務。瀏覽器互動及隱藏分頁行為仍須按實際建置結果驗證。
 
 ## 設定及私隱
 
