@@ -1,6 +1,10 @@
 import {readFileSync,existsSync} from 'node:fs';
+const baseline=JSON.parse(readFileSync(new URL('../contracts/required-contracts.json',import.meta.url),'utf8'));
 export function validateInventory(inventory){
  if(inventory.schemaVersion!==1||!Array.isArray(inventory.required)||new Set(inventory.required).size!==inventory.required.length)throw Error('Invalid required contract inventory.');
+ if(JSON.stringify([...inventory.required].sort())!==JSON.stringify([...baseline.ids].sort()))throw Error('Required contract inventory differs from the independently retained baseline.');
+ if(JSON.stringify([...(inventory.surfaces||[])].sort())!==JSON.stringify([...baseline.surfaces].sort()))throw Error('Required surface inventory differs from the retained baseline.');
+ if(!Array.isArray(inventory.rows))throw Error('Missing feature evidence rows.');
  const failures=[];
  for(const id of inventory.required){
   if(inventory.scopeNotes?.[id])continue;

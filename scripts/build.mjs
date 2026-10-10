@@ -6,6 +6,7 @@ const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
 const source = execFileSync('git', ['rev-parse', 'HEAD'], {encoding:'utf8'}).trim();
 const sourceDate = execFileSync('git', ['show', '-s', '--format=%cI', 'HEAD'], {encoding:'utf8'}).trim();
 const buildStarted = new Date().toISOString();
+execFileSync(process.execPath, ['scripts/check-vocabulary.mjs'], {stdio:'inherit'});
 execFileSync(process.execPath, ['node_modules/vite/bin/vite.js', 'build', '--base', './'], {stdio:'inherit'});
 const provenance = { version: process.env.BUILD_VERSION || pkg.version, source, sourceDate, builtAt: buildStarted, timezone:'UTC', target:'web-and-windows' };
 writeFileSync('dist/build-info.json', JSON.stringify(provenance, null, 2)+'\n');
