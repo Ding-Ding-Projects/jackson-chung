@@ -17,7 +17,7 @@ const assets=await prepareAssets(owned);
 cpSync(assets.config,join(stage,'desktop','native-host-config.json'));
 writeFileSync(join(stage,'package.json'),JSON.stringify({name:'jackson-chung-companion',version,description:pkg.description,author:'Jackson Chung',main:'desktop/main.cjs'},null,2));
 const icon=resolve('public/icon.ico');if(!existsSync(icon))throw Error('A verified multi-resolution public/icon.ico is required before installer production.');
-const paths=await packager({dir:stage,out:join(owned,'out'),name:'JacksonChung',platform:'win32',arch:'x64',electronVersion:pkg.devDependencies.electron,appVersion:version,overwrite:false,icon,prune:false,asar:{unpack:'desktop/{native-host,bridge,security}.cjs'},win32metadata:{CompanyName:'Ding Ding Projects',FileDescription:'Jackson Chung local companion',ProductName:'Jackson Chung'}});
+const paths=await packager({dir:stage,out:join(owned,'out'),name:'JacksonChung',platform:'win32',arch:'x64',electronVersion:pkg.devDependencies.electron,appVersion:version,overwrite:false,icon,prune:false,asar:{unpackDir:'desktop'},win32metadata:{CompanyName:'Ding Ding Projects',FileDescription:'Jackson Chung local companion',ProductName:'Jackson Chung'}});
 const appDirectory=paths[0];
 cpSync(assets.gitRoot,join(appDirectory,'resources','tools','git'),{recursive:true});
 cpSync(assets.launcher,join(appDirectory,'JacksonChungNativeHost.exe'));
