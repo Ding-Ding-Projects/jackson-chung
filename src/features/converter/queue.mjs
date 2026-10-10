@@ -26,7 +26,7 @@ export class ConversionQueue {
   async next(){return requestResult(this.db.transaction('jobs').objectStore('jobs').index('state').get('queued'));}
   async source(id){return requestResult(this.db.transaction('files').objectStore('files').get(id));}
   async cancel(id){const transaction=this.db.transaction(['jobs','files'],'readwrite'),done=completed(transaction),store=transaction.objectStore('jobs');const job=await requestResult(store.get(id));if(job)store.put({...job,state:'canceled',progress:0});transaction.objectStore('files').delete(id);await done;}
-  async finish(id,result){const transaction=this.db.transaction(['jobs','files'],'readwrite'),done=completed(transaction),store=transaction.objectStore('jobs');const job=await requestResult(store.get(id));if(job?.state!=='canceled'){store.put({...job,state:'complete',progress:100});transaction.objectStore('files').put(result,id);}await done;}
+  async finish(id,result){const transaction=this.db.transaction(['jobs','files'],'readwrite'),done=completed(transaction),store=transaction.objectStore('jobs');const job=await requestResult(store.get(id));if(job&&job.state!=='canceled'){store.put({...job,state:'complete',progress:100});transaction.objectStore('files').put(result,id);}await done;}
   async recover(){
     const transaction=this.db.transaction('jobs','readwrite'),done=completed(transaction),request=transaction.objectStore('jobs').index('state').openCursor('running');
     request.onsuccess=()=>{const cursor=request.result;if(cursor){cursor.update({...cursor.value,state:cursor.value.attempts>=3?'failed':'queued',progress:0,recovered:true});cursor.continue();}};await done;
