@@ -9,3 +9,11 @@ Markdown is rendered through safe text templates. Raw HTML remains text, and exe
 ## Verification
 
 Focused tests cover encoded article routes, malformed route input, relative article resolution, cross-origin rejection, heading targets, duplicate heading identifiers, raw HTML handling, and unsafe link protocols. Rendered browser navigation and assistive-technology behavior require independent runtime verification.
+
+## Retained workspace integration
+
+The shell connects the reusable tab host with independent DOM nodes keyed by tab ID. Switching tabs retains inactive nodes in memory with hidden and inert states. Closing a tab disposes its node. The new-tab destination picker can create multiple independent tabs for the same destination. Only ordinary destination titles and workspace metadata are persisted; local form values and document content are never serialized by the shell. Views may explicitly mark pending work with `data-unsaved="true"` to veto ordinary closing. Complete automatic unsaved-work detection across all tools is not claimed.
+
+Documentation tabs own separate in-memory article and heading routes. Only the active documentation tab updates the browser fragment. Global history navigation updates the active tab rather than changing every retained reader. Reload restores metadata, not private form contents or per-tab reading state.
+
+The shared command overlay receives all registered destinations, owns Ctrl+Shift+F, and has a visible opener in the shell. The older shell shortcut does not compete with it. Interaction, focus, privacy and overflow acceptance still require the real built browser or desktop surface.
