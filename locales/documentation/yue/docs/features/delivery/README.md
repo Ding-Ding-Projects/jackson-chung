@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"fd4fca302dfd30a784b3edf31cefe370809096c24f4ec2df51870260f6a8a804","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
+<!-- documentation-locale: {"sourceSha256":"7985ca3c6774c4483cd2bb05b5cb4bda2efd07928f0687d735ff13b445d79147","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
 # 交付與驗證
 
 - [套件內容完整性](package-integrity.md)
@@ -39,3 +39,5 @@
 集中來源測試涵蓋生命週期狀態次序、過時事件、無效／回退收據、損壞內容、驗證模式排除、草稿取消同受信任重新啟動批准。實際發行託管、下載／安裝、已安裝重新啟動、資料保留同回退驗收，仍需要可棄置 Windows 使用者或 VM。呢度唔聲稱已有正常發行版本或已安裝更新成功。
 
 Squirrel 2.0.1 來源支援保留內容迴環路線。Squirrel 會將迴環傳輸地址寫入本機診斷日誌。呢個非秘密地址只提供已公開並核實嘅發行內容，冇認證或機密資源。應用程式唔會透過 IPC 提供該地址。診斷日誌保持私人，唔會加入來源、畫面擷取或發行版本。已安裝傳輸同生命週期驗收仍未核實。
+
+重新啟動批准只適用於一次呈現程式生命週期嘗試。導覽、呈現程式失效、銷毀、逾時、取消或明確撤銷，都會令批准失效。非同步暫存內容核對完成後，安裝會喺呼叫更新器之前即時再核對同一次授權。被拒絕嘅嘗試唔會消耗已下載更新，之後重新批准仍可繼續。
