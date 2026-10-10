@@ -3,11 +3,11 @@ import type {FeatureContext} from '../../types';
 const groups=[
  {en:'Documents/PDF',yue:'文件／PDF',items:['pdf:inspect','pdf:split','pdf:merge','pdf:extract','pdf:reorder','pdf:rotate','pdf:metadata'],missing:['DOCX / ODT'],reason:['Office document adapter is not bundled.','未捆綁 Office 文件轉換器。']},
  {en:'Images',yue:'圖片',items:['image:png','image:jpeg','image:webp'],missing:['GIF / HEIC / AVIF / SVG'],reason:['Verified bounded decoders are not bundled.','未捆綁已驗證的有界解碼器。']},
- {en:'Audio',yue:'音訊',items:[],missing:['MP3 / AAC / WAV / FLAC / OGG'],reason:['No isolated offline audio codec adapter is bundled.','未捆綁獨立離線音訊編碼轉換器。']},
- {en:'Video',yue:'影片',items:[],missing:['MP4 / WebM / MOV / MKV'],reason:['No isolated offline video codec adapter is bundled.','未捆綁獨立離線影片編碼轉換器。']},
+ {en:'Audio',yue:'音訊',items:['audio:wav','audio:mp3','audio:ogg','audio:flac'],missing:['AAC / AIFF / WMA / remux'],reason:['Only the six allowlisted FFmpeg workflows are enabled; these outputs are not implemented.','只提供六項允許的 FFmpeg 流程；尚未實作這些輸出。']},
+ {en:'Video',yue:'影片',items:['video:mp4','video:webm'],missing:['MOV / MKV / AVI / remux'],reason:['Only bounded MP4 and WebM transcodes are implemented.','只實作有界 MP4 及 WebM 轉碼。']},
  {en:'Archives',yue:'壓縮檔',items:['zip'],missing:['ZIP extraction / TAR / 7Z / RAR'],reason:['Bounded archive extraction adapter is not verified.','有界壓縮檔解壓轉換器尚未驗證。']},
  {en:'Structured Data/Spreadsheets',yue:'結構資料／試算表',items:['json','csv','tsv'],missing:['XLSX / ODS / YAML / XML'],reason:['Spreadsheet and schema adapters are not bundled.','未捆綁試算表及結構轉換器。']},
- {en:'Code/Text',yue:'程式碼／文字',items:[],missing:['Source language transformations'],reason:['No compiler or syntax transformation adapter is bundled.','未捆綁編譯器或語法轉換器。']},
+ {en:'Code/Text',yue:'程式碼／文字',items:['text:json-pretty','text:json-compact','text:lf','text:crlf','text:utf8-bom','text:utf16le','text:utf8-from-utf16','text:html-escape'],missing:['Source language compilation / AST rewrites'],reason:['No compiler or syntax transformation adapter is bundled.','未捆綁編譯器或語法轉換器。']},
  {en:'Binary Encodings',yue:'二進位編碼',items:['hex','base64','decode-hex','decode-base64'],missing:['Base32 file conversion'],reason:['Only the authenticator has a Base32 decoder; no file adapter is bundled.','只有驗證器提供 Base32 解碼；未捆綁檔案轉換器。']}
 ];
 class CategorySearch extends LitElement{

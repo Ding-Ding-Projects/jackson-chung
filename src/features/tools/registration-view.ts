@@ -1,3 +1,4 @@
+/// <reference path="./qrcode.d.ts" />
 import {LitElement,html,css} from 'lit';
 import QRCode from 'qrcode';
 import type {FeatureContext} from '../../types';

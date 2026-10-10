@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "runtimeDirectory": "vendor/ffmpeg/",
+  "corePackage": "@ffmpeg/core@0.12.10",
+  "singleThread": true,
+  "license": "GPL-2.0-or-later",
+  "upstreamBuildTag": "v12.15",
+  "upstreamBuildRef": "71aa99d37c02a7b4c435275ca9ef50e612f6efa1",
+  "distributionAcceptance": "Pending applicable license notices and verified corresponding source/build provenance, including linked components.",
+  "files": [
+    {"source": "node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.js", "destination": "vendor/ffmpeg/ffmpeg-core.js", "sha256": "b266ab5b952555881dd6310663986994a182acb2b7ff25cf10a25f7a37ac2b21"},
+    {"source": "node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.wasm", "destination": "vendor/ffmpeg/ffmpeg-core.wasm", "sha256": "9f57947a5bd530d8f00c5b3f2cb2a3492faa7e5d823315342d6a8656d0a6b7b7"},
+    {"source": "src/features/converter/media-worker.js", "destination": "vendor/ffmpeg/media-worker.js", "hashAtBuild": true},
+    {"source": "src/features/converter/media-plan.mjs", "destination": "vendor/ffmpeg/media-plan.mjs", "hashAtBuild": true}
+  ],
+  "mimeTypes": {"js": "text/javascript", "mjs": "text/javascript", "wasm": "application/wasm"},
+  "network": "Same-origin packaged assets only; no runtime CDN or media upload.",
+  "runtimeAcceptance": "Pending real browser WASM verification. Source checks alone do not establish codec or installed-package acceptance."
+}
