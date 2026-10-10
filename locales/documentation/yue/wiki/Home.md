@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"4baabd954c677373f77a7585ee4179db1560e165044a6c544bf0b756e3547604","title":"Jackson Chung 項目 Wiki","category":"概覽","related":["docs-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"8775962c0523740a74d92bc93036f93aa142bae3da292b42bd8fd162957f43aa","title":"Jackson Chung 項目 Wiki","category":"概覽","related":["docs-README"]} -->
 # Jackson Chung 項目 Wiki
 
 呢個 Wiki 同原始碼一齊維護，並隨附於公開網頁。讀者唔使離開網頁，都可以瀏覽完整內容。
@@ -18,3 +18,8 @@ Jackson Chung 專業個人頁以零售顧客服務為重點，介紹可轉移嘅
 ## 閱讀
 
 使用網頁嘅文件同 Wiki 目的地瀏覽分類索引同文章。儲存庫 README 同交接記錄另有原始碼層面狀態。
+
+- [專注模式](../docs/features/preferences/attention.md)
+- [定時設定](../docs/features/preferences/schedules.md)
+- [本機顯示限制管理](../docs/features/preferences/school.md)
+- [本機工作區顯示名稱](../docs/features/preferences/display-name.md)
