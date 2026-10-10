@@ -1,50 +1,35 @@
-# Current continuation state
+# Continuation state
 
-Build Jackson Chung's public portfolio and separately installable Windows companion with every applicable contract. Browser-capable features belong directly on GitHub Pages and support mobile. Publish Jackson Chung, Toronto and email only. Keep the original resume and phone private.
+Build Jackson Chung's public portfolio and separately installable Windows companion with every applicable contract. Browser-capable workflows belong directly on GitHub Pages and support mobile. Latest user steering: include selected public Ding-Ding-Projects projects. Six factual public project links are deployed. Publish Jackson Chung, Toronto and email only; keep the original resume and phone private.
+
+## Published source
 
 Repository: https://github.com/Ding-Ding-Projects/jackson-chung
 Homepage: https://ding-ding-projects.github.io/jackson-chung/
+Main deployment: 9e0159f66da428cec63ab44b9e6af83bd659aa65.
+Successful workflow: https://github.com/Ding-Ding-Projects/jackson-chung/actions/runs/38049783249
+Fresh HTTP checks verified source metadata, twenty-one current English/Cantonese articles, required assets, public visibility and the exact About homepage. A fresh isolated live browser check is running. An earlier seventeen-article deployment received actual reader/navigation acceptance. The current GitHub Pages requirement supersedes earlier hosting wording.
 
-## Publication boundary
+## New notification unit
 
-The verified live browser deployment is ca634187f8d795e9399a53eb12e8512c75f53662, workflow 38047013556. Fresh HTTP checks verified its source, seventeen current English/Cantonese articles, ten required resources and exact About homepage; an isolated live browser pass is in progress. It already contains six selected public organization projects. The next independent units are School management and the schedule editor. A successful source push does not itself establish deployment or live acceptance. Verify the resulting workflow, live build metadata, required assets, complete documentation inventory and exact About homepage.
+Source 2585f13eaafef019795c2c1c2f5452bbc6afe09b integrates the independently reviewed notification framing and restriction repair. All 320 tests, TypeScript, public source scan and exact build.bat /s passed. Index SHA-256 c6325d484bfb327e2cfe7479e719285dfad1a9a2ae6b8088067f21dc9a64f3f5. Five owned variants per language, optional decorative emoji, active/history consistency, effective schedule settings and serious restriction framing preserve supplied facts and saved values. Executable negatives passed. Built acceptance is running; this source is not yet claimed live.
 
-## Implemented and verified browser unit
+## Existing browser proof
 
-Source f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8 passed 232 tests, TypeScript, the canonical 193-path public scan and exact build.bat /s. Built index SHA-256: 271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67. Documentation checkpoints through 9c654dcc4629ca878f2132d41156e0ff3892ec3d retain those same renderer bytes.
+School credential/change/disable/reset and schedule create/edit/duplicate/reorder/preview/undo/search/persistence received bounded actual checks. Display-name presentation and effective scheduled override/base restoration passed. All 48 schedule bounds tuples and captures were inspected, with narrow upper-form limits. Source 6e916d5 passed rebuilt wrapping guidance, four actual label-to-input focus actions and full bilingual accessibility names. Twenty original captures were inspected. Narration language selection, reload persistence, reset and pause blocking passed; speech/audio remains unverified. This machine exposed three English voices and no Cantonese voice. Emulated pixel ratios do not establish native operating-system scaling or keyboard acceptance.
 
-Actual isolated browser checks cover all 17 complete articles, cross-paragraph search, invalid-result clearing, worker termination and cancellation, independent retained queries, inactive suspension and resume, heading/article/history navigation, and local resource fetch and hash. The approved JSON resource contains 1,402 bytes, SHA-256 5e32780b0fdb5b03ed562de59dcbc2cc7ab6f6047978d5fa099dfa2a39769eb7. Actual download completion remains unverified.
+## Companion verification
 
-Attention verification inspected 96 composite editor/prompt frames and 12 editor-only representatives at 320 and 1440 pixels, three languages and two themes. Composite frames cover emulated pixel ratios 1, 1.25, 1.5 and 2; editor-only frames cover ratio 1. Body and button escape counts were zero. Injected-clock behavior does not establish real idle duration. Browser pixel ratios do not establish native operating-system scaling.
+Verification installer 0.1.1 at source 0bb41f898562339364356441d2c6b78d6666ebb3 passed unsigned package verification: 537 archive entries, 447 payloads, all 48 observed build processes exited, no unknown images/signers, unchanged source. Package SHA-256 cb85931140772b442d0b0989f322b2baf00b405582be2d035cbb9e02d5dc4929. Setup SHA-256 ee29ad1bd5fb80606b1adcae88a427925b1fef848bd62177627316f59856946d. All installed payloads and root stub matched. Setup transport timed out, so its exit is unknown.
 
-The genuine Home capture at source 9c654dc was inspected and its formal receipt validated before this checkpoint. Its 1440 by 1000 PNG is public/captures/home-light-9c654dc.png, SHA-256 99b711ee8396e04b0a3e112a9300c67d7027c225933b4c73a47034e247d5e54b. Capture time: 2026-10-10T10:52:54.612Z. It contains public content only. All owned browser processes and hidden desktops through run 12 are closed. An earlier capture promotion with a mismatched source was rejected and rolled back; it was not published.
+Actual native title change/clear/relaunch persistence, unavailable verification updater, clean caption close, dirty Cancel and Save and close passed. Both tested processes exited zero, with native handles held before input. Encrypted store write preceded exit. No post-save relaunch for this candidate. Both app desktops closed; unrelated-executable detached descendants remain unverified. Original and derived navigation receipts are distinct. Earlier cee79f8 capture/round-trip remains historical and its exact executable is preserved.
 
-## Pending independent units
+## Active independent work and remaining limits
 
-School controls: 8424c89f7bdbcff81423c7d5df287bbc44d60476 and b7444a3c5eae847bd260fdc3ef93a8d8100ce350. Schedules: 220da5df99d87c7e5dcd6bb6c7d5913c5c78e2fa and d4673773442cb295f7bae244e3b30bc4a174549a. These units are integrated through 9893f73 with a complete nineteen-article inventory. All 265 tests and TypeScript passed. Exact build and actual built workflow acceptance remain pending.
+Settings explanations/value provenance and a local fictional support-ticket workflow are in isolated implementation. Notification runtime and current live reader acceptance are in isolated verification. Retain all four task-owned linked worktrees, all ignored announcement variants and original evidence. No cleanup is authorized for active or incomplete candidates.
 
-Updater work through 6b70306bea06f126b8727d32c3819a5ce6de7353 remains isolated and unintegrated. Independent review reproduced stale restart authority and stale cleanup affecting a newer close request. A bounded repair is implementing request-scoped authorization ownership, followed by independent regression review. No installed update or release acceptance is claimed.
-
-Recovery refs preserve the earlier browser checkpoint bb07ce426000ae46cdbd76d89566024358f5c935, desktop checkpoint 5a6dfd0b7655d78d0a23a00e9d768d2112522dce and School checkpoint 8424c89f7bdbcff81423c7d5df287bbc44d60476. Newer coherent lane changes also require preservation.
-
-## Remaining acceptance and access boundaries
-
-Installed verification remains bound to cee79f8: maintenance Setup exited zero, 443 payload files and the root stub matched, dirty Save and relaunch persistence passed, clean caption close passed, and three hidden desktops closed. Its genuine capture is published. Production registration, updater, uninstall, fresh-machine bootstrap and a normal desktop release remain unverified. A disposable Windows user or VM clarification is pending because hidden desktops share normal profile, registry and broker state. Complete-codec distribution lacks an approved self-built binary and corresponding source.
-
-Universal contract evidence remains incomplete, with 297 missing or unverified surface requirements in the last complete inventory. Wiki is enabled but its Git endpoint reports Repository not found. Projects access lacks read:project and is skipped. Status Hub enrollment is unavailable. Retain all four task-owned linked worktrees and ignored announcement originals. No complete-product or cleanup claim is justified.
-
-## Latest integration and verification
-
-The source-reviewed School wrapping-guidance repair and narration language unit are integrated through f035973, with twenty-one complete English/Cantonese articles after this checkpoint. Narration transition and preview-off source regressions passed; actual device-voice and rebuilt label acceptance remain pending. The 0bb41f8 verification installer 0.1.1 passed formal unsigned package verification with 537 entries, 447 payloads, all 48 observed processes exited, zero signers/unknown images and unchanged source. Its installed acceptance remains pending. Actual schedule bounds and all 48 retained original frames were inspected, with upper-form-only narrow capture limits. Run 13 and run 14 are closed.
-
-## Latest rebuilt browser acceptance
-
-Source 6e916d5851ea6fd5e69179773ba0231f4bec6485 passed 310 source tests, TypeScript and exact build.bat /s. Index SHA-256 c53e54ef1e94f2023f9212597db8a769e862c76a24705aa4a50f1acb484f7979. Twenty-one English/Cantonese articles are current. The restriction guidance repair passed twelve language/theme/viewport states, four lower-form states and three extra emulated pixel ratios. All twenty retained original captures were inspected. Complete labels and actual label-to-input focus passed. Owned browser/server processes exited and the desktop closed.
-
-Narration choices, persistence, reset and explicit pause blocking passed. This browser exposed three English voices and no Cantonese voice. Speech delivery and audio remain unverified. The isolated notification framing unit is under a focused repair for restriction-mode humour, preserving saved settings and arbitrary message text.
-
-All 447 installed verification payloads and the root stub for source 0bb41f8 match version 0.1.1. Setup transport timed out and its exit code is unknown. Native interaction is still in progress. No production lifecycle or release acceptance follows from these verification bytes.
+Production registration, installed updates, uninstall, fresh bootstrap, normal desktop release, complete codecs and universal contract evidence remain incomplete. Disposable production user/VM clarification is pending. Wiki is enabled but its Git endpoint reports Repository not found. Projects lacks read:project and is skipped. Status Hub enrollment is unavailable. These limits do not block independent browser implementation.
 
 ## Next actions
 
-Publish this verified browser unit to main and verify the remote ref, deployment, live home, assets, complete documentation and About URL. Finish the current installed verification interaction and preserve its explicit installer-exit limitation. Integrate and verify the notification restriction repair, then continue the remaining applicable contracts. Preserve coherent unfinished work on its owning recovery branch. The goal remains active and incomplete. The current GitHub Pages requirement supersedes earlier hosting wording.
+Complete current bounded runtime checks and truthful evidence promotion. Preserve coherent unfinished source on its recovery branch, prove remote refs, and publish each independently verified browser unit promptly to main. Verify deployment, source, complete bundled documentation/assets and About URL after each publication. Continue the remaining explicit contract inventory without inventing completion rows. The active goal is unfinished. This file records state before its own commit; the private handoff adds its exact SHA and remote proof.

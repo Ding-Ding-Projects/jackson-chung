@@ -1,5 +1,15 @@
-<!-- documentation-locale: {"sourceSha256":"7066671c3c3ccb5b2a0117c638e4295b0db8f868582e1cd17b326dd844ac3d3e","title":"已安裝驗證檢查點","category":"交付與驗證","related":["docs-features-delivery-isolated-installation","docs-features-delivery-package-integrity"]} -->
+<!-- documentation-locale: {"sourceSha256":"5f8ec52b334779e6562663315f50c933d980d8b8c87f4fa851f3972570ba9276","title":"已安裝驗證檢查點","category":"交付與驗證","related":["docs-features-delivery-isolated-installation","docs-features-delivery-package-integrity"]} -->
 # 已安裝驗證檢查點
+
+## 較新驗證候選版本
+
+來源 `0bb41f898562339364356441d2c6b78d6666ebb3` 透過確切安裝包入口產生獨立 0.1.1 驗證套件。獨立檢查核實 537 個封存項目、447 個內容檔案、發佈雜湊一致，同未簽署 Setup。全部 48 個觀察到嘅建置程序已結束，冇不明映像或簽署程序，來源亦冇改動。已安裝內容同根目錄執行 stub 都同套件一致。
+
+Setup 傳輸逾時，所以結束碼仍然未知。已安裝位元組證據唔會將未知結果變成安裝流程通過。
+
+實際背景原生輸入核實咗顯示名稱修改、清空後還原、重新啟動保留名稱、標題列正常關閉以零結束、未儲存關閉選擇取消後保留確切合成草稿，同儲存並關閉以零結束。加密本機儲存喺程序結束前已寫入。呢個候選版本冇再做儲存後重新啟動，合成 JSON 只係帶空白嘅空物件。驗證版如實顯示更新不可用，下載同重新啟動控制停用。兩個應用程式桌面喺核實原生結束同冇視窗後關閉。畫面涵蓋 1200 乘 752 CSS 像素、像素比例 1.5，唔係完整縮放或視窗尺寸矩陣。
+
+呢個候選版本唔代表正式登記、已安裝更新、解除安裝、全新電腦或正常可下載發行版本已驗收。以下畫面同記錄來回測試屬於較早來源，保留作歷史證據。
 
 來源 `cee79f85732f6d783ade29b5ffa01a972a08043d` 已透過 `build-installer.bat /s --verification` 建置。真正未簽署 Squirrel.Windows 套件通過完整封存檢查，同全部 443 個暫存內容雜湊核對。獨立工作觀察器核對咗全部 46 個建置程序，冇不明或簽署程序，完成時冇仍然執行嘅子程序，來源亦冇改動。呢次係現有電腦執行，唔係全新電腦自動準備測試。
 

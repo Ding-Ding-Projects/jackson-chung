@@ -1,5 +1,13 @@
 # Current handoff
 
+## Latest notification and installed checkpoint
+
+The live deployment is now 9e0159f66da428cec63ab44b9e6af83bd659aa65, workflow 38049783249 succeeded. Fresh HTTP checks verified the source, all twenty-one current English/Cantonese articles, required assets, public visibility and the exact About homepage. Its new isolated live browser pass is in progress.
+
+Notification presentation is integrated through 2585f13eaafef019795c2c1c2f5452bbc6afe09b. All 320 tests and TypeScript passed, as did exact build.bat /s; index SHA-256 c6325d484bfb327e2cfe7479e719285dfad1a9a2ae6b8088067f21dc9a64f3f5. Owned framing has five variants per language and optional inaccessible decoration; supplied facts remain exact. The independently confirmed restriction-mode humour override was repaired and its executable negative passed. Built notification acceptance is in progress, so this newer unit is not yet claimed live.
+
+Installed 0bb41f8 verification candidate 0.1.1 passed actual native custom-title change, clear fallback and relaunch persistence, honest unavailable update state, clean caption exit zero, dirty-close Cancel preserving the draft, and Save and close exit zero. Handles were armed before final native clicks. The encrypted store write preceded exit. Both application desktops closed after empty-window and installed-executable-absence checks; detached descendants with another executable were not fully proven absent. Original launch receipts remain unchanged beside derived navigation receipts. Setup exit remains unknown, and this candidate did not receive a post-save relaunch/load. Production lifecycle and release remain incomplete.
+
 ## Browser acceptance at 6e916d5
 
 Source 6e916d5851ea6fd5e69179773ba0231f4bec6485 passed all 310 source tests, TypeScript and the exact build.bat /s entrypoint. Built index SHA-256: c53e54ef1e94f2023f9212597db8a769e862c76a24705aa4a50f1acb484f7979. Its twenty-one English/Cantonese documentation articles are current.
