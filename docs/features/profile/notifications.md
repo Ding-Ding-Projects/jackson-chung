@@ -2,6 +2,8 @@
 
 All feature-context notification calls enter a shared browser-process store. Informational and success messages expire after seven seconds, and progress updates expire after ten seconds. Warnings and errors remain until explicitly dismissed. Hovering or keyboard focus pauses expiry; leaving resumes a full reading interval. Messages stack in the bottom-right corner within a bounded scrollable area and never open informational modal dialogs.
 
+The notification centre and active stack share one viewport height budget with a separate reachable opener. While the centre is open, its heading, close control, and search remain outside the scrolling history region; active notices scroll separately within their allocated area. The host does not hide overflowing controls. Source structural checks protect this arrangement; actual viewport geometry still needs built verification.
+
 The notification centre reviews both active and dismissed messages for the current process session. History stays only in memory. It is not written to browser storage, telemetry, logs, exports, or tab metadata. Reloading clears it. Messages should contain only safe user-facing summaries, never credentials, file contents, or private payloads.
 
 Dismiss, centre controls and actions use named Material controls with at least 44px targets. Information uses polite screen-reader status announcements; warnings and errors use alerts. Centre labels and action labels support English, Cantonese and bilingual modes. Message bodies retain the wording supplied by their originating feature rather than attempting to reverse-translate a historical string. The centre uses the shared local search and adjacent regex builder when registered, with ordinary text search as the startup fallback.

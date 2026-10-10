@@ -1,7 +1,9 @@
-<!-- documentation-locale: {"sourceSha256":"a88a047dbf88b797c1ebc4e40203402c6db0c18f0ad8b89f9a4d2d1a504a121d","title":"通知","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"638b36cf10cfe68d143674f1d0b1502f330834b72f188368b983892474c11a7a","title":"通知","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
 # 通知
 
 所有功能上下文通知都會進入共用瀏覽器程序儲存區。資訊同成功訊息會喺七秒後退場，進度更新會喺十秒後退場。警告同錯誤會保留，直至用家明確關閉。滑鼠停留或鍵盤焦點會暫停倒數，離開後重新提供完整閱讀時間。訊息會喺右下角有範圍限制嘅可捲動區域排列，永遠唔會開啟資訊模態對話框。
+
+通知中心同作用中排列共用一個畫面高度預算，另有可到達嘅開關。中心開啟時，標題、關閉掣同搜尋會留喺歷史捲動區域之外；作用中通知亦喺分配範圍內獨立捲動。主容器唔會隱藏超出範圍嘅控制。來源結構檢查會保護呢個安排；實際畫面幾何仍需要建置後驗證。
 
 通知中心可以重看今次程序工作階段嘅作用中同已關閉訊息。歷史只保留喺記憶體，唔會寫入瀏覽器儲存、遙測、記錄、匯出或分頁中繼資料。重新載入就會清除。訊息只應提供安全用家摘要，唔可以包含憑證、檔案內容或私人資料。
 
