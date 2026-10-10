@@ -1,6 +1,7 @@
 # Delivery and verification
 
 - [Package payload integrity](package-integrity.md)
+- [Installed verification checkpoint](installed-verification.md)
 
 The public website is deployed as static output on GitHub Pages. The desktop companion is a separate Windows application. Browser-compatible features belong on the website itself; native access is explicit and optional.
 
@@ -19,3 +20,7 @@ Installers are unsigned and may display an unknown-publisher or SmartScreen warn
 ## Related articles
 - [Desktop companion](../companion/README.md)
 - [Documentation index](../../README.md)
+
+## Verification installation
+
+See [isolated verification installation](isolated-installation.md) for the separately identified Squirrel package and its exact limitations.

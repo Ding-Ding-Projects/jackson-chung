@@ -21,3 +21,9 @@ The native main process intercepts the BrowserWindow close event before any rend
 The preload exposes only `onCloseRequested(callback)`, not raw IPC or a separately callable approval function. Cancellation, callback rejection, renderer loss, navigation, malformed or stale responses, and a two-minute timeout leave the window open. The in-app native close operation reaches the same BrowserWindow close event. Native broker teardown occurs at successful `will-quit`, so a cancelled close does not disconnect the still-running workspace.
 
 Source tests exercise the close-event state machine, sender/request validation, cancellation, repeat attempts, timeout/navigation/renderer-loss invalidation, strict preload approval and listener teardown. Actual installed OS close, Alt+F4, unsaved provider UI, cancellation and reopened operation remain unverified until exercised against the rebuilt packaged desktop. This handshake does not defend against process termination or a compromised trusted renderer.
+
+### Late header resize
+
+Measured header-height changes schedule one animation-frame recheck of the deepest focused control, including controls inside open shadow roots. Scrolling occurs only when the control intersects the header-covered area. A repeated measurement at the same height schedules no additional scroll. Offscreen controls, fixed overlays, dialogs, native titlebar controls and the intentional skip-link surface are excluded. Focus and input selection are never reassigned.
+
+The focused controller fixture exercises the actual shell measurement and ResizeObserver methods. Removing the late-resize scheduling reproduces covered focus in that fixture; restoring it moves the same control below the measured header once. This source fixture does not replace the real viewport/scale/keyboard capture verdict.

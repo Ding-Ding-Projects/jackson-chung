@@ -2,7 +2,7 @@
 
 A retail-focused professional profile and local desktop companion, with selected public projects, a downloadable public résumé, bilingual visitor controls, and local tools.
 
-Implementation is in progress. Complete feature coverage, live deployment, installed operation and updater acceptance are separate milestones and are not yet established.
+Implementation is in progress. The public portfolio deployment is verified at its recorded source. Complete feature coverage, installed workflows, production integration and updater acceptance remain separate milestones.
 
 Public contact information is limited to email and Toronto. The original supplied résumé is private and is not included here.
 
@@ -21,12 +21,18 @@ Descriptions retain each project's development limitations. Inclusion does not c
 
 On Windows, run `build.bat /s` to build the shared static renderer. Run `build-installer.bat /s` to produce the unsigned Squirrel.Windows desktop package. The entrypoints obtain missing supported tooling through verified official routes and propagate real failures. Fresh-machine bootstrap has not been verified.
 
-The website's intended home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/). Live availability is pending independent verification. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
+The verified public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/). A fresh readback returned HTTP 200 at deployed source `faffef21` and confirmed the exact repository About URL. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
 
 ## Documentation and verification
 
 [Documentation](docs/README.md), [wiki source](wiki/Home.md), [roadmap](ROADMAP.md), and [handoff](HANDOFF.md) distinguish implemented behavior from missing features and unverified evidence. The website bundles every checked-in documentation and wiki article for internal reading.
 
-Local verification currently includes 53 passing focused tests at the integrated documentation and repair checkpoint. The completeness checker deliberately remains red: a required contract or supported surface cannot be deleted to hide missing evidence. Package production has succeeded independently, but installed startup and updates remain unverified. Reviewed browser captures of an earlier built checkpoint demonstrate the English and bilingual profile and six project links, not full current-source acceptance.
+Local verification at source `cee79f8` includes 167 passing checks and TypeScript. Complete package inspection covers 533 entries and 443 staged payload files, with all 46 build processes independently accounted for. The separate installed verification candidate passed encrypted-record persistence, dirty Save and close, and clean caption close without an error dialog. These bounded results do not establish production integration, updater, uninstall, fresh-machine bootstrap or complete contract acceptance. The completeness checker remains red, with 297 missing or unverified surface requirements.
 
 [Task and handoff](https://github.com/Ding-Ding-Projects/jackson-chung/issues/1) · [Progress discussion](https://github.com/Ding-Ding-Projects/jackson-chung/discussions/2)
+
+## Inspected installed workflow
+
+![Installed companion showing the unsaved draft decision with a synthetic public record](public/captures/companion-dirty-close-cee79f8.png)
+
+This genuine, unedited capture shows the installed `cee79f8` verification candidate at 1200 × 752 CSS pixels and 150% scale (1800 × 1128 captured pixels), light theme and English. It contains only public profile text and a synthetic record. Save and close subsequently exited zero; a relaunch loaded the saved record and a clean caption close exited zero. [Evidence details](docs/features/delivery/installed-verification.md) keep the scope and limitations explicit.
