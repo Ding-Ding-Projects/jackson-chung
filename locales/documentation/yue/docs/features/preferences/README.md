@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"cb808491d000c19f4167f4e4dba14c1d3b76ee9150c7f9189f138f6daac0ce99","title":"訪客偏好設定","category":"偏好設定","related":["docs-features-tools-README","docs-features-profile-drafts"]} -->
+<!-- documentation-locale: {"sourceSha256":"5d7731b160966476f7bdd0702bb7b111429dda2c67e697a1f8cdc03f4c33b052","title":"訪客偏好設定","category":"偏好設定","related":["docs-features-tools-README","docs-features-profile-drafts"]} -->
 # 訪客偏好設定
 
 瀏覽器會以帶版本的 `jc.settings.v1` 及 `jc.history.v1` 鍵，在本機儲存訪客選擇，公開個人檔案不會改動。設定包括三種語言模式、獨立英文及廣東話幽默值（1 至 5，預設 5）、外觀、旁白選擇、注意力偏好、導覽位置及釘選。變更會發出只包含設定的 `jc-state`。外殼接收此事件，並在自己的文字邊界使用匯出的翻譯輔助函式。
@@ -129,3 +129,5 @@
 保留式分頁列使用原生 `button` 元素啟用。實際可聚焦元素擁有 `role="tab"`、`aria-selected`、完整無障礙標籤及游移 `tabindex`。這避開外框 Material 按鈕的 ARIA 委派界線，該界線不會把分頁角色或選取狀態轉交內部原生按鈕。原生控制使用共用表面、外框、選取、形狀及文字設計權杖，提供可見鍵盤焦點，最低高度為 44 px。水平及垂直列均保留相同啟用、鎖檢查、可見順序鍵盤導覽、焦點轉移及拖曳／排序處理器。
 
 回歸測試執行實際 Lit 範本函式，驗證啟用目標是帶語義屬性及現有事件繫結的原生按鈕。它在先前自訂按鈕範本失敗，替換後通過。現有篩選／收合入口、端點焦點、可見順序及鎖回歸仍通過。這是範本邊界證據，不是已呈現瀏覽器無障礙樹斷言。實際建置無障礙樹、原生 Enter/Space、方向鍵／焦點、全部四個停靠位置及響應式視覺驗證，仍待整合擁有者的執行時驗收。
+
+五個獨立模式、下一步本機私隱、閒置時間及驗證限制，請參閱[專注模式](attention.md)。
