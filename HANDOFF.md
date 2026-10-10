@@ -1,5 +1,15 @@
 # Current handoff
 
+## Browser acceptance at 6e916d5
+
+Source 6e916d5851ea6fd5e69179773ba0231f4bec6485 passed all 310 source tests, TypeScript and the exact build.bat /s entrypoint. Built index SHA-256: c53e54ef1e94f2023f9212597db8a769e862c76a24705aa4a50f1acb484f7979. Its twenty-one English/Cantonese documentation articles are current.
+
+The rebuilt restriction controls passed twelve viewport/language/theme states, four lower-form states and three additional emulated pixel ratios. All twenty retained original captures, including a narration representative, were inspected. Full wrapping guidance and four actual label-to-input focus actions passed, and the raw accessibility tree contains complete bilingual textbox names. Credential fields were empty in captures. Seven browser and two server processes exited through identity-bound handles and the owned hidden desktop closed.
+
+Narration language choices operate independently of presentation language, persist through reload and reset to English. The actual screen-reader pause control blocks preview. This machine enumerated three local English voices and no Cantonese voice. Speech delivery and audible output remain unverified; the isolated browser was muted. Emulated pixel ratios do not establish native display scaling or keyboard acceptance.
+
+The 0bb41f8 verification installer upgraded the task-owned verification installation to 0.1.1. All 447 installed payloads and the root stub match the package. The installer transport timed out, so its exit result remains unknown despite the installed byte evidence. Current native interaction is in progress. Production registration, updates, uninstall and fresh-machine acceptance remain unverified. The notification framing unit remains isolated while an independently confirmed restriction-mode humour override is repaired.
+
 ## Current integration checkpoint
 
 Public deployment ca634187f8d795e9399a53eb12e8512c75f53662 remains verified with six selected projects and seventeen localized articles. New local source through f035973 includes the reviewed School field guidance repair and independently selected narration language, with a complete twenty-one-article inventory after this checkpoint. Rebuilt School-label and narration runtime acceptance remain pending.
