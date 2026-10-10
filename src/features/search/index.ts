@@ -2,7 +2,25 @@ import './local-search';
 import {LitElement,html,css} from 'lit';
 import type {FeatureRegistry,FeatureDefinition} from '../../types';
 import {translate as t} from '../../state/store';
-export function matchInWorker(query:string,flags:string,values:string[]):Promise<number[]>{return new Promise((resolve,reject)=>{if(query.length>1000||values.length>1000||values.some(v=>v.length>10000)){reject(Error('Search limits exceeded.'));return;}const blob=new Blob([`onmessage=e=>{try{const {query,flags,values}=e.data;const re=new RegExp(query,flags);postMessage({indices:values.flatMap((v,i)=>{re.lastIndex=0;return re.test(v)?[i]:[]})})}catch{postMessage({error:true})}}`],{type:'text/javascript'});const url=URL.createObjectURL(blob);const worker=new Worker(url);const stop=()=>{worker.terminate();URL.revokeObjectURL(url);clearTimeout(timer);};const timer=setTimeout(()=>{stop();reject(Error('Pattern exceeded the 150 ms time limit.'));},150);worker.onmessage=e=>{stop();e.data.error?reject(Error('Invalid regular expression.')):resolve(e.data.indices);};worker.onerror=()=>{stop();reject(Error('Search worker unavailable.'));};worker.postMessage({query,flags,values});});}
+export const SEARCH_WORKER_LIMITS={startupMs:2000,evaluationMs:150,query:1000,items:1000,itemCharacters:10000} as const;
+export function matchInWorker(query:string,flags:string,values:string[],signal?:AbortSignal):Promise<number[]>{return new Promise((resolve,reject)=>{
+ if(typeof query!=='string'||typeof flags!=='string'||!Array.isArray(values)||query.length>SEARCH_WORKER_LIMITS.query||values.length>SEARCH_WORKER_LIMITS.items||values.some(value=>typeof value!=='string'||value.length>SEARCH_WORKER_LIMITS.itemCharacters)){reject(Error('Search limits exceeded.'));return;}
+ if(signal?.aborted){reject(new DOMException('Search canceled.','AbortError'));return;}
+ let worker:Worker|undefined,url:string|undefined,timer:ReturnType<typeof setTimeout>|undefined,settled=false,ready=false;
+ const finish=(error?:Error,indices?:number[])=>{if(settled)return;settled=true;clearTimeout(timer);signal?.removeEventListener('abort',abort);if(worker){worker.onmessage=null;worker.onerror=null;worker.onmessageerror=null;worker.terminate();}if(url)URL.revokeObjectURL(url);error?reject(error):resolve(indices!);};
+ const abort=()=>finish(new DOMException('Search canceled.','AbortError'));
+ try{
+  const source=`onmessage=e=>{try{const {query,flags,values}=e.data;const re=new RegExp(query,flags);postMessage({type:'result',indices:values.flatMap((value,index)=>{re.lastIndex=0;return re.test(value)?[index]:[]})})}catch{postMessage({type:'error',code:'syntax'})}};postMessage({type:'ready'});`;
+  url=URL.createObjectURL(new Blob([source],{type:'text/javascript'}));worker=new Worker(url);signal?.addEventListener('abort',abort,{once:true});
+  timer=setTimeout(()=>finish(Error('Search worker startup exceeded 2000 ms.')),SEARCH_WORKER_LIMITS.startupMs);
+  worker.onmessage=event=>{const data=event.data;if(!data||typeof data!=='object'||Array.isArray(data)){finish(Error('Invalid search worker response.'));return;}
+   if(!ready){if(data.type!=='ready'||Object.keys(data).join(',')!=='type'){finish(Error('Invalid search worker startup response.'));return;}ready=true;clearTimeout(timer);timer=setTimeout(()=>finish(Error('Pattern evaluation exceeded 150 ms.')),SEARCH_WORKER_LIMITS.evaluationMs);try{worker!.postMessage({query,flags,values});}catch{finish(Error('Search request could not be sent.'));}return;}
+   if(data.type==='error'&&data.code==='syntax'&&Object.keys(data).sort().join(',')==='code,type'){finish(Error('Invalid regular expression.'));return;}
+   if(data.type!=='result'||Object.keys(data).sort().join(',')!=='indices,type'||!Array.isArray(data.indices)||data.indices.length>values.length||data.indices.some((index:unknown,position:number)=>!Number.isInteger(index)||Number(index)<0||Number(index)>=values.length||(position>0&&Number(index)<=data.indices[position-1]))){finish(Error('Invalid search worker result.'));return;}finish(undefined,data.indices);
+  };
+  worker.onerror=()=>finish(Error('Search worker unavailable.'));worker.onmessageerror=()=>finish(Error('Search worker response could not be decoded.'));if(signal?.aborted)abort();
+ }catch{finish(Error('Search worker could not start.'));}
+});}
 const definitions:FeatureDefinition[]=[];
 export function indexDestinations(items:FeatureDefinition[]){definitions.splice(0,definitions.length,...items);window.dispatchEvent(new CustomEvent('jc-search-index'));}
 class SearchTools extends LitElement {
