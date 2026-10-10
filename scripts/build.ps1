@@ -7,7 +7,10 @@ try {
   Write-Host 'Using a per-user toolchain; this route does not require administrator rights.'
   $nodeCommand = Get-Command node.exe -ErrorAction SilentlyContinue
   $nodeOkay = $false
-  if ($nodeCommand) { $major = [int]((& $nodeCommand.Source -p 'process.versions.node.split(".")[0]') | Select-Object -First 1); $nodeOkay = $major -ge 22 }
+  if ($nodeCommand) {
+    $reportedVersion = (& $nodeCommand.Source --version | Select-Object -First 1)
+    if ($LASTEXITCODE -eq 0 -and $reportedVersion -match '^v(\d+)\.') { $nodeOkay = [int]$Matches[1] -ge 22 }
+  }
   if (-not $nodeOkay) {
     $version = 'v24.9.0'
     $toolsRoot = Join-Path $env:LOCALAPPDATA 'JacksonChung\toolchain'
@@ -23,7 +26,9 @@ try {
       if (-not $checksumLine) { throw 'Official Node.js checksum entry is missing.' }
       if (-not (Test-Path -LiteralPath $archivePath)) { Invoke-WebRequest -UseBasicParsing -Uri "$baseUrl/$archiveName" -OutFile $archivePath }
       $expected = ($checksumLine -split '\s+')[0]
-      if ((Get-FileHash -LiteralPath $archivePath -Algorithm SHA256).Hash -ne $expected) { throw 'Node.js distribution checksum does not match.' }
+      $hashStream = [IO.File]::OpenRead($archivePath)
+      try { $actualHash = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($hashStream)).Replace('-', '').ToLowerInvariant() } finally { $hashStream.Dispose() }
+      if ($actualHash -ne $expected) { throw 'Node.js distribution checksum does not match.' }
       Expand-Archive -LiteralPath $archivePath -DestinationPath $toolsRoot -Force
     }
     $env:PATH = "$nodeRoot;$env:PATH"
