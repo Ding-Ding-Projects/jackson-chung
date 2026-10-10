@@ -32,6 +32,9 @@
 - [x] Verify rebuilt wrapping restriction guidance, complete accessibility names and four label-to-input focus actions at source `6e916d5`.
 - [x] Verify independent narration language selection, reload persistence, field reset and screen-reader pause blocking at source `6e916d5`.
 - [ ] Verify actual narration speech delivery with available voices, including Cantonese when supported.
+- [ ] Verify rebuilt settings explanations, saved/default/effective provenance and metadata-backed local search at source `098563a`.
+- [ ] Repeat expanded notification-builder containment at source `098563a`; closed-builder repair passed at the preceding source.
+- [ ] Finish isolated support picker keyboard/context repairs, adopt its route and articles, and verify actual browser workflows.
 - [ ] Complete continuing update discovery, verified-byte delivery and restart-approval revocation before installed update acceptance.
 - [ ] Verify production lifecycle, registration, updater and uninstall.
 - [x] Publish and verify the public website and repository homepage at the recorded deployment source.

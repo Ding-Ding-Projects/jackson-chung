@@ -1,5 +1,15 @@
 # Current handoff
 
+## Current rebuilt candidate at 098563a
+
+Source 098563a4e4e2e2c2b5aca29b30a9336743937142 integrates settings explanations, truthful record provenance, metadata-backed search and the expanded notification-builder containment repair. The preceding settings integration passed all 335 tests and TypeScript. The final notification/settings affected checks passed 25 tests, and exact build.bat /s exited zero. Index SHA-256: d133dd4cbdf6c1b42f936f536909245ac8e4308eb0e68e37ca7adcb5eb59f6cb. All twenty-two English/Cantonese articles have valid inventory/source bindings. Current built interaction is in progress; this source is not claimed deployed.
+
+Run17 confirmed the original notification combined-height repair in closed-builder states at 1440 and 320 pixels. Its expanded builder still escaped the centre and reduced visible history height to zero. The new source puts search, builder and history in one bounded scroll region; repeated runtime acceptance remains pending. Run17 owned browser/server processes exited and its desktop closed. The initial rejected process-ownership snapshot was not retained completely; subsequent actual stock-helper proofs passed without identity or target relaxation. That historical rejection remains undiagnosed.
+
+The settings source review confirmed missing clear-event provenance and omitted explanation-search metadata, then independently reviewed their repairs. A local-storage-area clear now removes saved provenance and history; unrelated storage areas are ignored. The actual search consumer includes descriptions, defaults and current/effective inputs while preserving hidden-control exclusions.
+
+The support workflow remains isolated. Its transaction, shared draft, effective parent language, localized metadata/status, clear control and explicit-null validation repairs passed fifteen focused checks and independent correctness review. Two residual picker boundaries remain under repair: first Escape must clear an active filter before closing, and embedded search/workbench presentation must receive the effective parent context. Native folder recovery remains unavailable. No support route is claimed delivered.
+
 ## Latest notification and installed checkpoint
 
 The live deployment is now 9e0159f66da428cec63ab44b9e6af83bd659aa65, workflow 38049783249 succeeded. Fresh HTTP checks verified the source, all twenty-one current English/Cantonese articles, required assets, public visibility and the exact About homepage. Its new isolated live browser pass is in progress.

@@ -10,7 +10,15 @@ Main deployment: 9e0159f66da428cec63ab44b9e6af83bd659aa65.
 Successful workflow: https://github.com/Ding-Ding-Projects/jackson-chung/actions/runs/38049783249
 Fresh HTTP checks verified source metadata, twenty-one current English/Cantonese articles, required assets, public visibility and the exact About homepage. A fresh isolated live browser check is running. An earlier seventeen-article deployment received actual reader/navigation acceptance. The current GitHub Pages requirement supersedes earlier hosting wording.
 
-## New notification unit
+## Latest rebuilt candidate
+
+Source 098563a4e4e2e2c2b5aca29b30a9336743937142 integrates settings explanations and record provenance, metadata-backed settings search, and the expanded notification-builder containment repair. The preceding integrated settings source passed 335 tests and TypeScript; final affected notification/settings checks passed 25 tests. Exact build.bat /s exited zero, index SHA-256 d133dd4cbdf6c1b42f936f536909245ac8e4308eb0e68e37ca7adcb5eb59f6cb. Twenty-two English/Cantonese articles have current bindings. Its isolated built check is in progress. This candidate is not claimed live.
+
+The closed notification-history state passed at 1440 and 320 pixels, but the expanded builder escaped and collapsed visible history height. The new shared content scroller has source review and negative regression proof; actual repeated expanded acceptance remains pending. The prior run's owned processes and desktop closed. Its first rejected ancestry snapshot was not fully retained, so the historical reason is unknown despite subsequent genuine stock-helper passes.
+
+Settings clear-event and search-metadata findings are source-repaired. Actual built disclosures, effective values, search and provenance acceptance remain pending.
+
+## Earlier notification unit
 
 Source 2585f13eaafef019795c2c1c2f5452bbc6afe09b integrates the independently reviewed notification framing and restriction repair. All 320 tests, TypeScript, public source scan and exact build.bat /s passed. Index SHA-256 c6325d484bfb327e2cfe7479e719285dfad1a9a2ae6b8088067f21dc9a64f3f5. Five owned variants per language, optional decorative emoji, active/history consistency, effective schedule settings and serious restriction framing preserve supplied facts and saved values. Executable negatives passed. Built acceptance is running; this source is not yet claimed live.
 
@@ -26,7 +34,7 @@ Actual native title change/clear/relaunch persistence, unavailable verification 
 
 ## Active independent work and remaining limits
 
-Settings explanations/value provenance and a local fictional support-ticket workflow are in isolated implementation. Notification runtime and current live reader acceptance are in isolated verification. Retain all four task-owned linked worktrees, all ignored announcement variants and original evidence. No cleanup is authorized for active or incomplete candidates.
+Settings explanations/value provenance are integrated with built acceptance pending. The local fictional support workflow remains isolated: cross-context transactions, shared draft protection, localized parent copy/status/enums, field clearing, popup search, immutable disclosure and explicit-null storage validation received fifteen focused checks. Two residual picker requirements remain under repair: clear-first Escape and effective child search/workbench presentation. Current live reader acceptance at 9e0159f completed its bounded 42 article observations, navigation and four inspected Home/Projects captures. Retain all four task-owned linked worktrees, all ignored announcement variants and original evidence. No cleanup is authorized for active or incomplete candidates.
 
 Production registration, installed updates, uninstall, fresh bootstrap, normal desktop release, complete codecs and universal contract evidence remain incomplete. Disposable production user/VM clarification is pending. Wiki is enabled but its Git endpoint reports Repository not found. Projects lacks read:project and is skipped. Status Hub enrollment is unavailable. These limits do not block independent browser implementation.
 
