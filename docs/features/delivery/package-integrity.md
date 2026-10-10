@@ -12,6 +12,8 @@ The first archive inspection at source `9a0219d40488748e87a1d58fe50ddfdfc952e65d
 
 Package CRC, payload/source identity, unsigned status, signer-process observation, installation, browser registration and updater behavior remain separate verdicts. An unavailable process trace is recorded as unverified, never as evidence that no signing process ran.
 
+The corrected candidate at `4548fb0c601da1c6ad67b73152a7eab810838de1` passed the exact installer entrypoint. All 531 archive entries passed CRC and size verification, and all 441 staged files matched their SHA-256 values. The full package is 194,387,435 bytes with SHA-256 `eaffebb379908db79d607fad08130a46cdb629a7ac96ce8548ad6e751b28469a`; its indexed SHA-1 is `E451521B593B6DD633F28D54E91750768ADC4102`. Setup reads `NotSigned`. This package predates later catalogue, transient-draft and native-close integration, and is not installed-runtime or current-source release proof. The extensionless runtime `version` file requires an explicit full destination filename in the NuGet template.
+
 ## Recovery and security
 
 Each production attempt has a fresh private output directory. Invalid packages remain there and are not copied into the deliverable folder. Do not install a rejected package, overwrite an unrelated installation, or remove its source evidence to hide a failure. The real Squirrel destination must be preflighted inside a disposable user/VM or a documented supported isolated target. Changing `LOCALAPPDATA` is not an isolation mechanism.
