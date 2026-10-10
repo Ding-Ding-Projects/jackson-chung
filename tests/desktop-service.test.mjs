@@ -6,7 +6,12 @@ import path from 'node:path';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
-const {readModelList,parseCatalogPage,acquireCatalog,hardwareFit}=require('../desktop/native-service.cjs');
+const {readModelList,parseCatalogPage,acquireCatalog,hardwareFit,validateCatalogCache}=require('../desktop/native-service.cjs');
+async function verifiedFixture(names=['fixture:a','fixture:b']){return acquireCatalog(async url=>({text:url==='https://ollama.com/library'?'<a href="/library/fixture">Fixture</a>':names.map(name=>`<a href="/library/${name}">${name}</a>`).join('')}));}
+test('cache schema rejects corrupted provenance, variant ordering and metadata',async()=>{
+ const valid=await verifiedFixture();assert.equal(validateCatalogCache(valid),valid);
+ for(const mutate of [value=>value.variants=[{}],value=>value.variants.reverse(),value=>value.variants.push(value.variants[0]),value=>value.variants[0].name='other:a',value=>value.variants[0].metadata={},value=>value.pageCount++,value=>value.modelCount++,value=>value.refreshedAt='invalid',value=>value.pages[0].sha256='bad',value=>value.pages[0].url='https://evil.test/library',value=>value.responseIdentity='a'.repeat(64)]){const candidate=structuredClone(valid);mutate(candidate);assert.throws(()=>validateCatalogCache(candidate));}
+});
 test('catalog traversal includes every model page and every tag page with identities',async()=>{
  const pages={
  'https://ollama.com/library':'<a href="/library/alpha">Alpha</a><a href="/library?page=2">Next</a>',
@@ -22,6 +27,21 @@ test('catalog traversal includes every model page and every tag page with identi
 test('catalog parser rejects empty source, ignores foreign hosts and deduplicates tags',()=>{
  assert.throws(()=>parseCatalogPage('<html>changed</html>','models'),/markup changed/);
  assert.deepEqual(parseCatalogPage('<a href="https://evil.test/library/m:bad">Bad</a><a href="/library/m:ok">OK</a><a href="/library/m:ok">Duplicate</a>','tags','m').names,['m:ok']);
+});
+test('relative tag pagination resolves against its fetched tag page',async()=>{
+ const pages={
+  'https://ollama.com/library':'<a href="/library/example">Example</a>',
+  'https://ollama.com/library/example/tags':'<a href="/library/example:latest">Latest</a><a href="?page=2">Next</a>',
+  'https://ollama.com/library/example/tags?page=2':'<a href="/library/example:second">Second</a>'};
+ const result=await acquireCatalog(async url=>({text:pages[url]}));
+ assert.deepEqual(result.variants.map(row=>row.name),['example:latest','example:second']);assert.equal(result.pageCount,3);
+});
+test('malformed cache variants are unavailable instead of crashing the renderer',async()=>{
+ const {root,service}=await fixture();try{
+  await fs.mkdir(path.join(root,'private-data'),{recursive:true});
+  await fs.writeFile(path.join(root,'private-data','catalog.json'),JSON.stringify({source:'https://ollama.com/library',completeness:'complete-source-enumeration',responseIdentity:'a'.repeat(64),variants:[{}]}));
+  const result=await service.request('ollama.catalog');assert.equal(result.available,false);assert.equal(result.total,0);assert.deepEqual(JSON.parse(JSON.stringify(result.variants)),[]);
+ }finally{await fs.rm(root,{recursive:true,force:true})}
 });
 test('hardware fit uses evidence and configured overhead for all four conservative verdicts',()=>{
  const metadata={blobBytes:100,parameterCount:42,quantization:'verified-Q4',contextLength:4096};
@@ -40,11 +60,12 @@ test('offline catalog keeps last verified inventory and paginates without droppi
  const {root,service}=await fixture(true,async()=>{throw Error('offline')});
  try{
   const directory=path.join(root,'private-data');await fs.mkdir(directory,{recursive:true});
-  const variants=Array.from({length:151},(_,index)=>({name:`fixture:tag-${index}`,family:'fixture',variant:`tag-${index}`}));
-  await fs.writeFile(path.join(directory,'catalog.json'),JSON.stringify({source:'https://ollama.com/library',completeness:'complete-source-enumeration',responseIdentity:'a'.repeat(64),refreshedAt:'2026-01-01T00:00:00Z',lastSuccessfulRefresh:'2026-01-01T00:00:00Z',pageCount:2,variants}));
+  const verified=await verifiedFixture(Array.from({length:151},(_,index)=>`fixture:tag-${index}`));verified.refreshedAt='2026-01-01T00:00:00.000Z';verified.lastSuccessfulRefresh=verified.refreshedAt;
+  await fs.writeFile(path.join(directory,'catalog.json'),JSON.stringify(verified));
   const first=await service.request('ollama.catalog',{offset:0});const second=await service.request('ollama.catalog',{offset:first.nextOffset});assert.equal(first.variants.length,100);assert.equal(second.variants.length,51);assert.equal(second.nextOffset,null);assert.ok(first.staleAgeSeconds>0);
   const {id}=await service.request('ollama.catalog.refresh');await new Promise(resolve=>setImmediate(resolve));const task=await service.request('task.poll',{id});assert.equal(task.done,true);assert.ok(task.error);
-  const retained=await service.request('ollama.catalog');assert.equal(retained.total,151);assert.equal(retained.responseIdentity,'a'.repeat(64));assert.ok(retained.lastError);
+  await fs.writeFile(path.join(directory,'catalog.json'),JSON.stringify({variants:[{}]}));
+  const retained=await service.request('ollama.catalog');assert.equal(retained.total,151);assert.equal(retained.responseIdentity,verified.responseIdentity);assert.ok(retained.lastError);
  }finally{await fs.rm(root,{recursive:true,force:true})}
 });
 test('model metadata readers bound bytes and validate official model lists',async()=>{
