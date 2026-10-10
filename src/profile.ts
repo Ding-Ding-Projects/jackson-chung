@@ -7,3 +7,31 @@ export const profile = {
  volunteer: [{title:'Community volunteer', place:'Majestic Court · Ontario', dates:'Community service', detail:'Provided patient assistance with everyday needs and helped with household waste disposal.'},{title:'DC Crew · Winter Orientation',place:'Durham College · Oshawa',dates:'January 2024',detail:'Supported the college community during Winter Orientation.'}],
  education:{title:'Diploma · Computer Systems Technology', place:'Durham College · Oshawa, Ontario',dates:'September 2022 – April 2026'}
 };
+export const translations:Record<string,string>={
+'IT Support Specialist':'資訊科技支援專員',
+'Resolved hardware, software, and network problems with patient, clear communication.':'耐心清晰咁溝通，解決硬件、軟件同網絡問題。',
+'Maintained support tickets and device records with attention to accuracy.':'準確維護支援工單同裝置記錄。',
+'Supported Microsoft 365 and prioritized requests alongside teammates.':'支援 Microsoft 365，同隊友按優先次序處理要求。',
+'Customer assistance':'顧客協助','Stocking & replenishment':'上架及補貨','Organization & accuracy':'整理及準確記錄','Team collaboration':'團隊合作','Practical problem-solving':'實際解難',
+'Community volunteer':'社區義工','Community service':'社區服務',
+'Provided patient assistance with everyday needs and helped with household waste disposal.':'耐心協助處理日常需要，並幫忙處理家居廢物。',
+'DC Crew · Winter Orientation':'DC Crew · 冬季迎新活動',
+'Supported the college community during Winter Orientation.':'喺冬季迎新活動期間支援學院社群。',
+'Diploma · Computer Systems Technology':'文憑 · 電腦系統科技',
+'Communication':'溝通','Accurate records':'準確記錄','Teamwork':'團隊合作',
+'PDF · Public résumé · No phone number':'PDF · 公開履歷 · 不含電話號碼',
+'EMAIL JACKSON':'電郵聯絡 JACKSON',
+'Email opens your chosen mail application. This website does not collect submissions.':'電郵連結會開啟你選用嘅電郵工具。此網頁不會收集提交資料。',
+'Retail interests are career goals, not a claim of previous retail employment.':'零售興趣係求職方向，並非過往零售工作經驗嘅聲明。',
+'SELECTED WORK':'精選作品','Useful tools. Thoughtful interfaces.':'實用工具，用心介面。',
+'Selected public Ding Ding Projects work. These links describe the projects, without claiming sole authorship or production completeness.':'精選 Ding Ding Projects 公開作品。以下介紹項目本身，並不聲稱個人獨立創作或已完成生產驗證。',
+'A Material Design desktop interface for version control.':'以 Material Design 製作嘅桌面版本控制介面。',
+'A 3D Minecraft world map and rendering project. Packaging verification remains in progress.':'Minecraft 三維世界地圖及渲染項目。套件驗證仍在進行。',
+'An independent regional journey planner with cross-agency schedules, walking connections, and official alerts. Integration is in progress.':'獨立區域行程規劃工具，提供跨機構時間表、步行接駁同官方提示。整合仍在進行。',
+'A guided package-management interface. Work in progress.':'提供操作引導嘅套件管理介面。開發中。',
+'A Windows maintenance and diagnostics workspace. Work in progress.':'Windows 維護及診斷工作區。開發中。',
+'Guided media downloading, queues, and a browser companion. In development.':'提供媒體下載引導、佇列及瀏覽器配套。開發中。',
+'PUBLIC PROJECT':'公開項目','View project':'查看項目',' (opens in a new tab)':'（於新分頁開啟）','Say hello ↗':'打個招呼 ↗',
+'LOCAL WORKSPACE':'本機工作區','This feature is not available yet.':'此功能尚未提供。','The profile is ready to explore. Optional tools appear here once their implementation is included.':'你可以先瀏覽個人頁。可選工具完成整合後會喺呢度顯示。','Back to overview':'返回概覽',
+'Retail Associate · Customer Service · Merchandising':'零售助理 · 顧客服務 · 商品陳列'
+};
