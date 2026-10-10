@@ -66,3 +66,25 @@ Remaining tab work includes all four independently scoped discovery searches, gr
 `src/features/search/palette.ts` provides an actual bounded decorated overlay, typed local search and adjacent regex tools, keyboard arrows/Enter/Escape, actionable registered destinations, group context, pins, card/full-window choice and custom collision-checked Alt+Shift+A–Z/0–9 command bindings. Ctrl+Shift+F remains the reserved opener. The host calls `registerPaletteDestinations(features, navigate)` or `registerPaletteCommands(commands)`, then `installCommandPalette()` once. `openCommandPalette(anchor)` opens beside the originating element and returns focus there on close. Remove competing shell handlers that send the same shortcut to a different destination.
 
 Only registered commands appear. The host must supply every supported action before coverage can be claimed. Rich inline settings, exact-element teleport, full advanced regex graph/captures/snippets, bulk result behavior, drag/resize persistence and complete narrow-layout/assistive-technology verification remain incomplete. Custom bindings and pins store IDs only, never private wording or page values.
+
+## Independent presentation locks
+
+`src/state/locks.ts` implements the six exact policies: PIN, password, PIN plus password, password plus TOTP, PIN plus TOTP, and password plus PIN plus TOTP. Each target has its own ordered factor inventory and credential record; unlocking one does not unlock another. New PINs contain 4–12 digits; passwords contain 8–256 characters. TOTP uses a user-supplied Base32 secret, RFC 6238 HMAC-SHA1, six digits, 30-second periods, one-step clock tolerance and replay-counter rejection. No secret or OTP is printed or exported.
+
+The default browser adapter keeps credential records in the separate `jc.local-lock-credentials` IndexedDB database. PIN/password verifiers use independent random salts and PBKDF2-SHA256 with 210000 iterations. Authenticator material is imported as a nonextractable HMAC key. Ordinary local storage contains only validated target ID, ordinary label, policy, duration and creation metadata. Native operating-system vault storage remains unavailable unless the host supplies `setLockCredentialStore` with a real native adapter. Browser-local storage is explicitly a presentation-lock equivalent, not a security claim.
+
+Every failed manual/keypad submission uses the same verifier and retry budget. Five mismatches trigger a 60-second local cooldown. Concurrent unlock attempts for the same target are rejected. Successful unlock permits this surface, a bounded number of minutes, or the current browser-tab session. The host calls `expireSurfaceLocks` when leaving a surface. All locks start locked after reload. Relock is explicit. Credential replacement/removal requires the existing lock to be unlocked; metadata-write failures restore the previous credential record.
+
+The bilingual anchored wizard exposes all six policies, masked manual inputs, clear actions, a PIN keypad with Backspace/Clear, duration choice, disclosure acknowledgement, cancellation and focus return. Its searchable inventory retains locked entries and offers independent management. The wizard verifies every required factor; a full progressive multi-step factor presentation, randomized keypad option, bulk management, complete history and all context-menu search/adoption remain incomplete.
+
+Host integration APIs:
+
+- `registerLockTarget(id, { label, allowLock, reason })` registers an eligible target or immutable recovery restriction.
+- `requireUnlocked(id)` and `withUnlocked(id, action)` must wrap every protected action, shortcut, palette activation and mutation.
+- `registerLockElement(element, id, label)` adds capture interception and accessible locked state to an operable target; it opens the anchored wizard instead of running a locked action.
+- `openLockWizard(id, anchor)` opens exact target controls. `jc-lock-request` and `jc-lock-state` are payload-free action/state notifications apart from validated metadata.
+- `isLocked`, `relockTarget`, `getLocks`, `getLockPermission` and `subscribeLocks` support visible state. Returned metadata and permission records are defensive copies.
+
+This unit guards tab activation, close, reorder and mutation with `tab.<independent-id>`, and appearance mutation/reset with the element ID plus `<id>:property:<css-name>`. The shell still must adopt wrappers and action checks on every relevant destination, group, control, shortcut and future feature. Generic capture interception does not prove disabled-native-control wrapper coverage, immutable DOM mutation resistance, or universal adoption. Native disabled controls need an operable host wrapper. The current wizard and inventory do not claim every mandatory element/state or lock policy input route has built interaction evidence.
+
+Recovery is clearing this website's local storage and its local-lock credential database. These are user-experience locks, not encryption or protection from another person with access to the browser. Missing credential storage fails closed with an actionable message; no fake authentication result grants access.
