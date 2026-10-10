@@ -8,6 +8,8 @@ The Projects section links six existing public projects under Ding Ding Projects
 
 The public résumé is a separately generated PDF without the phone number. The original supplied attachment is excluded from this repository and deployment.
 
+Documentation search uses an adjacent literal and regular-expression builder over complete localized article text. Every retained reader keeps its own search fields. Inactive readers cancel their document search; activation restarts the preserved query. Pending, invalid and stale responses clear the article match list. Search stays local and does not serialize article text or queries to a hosted service. Browser interaction and hidden-tab behavior still require verification against the built output.
+
 ## Configuration and privacy
 Visitor language and presentation preferences affect only local rendering. The public profile facts are not editable visitor records. Email opens the visitor's selected mail application; no hosted contact form collects submissions.
 
