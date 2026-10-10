@@ -24,9 +24,9 @@ if (process.argv.some(a => /^--squirrel-(install|updated|uninstall|obsolete)$/.t
   if (flag !== '--squirrel-obsolete' && !runtimeMode.verification) {
     const {spawnSync} = require('node:child_process');
     const update = path.resolve(process.execPath,'..','..','Update.exe');
-    spawnSync(update,[flag === '--squirrel-uninstall' ? '--removeShortcut' : '--createShortcut',path.basename(process.execPath)],{windowsHide:true,timeout:15000});
+    const shortcut=spawnSync(update,[flag === '--squirrel-uninstall' ? '--removeShortcut' : '--createShortcut',path.basename(process.execPath)],{windowsHide:true,timeout:15000});
     const registration=spawnSync(path.join(path.dirname(process.execPath),'JacksonChungNativeHost.exe'),[flag==='--squirrel-uninstall'?'--unregister':'--register'],{windowsHide:true,timeout:15000});
-    if(registration.error||registration.status!==0){app.exit(1);return;}
+    if(shortcut.error||shortcut.status!==0||registration.error||registration.status!==0){app.exit(1);return;}
   }
   app.quit();
 } else {
