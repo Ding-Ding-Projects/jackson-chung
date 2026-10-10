@@ -6,6 +6,7 @@ import ts from 'typescript';
 import vm from 'node:vm';
 const compile=source=>'data:text/javascript;base64,'+Buffer.from(ts.transpileModule(source,{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}}).outputText).toString('base64');
 const sharedUrl=compile(await readFile(new URL('../src/workers/regex-workbench-worker.ts',import.meta.url),'utf8'));
+const {synchronizeSearchState,evaluateRegex}=await import(sharedUrl);
 const stateUrl=compile((await readFile(new URL('../src/features/companion/search-state.ts',import.meta.url),'utf8')).replace('../../workers/regex-workbench-worker',sharedUrl));
 const {createCompanionSearchStates,updateCompanionSearch,filterCompanionValues,companionSearchScopes,forwardCompanionSearch}=await import(stateUrl);
 test('parent edits invalidate the actual shared workbench before Apply or snippet save',async()=>{
@@ -40,6 +41,16 @@ test('literal and real regex filtering honor flags and reset global/sticky state
  const literal={mode:'literal',query:'a.b',pattern:'a\\.b',flags:'i'};assert.deepEqual(filterCompanionValues(['A.B','axb','a.b'],literal),[0,2]);
  for(const flags of ['g','y','gi'])assert.deepEqual(filterCompanionValues(['tag','tag','TAG'],{mode:'regex',query:'tag',pattern:'tag',flags}),flags==='gi'?[0,1,2]:[0,1]);
  assert.deepEqual(filterCompanionValues(['x\nTAG','tag'],{mode:'regex',query:'^TAG$',pattern:'^TAG$',flags:'m'}),[0]);assert.throws(()=>filterCompanionValues(['text'],{mode:'regex',query:'[',pattern:'[',flags:'i'}));assert.throws(()=>filterCompanionValues(['text'],{...literal,flags:'ii'}));
+});
+test('literal search matches actual workbench sticky/global flag semantics per item',()=>{
+ const values=['xtag','tag','TAG','tag'];
+ for(const flags of ['y','iy','g','gi','gy','giy']){
+  const state=synchronizeSearchState({mode:'literal',query:'',pattern:'',flags:'i'},{query:'tag',flags});
+  const expected=values.flatMap((sample,index)=>evaluateRegex({state,sample,replacement:'$&',cases:[]}).matches.length?[index]:[]);
+  assert.deepEqual(filterCompanionValues(values,state),expected,flags);
+ }
+ const literal=synchronizeSearchState({mode:'literal',query:'',pattern:'',flags:'i'},{query:'a.b',flags:'y'});
+ assert.deepEqual(filterCompanionValues(['xa.b','a.b','axb','a.b'],literal),[1,3]);
 });
 test('filter results contain indices only and never samples or captures',()=>{
  const privateText='private fixture text';const state={mode:'regex',query:'(?<value>private)',pattern:'(?<value>private)',flags:'i'};const result=filterCompanionValues([privateText,'other'],state);assert.deepEqual(result,[0]);assert.equal(JSON.stringify(result).includes(privateText),false);assert.equal(JSON.stringify(createCompanionSearchStates()).includes('sample'),false);
