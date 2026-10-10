@@ -33,6 +33,10 @@ Installed verification remains bound to cee79f8: maintenance Setup exited zero, 
 
 Universal contract evidence remains incomplete, with 297 missing or unverified surface requirements in the last complete inventory. Wiki is enabled but its Git endpoint reports Repository not found. Projects access lacks read:project and is skipped. Status Hub enrollment is unavailable. Retain all four task-owned linked worktrees and ignored announcement originals. No complete-product or cleanup claim is justified.
 
+## Latest integration and verification
+
+The source-reviewed School wrapping-guidance repair and narration language unit are integrated through f035973, with twenty-one complete English/Cantonese articles after this checkpoint. Narration transition and preview-off source regressions passed; actual device-voice and rebuilt label acceptance remain pending. The 0bb41f8 verification installer 0.1.1 passed formal unsigned package verification with 537 entries, 447 payloads, all 48 observed processes exited, zero signers/unknown images and unchanged source. Its installed acceptance remains pending. Actual schedule bounds and all 48 retained original frames were inspected, with upper-form-only narrow capture limits. Run 13 and run 14 are closed.
+
 ## Next actions
 
 Publish this verified browser unit to main and verify the remote ref, deployment, live home, assets, documentation and About URL. Then integrate and verify School and schedules, complete the updater repair and independent review, and continue the remaining applicable contracts. Preserve coherent unfinished work on its owning recovery branch. The goal remains active and incomplete. The current GitHub Pages requirement supersedes earlier hosting wording.

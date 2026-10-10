@@ -1,7 +1,9 @@
-<!-- documentation-locale: {"sourceSha256":"5c0bc1574f0a27510cc2ef848e45ea6c227278fe77d9a78cf7496b77edff2f9d","title":"本機顯示限制管理","category":"功能／偏好","related":["docs-features-preferences-README","docs-features-profile-drafts"]} -->
+<!-- documentation-locale: {"sourceSha256":"b1c19641310027801bc12ffb53eb2dc525f2832a5dcd516183f8dc55e8895931","title":"本機顯示限制管理","category":"功能／偏好","related":["docs-features-preferences-README","docs-features-profile-drafts"]} -->
 # 本機顯示限制管理
 
 限制停用時，管理畫面會按訪客偏好顯示英文、廣東話或雙語。啟用後只用英文，說明亦唔會提及未能使用嘅顯示功能。自訂名稱會取代此控制嘅預設名稱。原有顯示選項會保留，停用後恢復。
+
+解鎖資料同名稱欄位使用簡短浮動標籤。完整本地化說明同字元上限會顯示喺每個欄位外面，並喺面板內換行。完整說明亦會透過 Material 支援嘅 aria-label API 成為無障礙名稱。按下相關說明會透過欄位公開 focus 方法將焦點移入欄位。窄版面結果仍須用新建置擷取驗證，原始碼同範本檢查本身唔可以證明。
 
 ## 更改及重設解鎖資料
 

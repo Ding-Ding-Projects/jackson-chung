@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"0ea01c42878851d008690e70a1833287b735e4d925b3aa256f0defdef33732d1","title":"訪客偏好設定","category":"偏好設定","related":["docs-features-tools-README","docs-features-profile-drafts"]} -->
+<!-- documentation-locale: {"sourceSha256":"f3275f888b479bbd44d9b4677669001064bb59956e1ace53eb0b0fa9d819ed37","title":"訪客偏好設定","category":"偏好設定","related":["docs-features-tools-README","docs-features-profile-drafts"]} -->
 # 訪客偏好設定
 
 瀏覽器會以帶版本的 `jc.settings.v1` 及 `jc.history.v1` 鍵，在本機儲存訪客選擇，公開個人檔案不會改動。設定包括三種語言模式、獨立英文及廣東話幽默值（1 至 5，預設 5）、外觀、旁白選擇、注意力偏好、導覽位置及釘選。變更會發出只包含設定的 `jc-state`。外殼接收此事件，並在自己的文字邊界使用匯出的翻譯輔助函式。
@@ -135,3 +135,5 @@
 憑證更改、重設確認同瀏覽器本機界線，請參閱[本機顯示限制管理](school.md)。
 
 訪客本機品牌名稱、暫時排程名稱同保留個人資料身份，請參閱[本機工作區顯示名稱](display-name.md)。
+
+預覽及事件語言、逐段朗讀、顯示限制同螢幕閱讀器共存，請參閱[獨立朗讀語言](narration.md)。

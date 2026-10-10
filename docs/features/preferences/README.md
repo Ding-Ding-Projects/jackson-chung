@@ -134,3 +134,5 @@ See [Attention modes](attention.md) for the five independent modes, local next-a
 See [Local presentation restriction management](school.md) for credential changes, reset confirmation and the browser-local boundary.
 
 See [Local workspace display name](display-name.md) for visitor-only branding, temporary scheduled names and preserved profile identity.
+
+See [Independent narration language](narration.md) for preview and event language, serialized tracks, presentation restrictions and screen-reader coexistence.
