@@ -136,3 +136,5 @@ See [Local presentation restriction management](school.md) for credential change
 See [Local workspace display name](display-name.md) for visitor-only branding, temporary scheduled names and preserved profile identity.
 
 See [Independent narration language](narration.md) for preview and event language, serialized tracks, presentation restrictions and screen-reader coexistence.
+
+See [Settings explanations and value sources](settings-explanations.md) for compiled defaults, validated persisted snapshots, effective inputs and local-storage clear handling.
