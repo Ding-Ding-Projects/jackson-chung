@@ -1,5 +1,7 @@
 # Professional profile and projects
 
+- [Profile and documentation navigation](navigation.md)
+
 The profile presents Jackson Chung's supplied education, IT support experience, volunteering, and transferable retail strengths. Retail stocking and merchandising are career interests rather than claimed prior employment. Public contact is email and Toronto only.
 
 The Projects section links six existing public projects under Ding Ding Projects. Descriptions reflect each project's public README and retain development-status limitations. Listing a project does not claim sole authorship or certify its complete runtime behavior.
