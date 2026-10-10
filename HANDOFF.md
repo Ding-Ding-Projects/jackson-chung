@@ -1,5 +1,11 @@
 # Current handoff
 
+## Support run23 and narrow-label repair
+
+Pinned f9ca86f passed360 local tests and exact build. Run23 inspected8 originals and passed actual draft Cancel/Save/Discard, severity first/second Escape, School English override/restoration, lock-inventory route,23-article Support/Wiki navigation and a505-byte selected export matching exactly one record. Export SHA2568506ed39d4a0e728364c410f5238bf31a0baef30e9f8381c0b127d1ae2ffc59c. Post-export strict proof observed2 page entries, stopped furtherCDP, retained the complete rejection and exited9 owned Edge plus2 server processes; desktop/ports closed, profile retained. Do not claim full target isolation after that export. Configured forgotten-lock route and all lower builder controls remain unverified.
+
+Independent pixel review confirmed the320 bilingual dark description-label truncation, while complete safety guidance remained visible. Source now uses a short translated description label plus adjacent wrapping guidance. Five affected presentation tests including executed negatives, and TypeScript passed. Fresh built tuple acceptance is pending. This candidate remains off public main.
+
 ## Support adoption candidate
 
 The preserved386410d..febff0b Support delta is adopted onto the current verified portfolio/palette base6f4a20f. The shell now registers the Help destination while retaining the editorial header. Browser-local transaction, draft, localization, picker and no-network boundaries are preserved. Twenty-five focused tests and TypeScript passed;23 English/Cantonese article pairs are current. This is not deployed. Independent review and pinned built acceptance remain pending, especially export bytes, draft-close decisions, severity Escape, lock recovery routing and effective School context. Native recovery-folder integration remains unavailable and must not be claimed.
