@@ -21,7 +21,7 @@ Descriptions retain each project's development limitations. Inclusion does not c
 
 On Windows, run `build.bat /s` to build the shared static renderer. Run `build-installer.bat /s` to produce the unsigned Squirrel.Windows desktop package. The entrypoints obtain missing supported tooling through verified official routes and propagate real failures. Fresh-machine bootstrap has not been verified.
 
-The verified public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/). A fresh readback returned HTTP 200 at deployed source `faffef21` and confirmed the exact repository About URL. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
+The public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/), hosted on GitHub Pages. The preceding verified deployment was 386410d; the editorial redesign's built evidence is recorded below. Its new live deployment is verified separately from source and capture checks. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
 
 ## Documentation and verification
 
@@ -31,11 +31,13 @@ Local verification at source `cee79f8` includes 167 passing checks and TypeScrip
 
 [Task and handoff](https://github.com/Ding-Ding-Projects/jackson-chung/issues/1) · [Progress discussion](https://github.com/Ding-Ding-Projects/jackson-chung/discussions/2)
 
-## Inspected browser homepage
+## Inspected portfolio homepage
 
-![Home in English and light theme at 1440 by 1000](public/captures/home-light-9c654dc.png)
+![Personal portfolio in English and light theme at 1440 by 1000](public/captures/portfolio-home-light-3141dad.png)
 
-This genuine, unedited browser capture shows the built Home surface at source `9c654dc`, English and light theme, 1440 by 1000 CSS pixels and requested pixel ratio one. The capture contains public profile content only. It demonstrates this visible state, not full-page layout, native operating-system scaling, installer or complete product acceptance. Separate browser checks at source `f2f3a70` cover complete-article search, retained navigation and resource hashes, and bounded attention layouts.
+![Personal portfolio in English and light theme at 320 by 1000](public/captures/portfolio-home-mobile-light-3141dad.png)
+
+These genuine, unedited captures show the built editorial portfolio at source 3141dad, English and light theme, requested pixel ratio one. The originals were inspected and staged byte for byte. A separate 96-tuple Home/Projects matrix covers 320/1440 CSS pixels, three language modes, two device-emulated themes and four emulated pixel ratios. Recorded body widths fit and captured accessibility trees had no unnamed interactive entries. This does not establish native operating-system scaling, physical-device behavior or every control. More opening, Escape focus return and profile/document navigation passed; palette close-focus and reload persistence remain unverified after the later strict target-isolation stop. Owned processes and desktop closed, profiles retained. The former homepage capture remains historical, not current redesign evidence.
 
 ## Inspected installed workflow
 

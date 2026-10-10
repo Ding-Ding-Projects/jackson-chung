@@ -27,7 +27,7 @@
     },
     {
       "id": "home-light-9c654dc",
-      "active": true,
+      "active": false,
       "path": "public/captures/home-light-9c654dc.png",
       "sourceCommit": "9c654dcc4629ca878f2132d41156e0ff3892ec3d",
       "artifactSha256": "271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67",
@@ -50,7 +50,59 @@
         "Representative visible Home only; no whole-page layout or full acceptance claim.",
         "Owned Edge and server process trees exited after identity-bound teardown; the hidden desktop is closed."
       ]
+    },
+    {
+      "id": "portfolio-home-light-3141dad",
+      "active": true,
+      "path": "public/captures/portfolio-home-light-3141dad.png",
+      "sourceCommit": "3141dadc1b28537be80433636cc431d70406c4d1",
+      "artifactSha256": "f0d1bc5fc4f7a9a9c473f17ecb83a3dcf589787d33dd45b87011dffffd6cc5a1",
+      "captureSha256": "f94d76ed54f7a2623f5ad5020188399c0b150659eeb108b2d0e0bc9b1dfb0bff",
+      "screen": "home",
+      "state": "English, default system theme resolved to light through device-theme emulation",
+      "theme": "light",
+      "viewportWidth": 1440,
+      "viewportHeight": 1000,
+      "scale": 1,
+      "interactionProofId": "home-1440-en-light-1",
+      "interactionReceiptSha256": "04261a346b4fbbcf5a183b3370e759c0f2d5d60c5756e4ca693203fdcbbff67c",
+      "inspectionStatus": "inspected",
+      "capturedAt": "2026-10-10T16:44:32.336Z",
+      "route": "cheap-lowlevel-headless",
+      "limitations": [
+        "Device theme and DPR emulated, no native OS scale or input claim",
+        "capturedAt is an upper bound recorded after final target proof",
+        "Final destination staging and inventory validation owned by integrator",
+        "This image shows one viewport only; the 96-tuple matrix is separate evidence.",
+        "Owned processes and hidden desktop closed; profile retained."
+      ]
+    },
+    {
+      "id": "portfolio-home-mobile-light-3141dad",
+      "active": true,
+      "path": "public/captures/portfolio-home-mobile-light-3141dad.png",
+      "sourceCommit": "3141dadc1b28537be80433636cc431d70406c4d1",
+      "artifactSha256": "f0d1bc5fc4f7a9a9c473f17ecb83a3dcf589787d33dd45b87011dffffd6cc5a1",
+      "captureSha256": "69d03af77d41a7b392c65cd5dd58f9c6989f8f1c0f1e955abe3f32010dcad084",
+      "screen": "home",
+      "state": "English, default system theme resolved to light through device-theme emulation",
+      "theme": "light",
+      "viewportWidth": 320,
+      "viewportHeight": 1000,
+      "scale": 1,
+      "interactionProofId": "home-320-en-light-1",
+      "interactionReceiptSha256": "be830d1f2abd4d97061c4fa8c0cf0a2b638eab481a73afdb6513ebaa9f319e8e",
+      "inspectionStatus": "inspected",
+      "capturedAt": "2026-10-10T16:42:51.402Z",
+      "route": "cheap-lowlevel-headless",
+      "limitations": [
+        "Device theme and DPR emulated, no native OS scale or input claim",
+        "capturedAt is an upper bound recorded after final target proof",
+        "Final destination staging and inventory validation owned by integrator",
+        "This image shows one viewport only; the 96-tuple matrix is separate evidence.",
+        "Owned processes and hidden desktop closed; profile retained."
+      ]
     }
   ],
-  "coverage": "Two bounded states: installed verification at cee79f8 and browser Home at 9c654dc. Complete surface and contract acceptance remain incomplete."
+  "coverage": "Three active bounded states: installed verification at cee79f8 and editorial portfolio Home at 3141dad in desktop and mobile CSS viewports. Earlier homepage retained as inactive historical evidence. Complete surface and contract acceptance remain incomplete."
 }
