@@ -4,12 +4,12 @@ import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 function reader(mutation=false){
  let source=readFileSync(new URL('../src/components/documentation.ts',import.meta.url),'utf8').replace(/^import .*;$/gm,'').replaceAll('import.meta.env.BASE_URL',"'/jackson-chung/'").replace("customElements.define('jc-documentation',Documentation);",'exports.Reader=Documentation;');
- if(mutation)source=source.replace("search.cancel();this.searchWasActive=false", "this.searchWasActive=false");
+ if(mutation)source=source.replace("search.setActive(this.activeTab);", "");
  const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const exports={};new Function('exports','LitElement','html','css','nothing',code)(exports,class{},()=>{},()=>{},null);
  const instance=new exports.Reader();instance.articles=[{id:'a'},{id:'b'}];return instance;
 }
-function search(){return {fieldId:'field',updateComplete:Promise.resolve(),state:{query:'retained',mode:'literal'},cancels:0,restarts:0,cancel(){this.cancels++;},getResults(){return {fieldId:this.fieldId};},getSearchState(){return {...this.state};},setSearchState(value){this.state=value;this.restarts++;}};}
+function search(){return {fieldId:'field',updateComplete:Promise.resolve(),state:{query:'retained',mode:'literal'},cancels:0,restarts:0,active:true,setActive(active){if(!active)this.cancels++;else if(!this.active)this.restarts++;this.active=active;},getResults(){return {fieldId:this.fieldId};},getSearchState(){return {...this.state};},setSearchState(value){this.state=value;this.restarts++;}};}
 function mount(instance,child){instance.renderRoot={querySelector:()=>child};}
 test('Actual reader rejects stale, invalid, pending and foreign results without keeping matches',()=>{
  const instance=reader(),child=search();mount(instance,child);
@@ -30,7 +30,7 @@ test('Superseded lifecycle cannot cancel a newly active reader',async()=>{
  instance.activeTab=false;const old=instance.syncSearchLifecycle();instance.activeTab=true;const current=instance.syncSearchLifecycle();settle();await Promise.all([old,current]);assert.equal(child.cancels,0);
 });
 test('Reader template owns one full builder with context and language controls',()=>{
- const source=readFileSync(new URL('../src/components/documentation.ts',import.meta.url),'utf8');assert.ok(source.includes('<jc-documentation-search'));assert.ok(!source.includes('<md-outlined-text-field'));for(const property of ['.articles=','.locale=','.context=','.funnyEn=','.funnyYue='])assert.ok(source.includes(property));
+ const source=readFileSync(new URL('../src/components/documentation.ts',import.meta.url),'utf8');assert.ok(source.includes('<jc-documentation-search'));assert.ok(!source.includes('<md-outlined-text-field'));for(const property of ['.active=${this.activeTab}','.articles=','.locale=','.context=','.funnyEn=','.funnyYue='])assert.ok(source.includes(property));
  const shell=readFileSync(new URL('../src/app.ts',import.meta.url),'utf8');assert.ok(shell.includes('<jc-documentation .context=${this.context}'));
 });
 
