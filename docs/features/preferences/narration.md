@@ -8,7 +8,7 @@ The `narrationLanguage` setting defaults to `en`. Existing version 1 settings an
 
 ## School and quiet modes
 
-School mode temporarily forces English without replacing the saved narration language. Turning School mode off restores the saved choice. Low stimulation suppresses ordinary event narration while preserving essential error events. The explicit screen reader pause control suppresses all speech during the current session, including previews. Browsers cannot reliably detect screen readers automatically.
+School mode temporarily forces English without replacing the saved narration language. Enabling this mode cancels an active Cantonese utterance and restarts its line in English; obsolete completion callbacks cannot resume it. Turning School mode off restores the saved choice. Active-mode search exposes only available English narration controls, and its explanation uses neutral wording so renamed modes do not reveal the default name. Low stimulation suppresses ordinary event narration while preserving essential error events. The explicit screen reader pause control suppresses all speech during the current session, including previews. Browsers cannot reliably detect screen readers automatically.
 
 ## Device voices and timing
 
