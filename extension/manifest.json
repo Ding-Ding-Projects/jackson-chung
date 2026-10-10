@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Jackson Chung Local Companion",
+  "version": "0.1.0",
+  "description": "Explicitly paired access to local model capabilities from the Jackson Chung website.",
+  "permissions": [
+    "nativeMessaging",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ding-ding-projects.github.io/jackson-chung/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "pair.html"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6fi1ezPGV5Lib/aQjip1XxroU4m09Cjcrb6fbsehqgfIoHRWP96eJMHQvbBtzAATDSpXLQMlAdDwF1VbSbF8obhcjAP2AYRfXrMv06EJngX/i79/4gLPdGBQCtIWtOxHellUHzAVGAu9P6UwU/2trjoeXyb4ZMUDPGbbDxlfeadHd3c+AirqPe4zI0mPqIbUjnvd/wvEeEYN60AhT5F6R9WhXN7+g0+KuJ3R9DGvw8Q++EuytiGmhFWYaWIYgo7GUgd3iH4oWPkiKb3JP4hjnlFWoG1sehOK9OPIb5YjnfNzhz95b4mwGitL9+ia/we8dmcboveDqhhZ88RlNq40VQIDAQAB"
+}

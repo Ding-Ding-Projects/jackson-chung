@@ -12,13 +12,21 @@
     "desktop": "electron ."
   },
   "dependencies": {
+    "@material/material-color-utilities": "0.4.0",
     "@material/web": "2.4.1",
+    "fflate": "0.8.2",
+    "jsqr": "1.4.0",
     "lit": "3.3.1",
     "pdf-lib": "1.17.1",
-    "fflate": "0.8.2"
+    "qrcode": "1.5.4"
   },
   "devDependencies": {
+    "@electron/packager": "20.3.0",
     "electron": "38.2.2",
+    "electron-winstaller": "5.4.4",
+    "fake-indexeddb": "6.2.4",
+    "png-to-ico": "3.0.2",
+    "sharp": "0.34.4",
     "typescript": "5.9.3",
     "vite": "7.1.9"
   }

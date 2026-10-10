@@ -2,9 +2,12 @@
 
 ## Foundation
 - [x] Create the public source repository.
-- [x] Register the website hosting project.
+- [x] Configure GitHub Pages to deploy from the workflow.
 - [ ] Implement the professional profile and revised public résumé.
 - [ ] Complete the explicit per-surface feature inventory.
+- [x] Include six factual public organization project links.
+- [x] Generate a separate public résumé without the phone number.
+- [x] Implement internal documentation article and heading routes with focused source checks.
 
 ## Full capability delivery
 - [ ] Implement browser-supported features directly on the website.
@@ -14,6 +17,8 @@
 
 ## Delivery
 - [ ] Build and verify the unsigned Squirrel.Windows installer and updates.
+- [x] Produce an unsigned Squirrel.Windows package through the exact root entrypoint.
+- [ ] Inspect all package entries and establish signer-process provenance.
 - [ ] Publish and verify the public website and repository homepage.
 - [ ] Publish and verify the normal desktop release.
 - [ ] Preserve, integrate, and verify completed work on main.
