@@ -26,6 +26,10 @@
 - [ ] Verify the seventeenth attention article, repaired retained anchors and approved JSON download from the newer built reader.
 - [ ] Verify five independent attention controls and the narrow preference action in the rebuilt browser surface.
 - [ ] Verify the shared regex worker startup deadline repair without weakening evaluation termination.
+- [x] Verify complete-article search, real worker termination/cancellation, retained suspension and navigation/resource hashes at browser source `f2f3a70`.
+- [x] Inspect 96 composite and 12 editor-only attention frames at browser source `f2f3a70`, with emulated pixel ratios and explicit controlled-clock limits.
+- [ ] Verify local scheduling editor and School-mode management from their rebuilt candidate.
+- [ ] Complete continuing update discovery, verified-byte delivery and restart-approval revocation before installed update acceptance.
 - [ ] Verify production lifecycle, registration, updater and uninstall.
 - [x] Publish and verify the public website and repository homepage at the recorded deployment source.
 - [ ] Recapture and verify the newer tab workspace and bilingual/contrast repairs.

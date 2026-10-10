@@ -31,6 +31,12 @@ Local verification at source `cee79f8` includes 167 passing checks and TypeScrip
 
 [Task and handoff](https://github.com/Ding-Ding-Projects/jackson-chung/issues/1) · [Progress discussion](https://github.com/Ding-Ding-Projects/jackson-chung/discussions/2)
 
+## Inspected browser homepage
+
+![Home in English and light theme at 1440 by 1000](public/captures/home-light-9c654dc.png)
+
+This genuine, unedited browser capture shows the built Home surface at source `9c654dc`, English and light theme, 1440 by 1000 CSS pixels and requested pixel ratio one. The capture contains public profile content only. It demonstrates this visible state, not full-page layout, native operating-system scaling, installer or complete product acceptance. Separate browser checks at source `f2f3a70` cover complete-article search, retained navigation and resource hashes, and bounded attention layouts.
+
 ## Inspected installed workflow
 
 ![Installed companion showing the unsaved draft decision with a synthetic public record](public/captures/companion-dirty-close-cee79f8.png)

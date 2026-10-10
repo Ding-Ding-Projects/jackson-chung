@@ -35,7 +35,7 @@ test('all four dock positions validate, left is the shipped default, and languag
 test('local schedule boundaries use their starting weekday and preserve base settings',async()=>{
  const storeUrl=`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`;
  const litStub=`data:text/javascript;base64,${Buffer.from('export class LitElement{};export const html=()=>{};export const css=()=>{};').toString('base64')}`;
- let scheduleSource=ts.transpile(fs.readFileSync(new URL('../src/features/preferences/schedules.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext});
+ let scheduleSource=ts.transpile(fs.readFileSync(new URL('../src/features/preferences/schedule-state.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext});
  scheduleSource=scheduleSource.replace("from 'lit'",`from '${litStub}'`).replace("from '../../state/store'",`from '${storeUrl}'`);
  globalThis.customElements={define(){}};
  const originalInterval=globalThis.setInterval;globalThis.setInterval=()=>0;
