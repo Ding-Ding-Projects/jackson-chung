@@ -1,6 +1,7 @@
 export type SearchState={query:string;pattern:string;flags:string;mode:'literal'|'regex'};
 export type RegexCase={name:string;sample:string;expected:boolean};
 export type RegexRequest={state:SearchState;sample:string;replacement:string;cases:RegexCase[]};
+export const REGEX_WORKER_TIMING={startupMs:2000,evaluationMs:300} as const;
 export const REGEX_BOUNDS={pattern:2048,sample:20000,replacement:4096,cases:20,caseSample:2000,totalCaseSample:20000,matches:200,captures:50,output:40000};
 export function escapeLiteral(value:string){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 export function synchronizeSearchState(previous:SearchState,patch:Partial<SearchState>):SearchState{
@@ -28,4 +29,4 @@ export function evaluateRegex(request:RegexRequest){
 }
 export function validateSnippetImport(value:unknown){if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!['version','snippets'].includes(key)))throw Error('import');const data=value as {version?:unknown;snippets?:unknown};if(data.version!==1||!Array.isArray(data.snippets)||data.snippets.length>20)throw Error('import');return data.snippets.map(item=>{if(!item||typeof item!=='object'||typeof item.name!=='string'||item.name.length<1||item.name.length>80||Object.keys(item).some(key=>!['name','state'].includes(key)))throw Error('import');validateState(item.state);new RegExp(item.state.mode==='literal'?escapeLiteral(item.state.query):item.state.pattern,item.state.flags);return {name:item.name,state:{...item.state}};});}
 const scope=globalThis as unknown as {postMessage?:(value:unknown)=>void;onmessage:((event:MessageEvent<RegexRequest>)=>void)|null};
-if(typeof document==='undefined'&&typeof scope.postMessage==='function')scope.onmessage=event=>{try{scope.postMessage?.({ok:true,result:evaluateRegex(event.data)});}catch(error){const code=error instanceof Error&&['bounds','syntax','captures','budget','output','result-size'].includes(error.message)?error.message:'invalid';scope.postMessage?.({ok:false,error:code});}};
+if(typeof document==='undefined'&&typeof scope.postMessage==='function'){scope.onmessage=event=>{try{scope.postMessage?.({kind:'result',ok:true,result:evaluateRegex(event.data)});}catch(error){const code=error instanceof Error&&['bounds','syntax','captures','budget','output','result-size'].includes(error.message)?error.message:'invalid';scope.postMessage?.({kind:'result',ok:false,error:code});}};scope.postMessage({kind:'ready'});}
