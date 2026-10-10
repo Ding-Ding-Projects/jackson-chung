@@ -22,7 +22,10 @@
 - [x] Repair and repeat installed normal close at source `cee79f8`, including dirty Save and close and clean caption close.
 - [x] Repair actual focusable tab accessibility semantics and verify the accessibility tree at source `a453077`.
 - [ ] Verify the subsequent narrow tab and documentation layout repairs from the rebuilt candidate.
-- [ ] Verify all sixteen localized article pairs, stable anchors and related navigation in the built reader.
+- [x] Verify all sixteen localized article bodies in three language modes at source `d65145c`.
+- [ ] Verify the seventeenth attention article, repaired retained anchors and approved JSON download from the newer built reader.
+- [ ] Verify five independent attention controls and the narrow preference action in the rebuilt browser surface.
+- [ ] Verify the shared regex worker startup deadline repair without weakening evaluation termination.
 - [ ] Verify production lifecycle, registration, updater and uninstall.
 - [x] Publish and verify the public website and repository homepage at the recorded deployment source.
 - [ ] Recapture and verify the newer tab workspace and bilingual/contrast repairs.
