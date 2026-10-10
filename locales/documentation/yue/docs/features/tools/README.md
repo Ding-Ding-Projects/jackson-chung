@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"8ec5205411aef36eb96df6795e63ba4979af8cc0c2a8a833079da39d8517caa2","title":"瀏覽器本機工具","category":"本機工具","related":["docs-features-preferences-README","docs-features-tools-drafts"]} -->
+<!-- documentation-locale: {"sourceSha256":"adc691626014e1d91eb70b86101dac358804ba3d3bd767fd850ba3189c6d902f","title":"瀏覽器本機工具","category":"本機工具","related":["docs-features-preferences-README","docs-features-tools-drafts"]} -->
 # 瀏覽器本機工具
 
 `tools` 功能是網站及桌面呈現器共用的瀏覽器本機工作區，不需要原生配套程式或網絡要求。
