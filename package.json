@@ -1,0 +1,25 @@
+{
+  "name": "jackson-chung",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Jackson Chung's professional profile and local desktop companion",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs",
+    "desktop": "electron ."
+  },
+  "dependencies": {
+    "@material/web": "2.4.1",
+    "lit": "3.3.1",
+    "pdf-lib": "1.17.1",
+    "fflate": "0.8.2"
+  },
+  "devDependencies": {
+    "electron": "38.2.2",
+    "typescript": "5.9.3",
+    "vite": "7.1.9"
+  }
+}
