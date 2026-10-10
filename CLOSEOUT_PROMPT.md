@@ -37,6 +37,14 @@ Universal contract evidence remains incomplete, with 297 missing or unverified s
 
 The source-reviewed School wrapping-guidance repair and narration language unit are integrated through f035973, with twenty-one complete English/Cantonese articles after this checkpoint. Narration transition and preview-off source regressions passed; actual device-voice and rebuilt label acceptance remain pending. The 0bb41f8 verification installer 0.1.1 passed formal unsigned package verification with 537 entries, 447 payloads, all 48 observed processes exited, zero signers/unknown images and unchanged source. Its installed acceptance remains pending. Actual schedule bounds and all 48 retained original frames were inspected, with upper-form-only narrow capture limits. Run 13 and run 14 are closed.
 
+## Latest rebuilt browser acceptance
+
+Source 6e916d5851ea6fd5e69179773ba0231f4bec6485 passed 310 source tests, TypeScript and exact build.bat /s. Index SHA-256 c53e54ef1e94f2023f9212597db8a769e862c76a24705aa4a50f1acb484f7979. Twenty-one English/Cantonese articles are current. The restriction guidance repair passed twelve language/theme/viewport states, four lower-form states and three extra emulated pixel ratios. All twenty retained original captures were inspected. Complete labels and actual label-to-input focus passed. Owned browser/server processes exited and the desktop closed.
+
+Narration choices, persistence, reset and explicit pause blocking passed. This browser exposed three English voices and no Cantonese voice. Speech delivery and audio remain unverified. The isolated notification framing unit is under a focused repair for restriction-mode humour, preserving saved settings and arbitrary message text.
+
+All 447 installed verification payloads and the root stub for source 0bb41f8 match version 0.1.1. Setup transport timed out and its exit code is unknown. Native interaction is still in progress. No production lifecycle or release acceptance follows from these verification bytes.
+
 ## Next actions
 
-Publish this verified browser unit to main and verify the remote ref, deployment, live home, assets, documentation and About URL. Then integrate and verify School and schedules, complete the updater repair and independent review, and continue the remaining applicable contracts. Preserve coherent unfinished work on its owning recovery branch. The goal remains active and incomplete. The current GitHub Pages requirement supersedes earlier hosting wording.
+Publish this verified browser unit to main and verify the remote ref, deployment, live home, assets, complete documentation and About URL. Finish the current installed verification interaction and preserve its explicit installer-exit limitation. Integrate and verify the notification restriction repair, then continue the remaining applicable contracts. Preserve coherent unfinished work on its owning recovery branch. The goal remains active and incomplete. The current GitHub Pages requirement supersedes earlier hosting wording.

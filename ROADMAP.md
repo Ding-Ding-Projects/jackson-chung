@@ -29,6 +29,9 @@
 - [x] Verify complete-article search, real worker termination/cancellation, retained suspension and navigation/resource hashes at browser source `f2f3a70`.
 - [x] Inspect 96 composite and 12 editor-only attention frames at browser source `f2f3a70`, with emulated pixel ratios and explicit controlled-clock limits.
 - [ ] Verify local scheduling editor and School-mode management from their rebuilt candidate.
+- [x] Verify rebuilt wrapping restriction guidance, complete accessibility names and four label-to-input focus actions at source `6e916d5`.
+- [x] Verify independent narration language selection, reload persistence, field reset and screen-reader pause blocking at source `6e916d5`.
+- [ ] Verify actual narration speech delivery with available voices, including Cantonese when supported.
 - [ ] Complete continuing update discovery, verified-byte delivery and restart-approval revocation before installed update acceptance.
 - [ ] Verify production lifecycle, registration, updater and uninstall.
 - [x] Publish and verify the public website and repository homepage at the recorded deployment source.
