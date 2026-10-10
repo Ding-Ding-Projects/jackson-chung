@@ -10,6 +10,7 @@ function onCloseRequested(callback){
 }
 contextBridge.exposeInMainWorld('jacksonNative', Object.freeze({
   onCloseRequested,
+  updater: operation => {if(!['status','check','restart'].includes(operation))throw Error('Unsupported update operation');return ipcRenderer.invoke('native:update',operation);},
   capabilities: () => ipcRenderer.invoke('native:capabilities'),
   request: (operation,input) => ipcRenderer.invoke('native:request',operation,input)
 }));
