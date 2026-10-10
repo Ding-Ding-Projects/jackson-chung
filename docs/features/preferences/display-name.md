@@ -14,7 +14,7 @@ Timed rules may override the display name through effective settings. The shell 
 
 ## Verification and limits
 
-Focused tests exercise the actual resolver, shell assignment, browser-title and native-titlebar templates, plain-text HTML-like input, settings export/import/reload and temporary-rule expiry. Negative fixtures detect missing projection, assignment, title consumption and schedule registration. These source and handler checks do not establish actual built layout, browser interaction or installed native behavior.
+Focused tests exercise the actual resolver, shell assignment, browser-title and native-titlebar templates, plain-text HTML-like input, settings export/import/reload and temporary-rule expiry. Negative actual-source fixtures detect missing projection, assignment and title consumption. Schedule registration also has an explicit field-inventory assertion; it is not an executable source-mutation regression. These source and handler checks do not establish actual built layout, browser interaction or installed native behavior.
 
 ## Related articles
 

@@ -132,3 +132,7 @@ A regression executes the actual Lit template function and verifies that the act
 See [Attention modes](attention.md) for the five independent modes, local next-action privacy, idle timing and verification limits.
 
 See [Local presentation restriction management](school.md) for credential changes, reset confirmation and the browser-local boundary.
+
+See [Local workspace display name](display-name.md) for visitor-only branding, temporary scheduled names and preserved profile identity.
+
+See [Independent narration language](narration.md) for preview and event language, serialized tracks, presentation restrictions and screen-reader coexistence.

@@ -4,10 +4,10 @@ import type { Locale } from '../types';
 export type Settings = {
   version: 1; locale: Locale; funnyEn: number; funnyYue: number; emojis: boolean;
   theme: 'system'|'light'|'dark'; density: 'comfortable'|'compact'; font: 'system'|'serif'|'mono'; fontSize: number;
-  seed: string; reducedMotion: boolean; displayName: string; narration: boolean; voiceEn: string; voiceYue: string; rate: number; pitch: number;
+  seed: string; reducedMotion: boolean; displayName: string; narration: boolean; narrationLanguage: Locale; voiceEn: string; voiceYue: string; rate: number; pitch: number;
   dock: 'top'|'right'|'bottom'|'left'; pins: string[]; focus: boolean; lowStimulation: boolean; timeAwareness: boolean; oneThing: boolean; momentum: boolean; focusTarget: string;
 };
-export const defaults: Settings = {version:1,locale:'en',funnyEn:5,funnyYue:5,emojis:true,theme:'system',density:'comfortable',font:'system',fontSize:16,seed:'#006b60',reducedMotion:false,displayName:'Jackson Chung',narration:false,voiceEn:'',voiceYue:'',rate:1,pitch:1,dock:'left',pins:[],focus:false,lowStimulation:false,timeAwareness:false,oneThing:false,momentum:false,focusTarget:''};
+export const defaults: Settings = {version:1,locale:'en',funnyEn:5,funnyYue:5,emojis:true,theme:'system',density:'comfortable',font:'system',fontSize:16,seed:'#006b60',reducedMotion:false,displayName:'Jackson Chung',narration:false,narrationLanguage:'en',voiceEn:'',voiceYue:'',rate:1,pitch:1,dock:'left',pins:[],focus:false,lowStimulation:false,timeAwareness:false,oneThing:false,momentum:false,focusTarget:''};
 const key='jc.settings.v1', historyKey='jc.history.v1';
 export type Revision = {id:string; at:string; action:string; settings:Settings};
 let state: Settings = structuredClone(defaults);
@@ -15,10 +15,10 @@ let revisions: Revision[]=[];
 let persistenceError='';
 export function validateSettings(value: unknown): Settings {
   if(!value || typeof value!=='object' || Array.isArray(value)) throw Error('Expected a settings object.');
-  const v={focusTarget:'',...value} as Record<string,unknown>;
+  const v={focusTarget:'',narrationLanguage:'en',...value} as Record<string,unknown>;
   if(Object.keys(v).some(k=>!(k in defaults)) || Object.keys(defaults).some(k=>!(k in v))) throw Error('Unexpected or missing settings fields.');
   for(const k of Object.keys(defaults) as (keyof Settings)[]) if(typeof v[k]!==typeof defaults[k]) throw Error(`Invalid ${k}.`);
-  if(v.version!==1 || !['en','yue','both'].includes(String(v.locale)) || !['system','light','dark'].includes(String(v.theme)) || !['comfortable','compact'].includes(String(v.density)) || !['system','serif','mono'].includes(String(v.font)) || !['top','right','bottom','left'].includes(String(v.dock))) throw Error('Unsupported settings value.');
+  if(v.version!==1 || !['en','yue','both'].includes(String(v.locale)) || !['en','yue','both'].includes(String(v.narrationLanguage)) || !['system','light','dark'].includes(String(v.theme)) || !['comfortable','compact'].includes(String(v.density)) || !['system','serif','mono'].includes(String(v.font)) || !['top','right','bottom','left'].includes(String(v.dock))) throw Error('Unsupported settings value.');
   for(const [k,min,max] of [['funnyEn',1,5],['funnyYue',1,5],['fontSize',12,24],['rate',0.5,2],['pitch',0,2]] as const) if(!Number.isFinite(v[k]) || Number(v[k])<min || Number(v[k])>max) throw Error(`Invalid ${k} range.`);
   if(!Number.isInteger(v.funnyEn)||!Number.isInteger(v.funnyYue)) throw Error('Humour levels must be integers.');
   if(!/^#[0-9a-f]{6}$/i.test(String(v.seed)) || String(v.displayName).length>80 || String(v.voiceEn).length>300 || String(v.voiceYue).length>300 || (v.focusTarget!==''&&!/^[a-z0-9-]{1,60}$/.test(String(v.focusTarget))) || !Array.isArray(v.pins) || v.pins.length>30 || v.pins.some(x=>typeof x!=='string'||! /^[a-z0-9-]{1,60}$/.test(x))) throw Error('Invalid appearance or navigation value.');

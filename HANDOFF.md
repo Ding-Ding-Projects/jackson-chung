@@ -1,3 +1,27 @@
+# Current handoff
+
+## Browser acceptance at 6e916d5
+
+Source 6e916d5851ea6fd5e69179773ba0231f4bec6485 passed all 310 source tests, TypeScript and the exact build.bat /s entrypoint. Built index SHA-256: c53e54ef1e94f2023f9212597db8a769e862c76a24705aa4a50f1acb484f7979. Its twenty-one English/Cantonese documentation articles are current.
+
+The rebuilt restriction controls passed twelve viewport/language/theme states, four lower-form states and three additional emulated pixel ratios. All twenty retained original captures, including a narration representative, were inspected. Full wrapping guidance and four actual label-to-input focus actions passed, and the raw accessibility tree contains complete bilingual textbox names. Credential fields were empty in captures. Seven browser and two server processes exited through identity-bound handles and the owned hidden desktop closed.
+
+Narration language choices operate independently of presentation language, persist through reload and reset to English. The actual screen-reader pause control blocks preview. This machine enumerated three local English voices and no Cantonese voice. Speech delivery and audible output remain unverified; the isolated browser was muted. Emulated pixel ratios do not establish native display scaling or keyboard acceptance.
+
+The 0bb41f8 verification installer upgraded the task-owned verification installation to 0.1.1. All 447 installed payloads and the root stub match the package. The installer transport timed out, so its exit result remains unknown despite the installed byte evidence. Current native interaction is in progress. Production registration, updates, uninstall and fresh-machine acceptance remain unverified. The notification framing unit remains isolated while an independently confirmed restriction-mode humour override is repaired.
+
+## Current integration checkpoint
+
+Public deployment ca634187f8d795e9399a53eb12e8512c75f53662 remains verified with six selected projects and seventeen localized articles. New local source through f035973 includes the reviewed School field guidance repair and independently selected narration language, with a complete twenty-one-article inventory after this checkpoint. Rebuilt School-label and narration runtime acceptance remain pending.
+
+Source 4367cce passed all 297 tests and TypeScript. The narrow schedule width repair passed its 29 affected checks and exact build at 0bb41f898562339364356441d2c6b78d6666ebb3. Actual browser workflows passed School and schedule management, local display-name presentation and effective override/restoration. All 48 recorded schedule bounds tuples and original frames were inspected; narrow frames show the upper form, not every lower control. Native keyboard, file-picker and operating-system scale remain unverified. Run 13 and run 14 owned processes/desktops are closed.
+
+The exact installer entrypoint produced separate verification package 0.1.1 at source 0bb41f8. The formal unsigned artifact receipt passed: 537 archive entries, 447 payloads, matching index/hash/size, Setup NotSigned, 48 observed processes exited, zero unknown images/signers, unchanged source and exit zero. Setup SHA-256 ee29ad1bd5fb80606b1adcae88a427925b1fef848bd62177627316f59856946d; package SHA-256 cb85931140772b442d0b0989f322b2baf00b405582be2d035cbb9e02d5dc4929. Installed acceptance for this candidate remains pending. Production registration/updater/uninstall, fresh bootstrap, normal release and complete contract acceptance remain incomplete.
+
+Earlier live-check root and port exited and its desktop closed, but detached descendant absence is not fully proven. Its profile was retained after automatic approval rejected deletion. Keep active worktrees and all original evidence.
+
+## Earlier recorded checkpoints
+
 # Current integration checkpoint
 
 The public browser unit is now on remote main at ca634187f8d795e9399a53eb12e8512c75f53662. Deployment run 38047013556 succeeded. Fresh HTTP checks verified the live source, 17 current English/Cantonese articles, ten home/resource/capture/resume assets and the exact public About homepage. An isolated live browser acceptance pass is in progress.

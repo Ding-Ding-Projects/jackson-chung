@@ -6,15 +6,28 @@ const {createService} = require('./native-service.cjs');
 const runtimeMode=require('./runtime-mode.cjs').configureRuntime(app,__dirname);
 
 function createCloseHandshake({window,ipcMain,isTrusted,timeoutMs=120000,nonce=()=>require('node:crypto').randomUUID()}) {
-  const webContents=window.webContents;
-  let pending=null, approved=false, disposed=false;
-  const clear=()=>{if(pending)clearTimeout(pending.timer);pending=null;};
-  const onClose=event=>{if(disposed)return;if(approved){approved=false;return;}event.preventDefault();if(pending||webContents.isDestroyed())return;const id=nonce();const timer=setTimeout(clear,timeoutMs);pending={id,timer};try{webContents.send('native:close-request',{requestId:id});}catch{clear();}};
-  const onResponse=(event,response)=>{if(disposed||webContents.isDestroyed()||window.isDestroyed?.()||!pending||!isTrusted(event)||!response||Object.keys(response).sort().join(',')!=='approved,requestId'||response.requestId!==pending.id||typeof response.approved!=='boolean')return;const allow=response.approved;clear();if(allow){approved=true;window.close();}};
-  const onUnavailable=()=>clear();
-  const dispose=()=>{if(disposed)return;disposed=true;approved=false;clear();window.removeListener('close',onClose);window.removeListener('closed',dispose);webContents.removeListener('destroyed',dispose);webContents.removeListener('render-process-gone',onUnavailable);webContents.removeListener('did-start-navigation',onUnavailable);ipcMain.removeListener('native:close-response',onResponse);};
+  const webContents=window.webContents;let current=null,generation=0,disposed=false;
+  const live=()=>!disposed&&!webContents.isDestroyed()&&!window.isDestroyed?.();
+  const clearTimer=record=>{if(record?.timer)clearTimeout(record.timer);};
+  const invalidate=()=>{generation++;if(current){clearTimer(current);current.phase='revoked';current=null;}};
+  function createRequest(kind,action){
+    invalidate();const record={id:nonce(),kind,generation,phase:'dialog',action,timer:null,lease:null};
+    const owns=()=>live()&&current===record&&record.generation===generation;
+    record.lease=Object.freeze({id:record.id,authorized:()=>owns()&&record.phase==='verification',approveOnce:()=>{if(!owns()||record.phase!=='verification')return false;record.phase='consumed';clearTimer(record);return true;},revoke:()=>{if(current!==record)return;invalidate();}});
+    current=record;record.timer=setTimeout(()=>record.lease.revoke(),timeoutMs);return record;
+  }
+  const deliver=record=>{try{webContents.send('native:close-request',{requestId:record.id});return true}catch{record.lease.revoke();return false}};
+  const onClose=event=>{if(disposed)return;if(current?.phase==='consumed'){clearTimer(current);current=null;return;}event.preventDefault();if(!live())return;if(current?.kind==='close'&&current.phase==='dialog')return;deliver(createRequest('close'));};
+  const onResponse=(event,response)=>{
+    const record=current;if(!live()||!record||record.phase!=='dialog'||!isTrusted(event)||!response||Object.keys(response).sort().join(',')!=='approved,requestId'||response.requestId!==record.id||typeof response.approved!=='boolean')return;
+    if(!response.approved){record.lease.revoke();return;}record.phase='verification';
+    if(record.kind==='restart'){Promise.resolve().then(()=>record.action(record.lease)).then(result=>{if(result===false)record.lease.revoke()},()=>record.lease.revoke());}
+    else if(record.lease.approveOnce())window.close();
+  };
+  const onUnavailable=()=>invalidate();
+  const dispose=()=>{if(disposed)return;invalidate();disposed=true;window.removeListener('close',onClose);window.removeListener('closed',dispose);webContents.removeListener('destroyed',dispose);webContents.removeListener('render-process-gone',onUnavailable);webContents.removeListener('did-start-navigation',onUnavailable);ipcMain.removeListener('native:close-response',onResponse);};
   window.on('close',onClose);window.once('closed',dispose);webContents.once('destroyed',dispose);webContents.on('render-process-gone',onUnavailable);webContents.on('did-start-navigation',onUnavailable);ipcMain.on('native:close-response',onResponse);
-  return {dispose};
+  return {dispose,revokeApproval:invalidate,requestRestart(action,register){if(!live()||current||typeof action!=='function'||typeof register!=='function')return false;const record=createRequest('restart',action);try{if(register(record.lease)!==true){record.lease.revoke();return false}}catch{record.lease.revoke();return false}return deliver(record);}};
 }
 
 autoUpdater.on('error',()=>{});
@@ -40,7 +53,13 @@ if (process.argv.some(a => /^--squirrel-(install|updated|uninstall|obsolete)$/.t
     window = new BrowserWindow({width:1200,height:840,minWidth:360,minHeight:500,frame:false,show:false,webPreferences:{preload:path.join(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}});
     const webContents=window.webContents;
     const trusted = event => !window.isDestroyed() && !webContents.isDestroyed() && event.sender === webContents && event.senderFrame === webContents.mainFrame && event.senderFrame.url.split('#')[0] === 'app://jackson/index.html';
-    createCloseHandshake({window,ipcMain,isTrusted:trusted});
+    const closeHandshake=createCloseHandshake({window,ipcMain,isTrusted:trusted});
+    const {createUpdater,readReceipt}=require('./updater.cjs');
+    const updater=createUpdater({autoUpdater,receipt:readReceipt(path.join(__dirname,'verified-update.json')),verification:runtimeMode.verification,installed:require('node:fs').existsSync(path.resolve(process.execPath,'..','..','Update.exe')),firstRun:false,currentVersion:app.getVersion()});
+    ipcMain.handle('native:update',async(event,operation)=>{if(!trusted(event))throw Error('Untrusted renderer');if(operation==='status')return updater.status();if(operation==='check'){void updater.check();return updater.status();}if(operation==='restart'){if(updater.status().phase!=='ready')return {accepted:false};return {accepted:closeHandshake.requestRestart(lease=>updater.install(lease),lease=>updater.registerRestartLease(lease))};}throw Error('Unsupported update operation');});
+    const updateStart=setTimeout(()=>void updater.check(),process.argv.includes('--squirrel-firstrun')?10000:0);
+    const updateSchedule=setInterval(()=>void updater.check(),6*60*60*1000);
+    app.once('will-quit',()=>{clearTimeout(updateStart);clearInterval(updateSchedule);updater.dispose()});
     ipcMain.handle('native:capabilities',async event => {if(!trusted(event)) throw Error('Untrusted renderer'); return {...await service.capabilities(),verificationMode:runtimeMode.verification};});
     ipcMain.handle('native:request',async(event,op,input)=>{if(!trusted(event)) return {ok:false,error:'Untrusted renderer'}; try{return {ok:true,value:await service.request(op,input)}}catch{return {ok:false,error:'Operation unavailable or invalid. Check capability status and retry.'}}});
     window.webContents.setWindowOpenHandler(({url})=>{try{shell.openExternal(externalUrl(url));}catch{} return {action:'deny'};});
@@ -48,8 +67,6 @@ if (process.argv.some(a => /^--squirrel-(install|updated|uninstall|obsolete)$/.t
     window.webContents.session.setPermissionRequestHandler((_wc,_permission,callback)=>callback(false));
     window.once('ready-to-show',()=>window.show());
     await window.loadURL('app://jackson/index.html#tools');
-    // Updates are disabled unless packaging supplies a verified release receipt.
-    if(!runtimeMode.verification)try { const receipt=require('./verified-update.json'); const url=new URL(receipt.feed); if(receipt.verified === true && receipt.isDraft === false && receipt.isPrerelease === false && receipt.source && receipt.tag && url.protocol==='https:' && url.hostname==='github.com' && url.pathname.startsWith('/Ding-Ding-Projects/jackson-chung/')) {autoUpdater.setFeedURL({url:url.href}); autoUpdater.checkForUpdates();} } catch {}
   });
   app.on('window-all-closed',()=>app.quit());
 }

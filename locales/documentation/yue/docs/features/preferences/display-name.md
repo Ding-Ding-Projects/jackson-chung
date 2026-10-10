@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"0030b9562c35c6191a29ffcc02522eef6c60aded921c7d12c39e656f67610ae4","title":"訪客顯示名稱","category":"功能／偏好","related":["docs-features-preferences-README","docs-features-preferences-schedules"]} -->
+<!-- documentation-locale: {"sourceSha256":"5e1306829969d7773c96074e3ade66d652841d274d637b61525bc7229bb6b9ab","title":"訪客顯示名稱","category":"功能／偏好","related":["docs-features-preferences-README","docs-features-preferences-schedules"]} -->
 # 訪客顯示名稱
 
 本機顯示名稱偏好會更改工作區可見品牌、瀏覽器文件標題同原生標題列。呢個只影響訪客顯示，唔會改 Jackson Chung 嘅姓名、履歷或聯絡資料，唔會取代版權持有人，亦唔會更改套件識別碼、儲存鍵、更新來源或診斷身份。
@@ -15,7 +15,7 @@
 
 ## 驗證及限制
 
-針對性測試會執行實際解析器、外殼指派、瀏覽器標題同原生標題列範本、似 HTML 嘅純文字輸入、設定匯出／匯入／重新載入，以及暫時規則到期。負面測試會偵測缺少投影、指派、標題使用同排程登記。呢啲原始碼同處理測試唔代表已驗證實際建置版面、瀏覽器互動或原生安裝行為。
+針對性測試會執行實際解析器、外殼指派、瀏覽器標題同原生標題列範本、似 HTML 嘅純文字輸入、設定匯出／匯入／重新載入，以及暫時規則到期。實際源碼負面測試會偵測缺少投影、指派同標題使用。排程登記另有明確欄位清單斷言，但唔係可執行源碼變異回歸測試。呢啲原始碼同處理測試唔代表已驗證實際建置版面、瀏覽器互動或原生安裝行為。
 
 ## 相關文章
 
