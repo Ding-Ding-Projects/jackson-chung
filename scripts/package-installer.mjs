@@ -18,6 +18,7 @@ const stage=join(owned,'stage');mkdirSync(stage);
 for(const name of ['dist','desktop']){if(!existsSync(name))throw Error(`Required payload is missing: ${name}`);cpSync(name,join(stage,name),{recursive:true,filter:source=>!/[\\/](bin|obj)([\\/]|$)/.test(source)});}
 const assets=await prepareAssets(owned);
 cpSync(assets.config,join(stage,'desktop','native-host-config.json'));
+if(!verification&&existsSync(join(privateRoot,'verified-update.json'))){const receipt=createRequire(import.meta.url)('../desktop/updater.cjs').readReceipt(join(privateRoot,'verified-update.json'));if(!receipt)throw Error('Private update receipt is invalid.');writeFileSync(join(stage,'desktop','verified-update.json'),JSON.stringify(receipt));}
 if(verification)writeFileSync(join(stage,'desktop','runtime-mode.json'),JSON.stringify({version:1,mode:'verification',packageId}));
 writeFileSync(join(stage,'package.json'),JSON.stringify({name:'jackson-chung-companion',version,description:pkg.description,author:'Jackson Chung',main:'desktop/main.cjs'},null,2));
 const icon=resolve('public/icon.ico');if(!existsSync(icon))throw Error('A verified multi-resolution public/icon.ico is required before installer production.');

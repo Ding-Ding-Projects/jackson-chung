@@ -2,6 +2,7 @@ import type { TemplateResult } from 'lit';
 
 export type Locale = 'en' | 'yue' | 'both';
 export type NativeApi = {
+  updater?(operation:'status'|'check'|'restart'):Promise<unknown>;
   capabilities(): Promise<{ version: string; capabilities: string[] }>;
   request(operation: string, input?: unknown): Promise<{ ok: boolean; value?: unknown; error?: string }>;
 };

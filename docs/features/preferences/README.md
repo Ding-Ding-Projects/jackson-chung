@@ -130,3 +130,7 @@ The retained tab rail uses native `button` elements for activation. The actual f
 A regression executes the actual Lit template function and verifies that the activation target is a native button with its semantic attributes and existing event bindings. It failed on the previous custom-button template and passed after replacement. The existing filtered/collapsed entry, endpoint focus, visible-order and lock regressions remain passing. This is template-boundary evidence, not a rendered browser accessibility-tree assertion. Built accessibility-tree, native Enter/Space, arrow/focus, all four dock positions and responsive visual verification remain pending in the integration owner’s runtime pass.
 
 See [Attention modes](attention.md) for the five independent modes, local next-action privacy, idle timing and verification limits.
+
+See [Local presentation restriction management](school.md) for credential changes, reset confirmation and the browser-local boundary.
+
+See [Local workspace display name](display-name.md) for visitor-only branding, temporary scheduled names and preserved profile identity.

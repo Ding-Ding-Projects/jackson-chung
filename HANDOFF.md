@@ -1,4 +1,30 @@
+# Current integration checkpoint
+
+The public browser unit is now on remote main at ca634187f8d795e9399a53eb12e8512c75f53662. Deployment run 38047013556 succeeded. Fresh HTTP checks verified the live source, 17 current English/Cantonese articles, ten home/resource/capture/resume assets and the exact public About homepage. An isolated live browser acceptance pass is in progress.
+
+School management and the local schedule editor are integrated through 9893f73, with a complete 19-article inventory. All 265 tests and TypeScript passed after integration. Exact build and actual browser workflow, persistence, accessibility and responsive acceptance remain pending. These units are not yet a production-acceptance claim. Updater source remains isolated while attempt-scoped authorization is repaired and independently reviewed.
+
+The separately installed cee79f8 verification candidate and prior captures retain their historical bounds. Production lifecycle, installed updates, uninstall, fresh-machine bootstrap, normal desktop release and universal contract evidence remain incomplete. Preserve all active worktrees and announcement originals.
+
+## Historical checkpoints
+
 # Implementation handoff
+
+## Completed browser unit awaiting publication
+
+Browser source `f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8` now passed full-body and correlated cross-paragraph search, all three language projections, invalid-result clearing, actual bundled worker timeout/cancellation, independent retained queries, inactive suspension/resume, retained heading/article/history navigation and exact JSON resource fetch/hash comparison. Runtime evidence is retained separately from the 232 passing source tests. The JSON resource returned 200, application/json, 1,402 bytes and SHA-256 `5e32780b0fdb5b03ed562de59dcbc2cc7ab6f6047978d5fa099dfa2a39769eb7`. Browser download completion remains unverified.
+
+The repaired attention surface has 96 inspected composite frames and twelve inspected editor-only frames across 320/1440 CSS viewports, three languages and two themes. Composite frames cover four emulated pixel ratios; editor-only representatives use ratio one. No measured body overflow or button escape was found. Prompt clock injection and emulated pixel ratios are explicit fixture limits, not real idle duration or native operating-system scaling. The 320 bilingual dark shared builder also settled without body overflow. Run10 completed owned teardown; run11 is retained only for a final representative capture and owned teardown.
+
+Pending isolated units are the local schedule editor and School-mode management. Their source checks are distinct from future built acceptance. The updater remains outside the integrated source while continuing discovery, verified-byte delivery and approval-revocation findings are repaired. No normal release exists. Production lifecycle needs a disposable Windows user or VM; a target clarification is pending. The live deployment remains the recorded earlier source until the verified browser unit is published.
+
+## Worker and narrow-attention checkpoint
+
+Source `f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8` passed all 232 tests, TypeScript, the canonical public-source scan of 193 tracked paths and exact `build.bat /s`. Built index SHA-256 is `271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67`. Worker startup now has a separate readiness deadline, malformed complete results are validated before rendering, and the expanded attention controls have bounded wrapping styles. The Squirrel lifecycle hook propagates shortcut and registration child failures. Each source repair received independent bounded recheck; new built and installed acceptance remain separate.
+
+At prior source `a0b0747`, five attention switches operated independently, next-action save survived actual reload and clear worked, and focus return reached Projects. Six flags-off preference captures at viewport 320 measured client width 305 and scroll width 305. Expanded next-action controls nevertheless escaped their panel; the subsequent CSS repair still awaits new built proof. An explicitly injected clock surfaced and snoozed the prompt, without proving a real five-minute idle or fifteen-minute wait. The approved-resource click opened an Edge internal download page, so strict single-target access stopped and download bytes plus later anchors were unverified. That session completed owned process and desktop teardown.
+
+The newer isolated browser candidate is running. Separate isolated source lanes are completing the browser-local scheduling editor and the actual production updater workflow. No full contract completion, current installed lifecycle acceptance, normal desktop release or newer live deployment is claimed.
 
 ## Attention integration checkpoint
 
