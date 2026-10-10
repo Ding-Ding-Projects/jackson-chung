@@ -19,6 +19,7 @@
 - [ ] Build and verify the unsigned Squirrel.Windows installer and updates.
 - [x] Produce an unsigned Squirrel.Windows package through the exact root entrypoint.
 - [ ] Inspect all package entries and establish signer-process provenance.
-- [ ] Publish and verify the public website and repository homepage.
+- [x] Publish and verify the public website and repository homepage at the recorded deployment source.
+- [ ] Recapture and verify the newer tab workspace and bilingual/contrast repairs.
 - [ ] Publish and verify the normal desktop release.
 - [ ] Preserve, integrate, and verify completed work on main.
