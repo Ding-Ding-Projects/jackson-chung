@@ -45,3 +45,12 @@
 - [ ] Recapture and verify the newer tab workspace and bilingual/contrast repairs.
 - [ ] Publish and verify the normal desktop release.
 - [ ] Preserve, integrate, and verify completed work on main.
+
+## Support acceptance preservation
+
+- [x] Verify short description labels and accessible names in English/light and bilingual/dark at source9099d6f.
+- [x] Verify configured forgotten-password routing while the screen remains locked.
+- [x] Establish actual hidden-desktop320 CSS px geometry without emulation in run28.
+- [ ] Verify all lower category and severity builder controls with decisive input binding.
+- [ ] Promote prepared inspected description captures with validated receipts.
+- [ ] Integrate accepted Support work and verify deployed23-article inventory.
