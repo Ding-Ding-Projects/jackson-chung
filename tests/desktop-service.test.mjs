@@ -19,9 +19,28 @@ async function fixture(encryption=true,fetchImpl=fetch){
  const source=await fs.readFile(new URL('../desktop/native-service.cjs',import.meta.url),'utf8');
  const module={exports:{}};
  const electron={safeStorage:{isEncryptionAvailable:()=>encryption,encryptString:s=>Buffer.from('encrypted:'+s).reverse(),decryptString:b=>Buffer.from(b).reverse().toString().slice(10)},dialog:{},shell:{}};
- vm.runInNewContext(source,{require:id=>id==='electron'?electron:require(id==='./security.cjs'?'../desktop/security.cjs':id),module,Buffer,process:{...process,resourcesPath:path.join(root,'resources')},setTimeout,fetch:fetchImpl,AbortSignal,URL},{filename:'native-service.cjs'});
+ vm.runInNewContext(source,{require:id=>id==='electron'?electron:require(id==='./security.cjs'?'../desktop/security.cjs':id),module,Buffer,TextDecoder,process:{...process,resourcesPath:path.join(root,'resources')},setTimeout,fetch:fetchImpl,AbortSignal,AbortController,URL},{filename:'native-service.cjs'});
  return {root,service:module.exports.createService({app:{getPath:()=>root,getVersion:()=>'test'},getWindow:()=>null})};
 }
+for(const invalidTail of [false,true])test(`completed streaming task drains every chunk before terminal state${invalidTail?' with producer error':''}`,async()=>{
+ const expected=Array.from({length:251},(_,index)=>`piece-${index};`);
+ const body=expected.map(content=>JSON.stringify({message:{content}})).join('\n')+'\n'+(invalidTail?'invalid-json\n':'');
+ const {root,service}=await fixture(true,async()=>new Response(body));
+ try{
+  const {id}=await service.request('ollama.chat',{model:'test:local',prompt:'test'});
+  // Allow the final producer to finish before the first consumer poll.
+  await new Promise(resolve=>setImmediate(resolve));
+  const first=await service.request('task.poll',{id});
+  assert.equal(first.chunks.length,100);assert.equal(first.done,false);
+  const second=await service.request('task.poll',{id});
+  assert.equal(second.chunks.length,100);assert.equal(second.done,false);
+  const final=await service.request('task.poll',{id});
+  assert.equal(final.chunks.length,51);assert.equal(final.done,true);
+  assert.equal([...first.chunks,...second.chunks,...final.chunks].map(chunk=>chunk.message.content).join(''),expected.join(''));
+  assert.equal(Boolean(final.error),invalidTail);
+  const drained=await service.request('task.poll',{id});assert.equal(drained.chunks.length,0);assert.equal(drained.done,true);assert.equal(drained.error,final.error);
+ }finally{await fs.rm(root,{recursive:true,force:true})}
+});
 test('local model transport never follows redirects and reports service failure',async()=>{
  let seen;
  const {root,service}=await fixture(true,async(url,options)=>{seen={url,options};return new Response('',{status:503})});

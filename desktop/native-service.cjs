@@ -44,7 +44,7 @@ function createService({app,getWindow}) {
     if(op==='ollama.catalog')return {available:false,url:'https://ollama.com/library',recovery:'The official catalog does not expose a stable complete public API. Open the official catalog and enter an exact model identifier.'};
     if(op==='ollama.chat'){if(typeof p.model!=='string'||p.model.length>200||typeof p.prompt!=='string'||p.prompt.length>64000)throw Error('Invalid chat');return task('chat',{model:p.model,messages:[{role:'user',content:p.prompt}]})}
     if(op==='ollama.pull'){if(typeof p.model!=='string'||! /^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,199}$/.test(p.model))throw Error('Invalid model');return task('pull',{model:p.model})}
-    if(op==='task.poll'){const t=tasks.get(p.id);if(!t)throw Error('Unknown task');return {chunks:t.chunks.splice(0,100),done:t.done,error:t.error}}
+    if(op==='task.poll'){const t=tasks.get(p.id);if(!t)throw Error('Unknown task');const chunks=t.chunks.splice(0,100);return {chunks,done:t.done&&t.chunks.length===0,error:t.error}}
     if(op==='task.cancel'){tasks.get(p.id)?.controller.abort();return {cancelled:true}}
     if(op==='pairing.create'){const capabilities=Array.isArray(p.capabilities)?p.capabilities.filter(c=>['ollama.tags','ollama.ps','ollama.catalog','ollama.chat','ollama.pull','task.poll','task.cancel'].includes(c)):[];if(!capabilities.length)throw Error('Select capabilities');const token=crypto.randomBytes(32).toString('base64url');pairs.set(token,{capabilities,created:new Date().toISOString()});return {token,capabilities}}
     if(op==='pairing.revoke'){pairs.clear();for(const t of tasks.values())t.controller.abort();return {revoked:true}}
