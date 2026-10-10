@@ -18,7 +18,9 @@
 ## Delivery
 - [ ] Build and verify the unsigned Squirrel.Windows installer and updates.
 - [x] Produce an unsigned Squirrel.Windows package through the exact root entrypoint.
-- [ ] Inspect all package entries and establish signer-process provenance.
+- [x] Inspect all entries and account for every build process at verification source `a25ee0b`.
+- [ ] Repair and repeat installed normal close after its destroyed-object cleanup failure.
+- [ ] Verify production lifecycle, registration, updater and uninstall.
 - [x] Publish and verify the public website and repository homepage at the recorded deployment source.
 - [ ] Recapture and verify the newer tab workspace and bilingual/contrast repairs.
 - [ ] Publish and verify the normal desktop release.

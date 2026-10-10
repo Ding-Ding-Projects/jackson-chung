@@ -1,5 +1,19 @@
 # Implementation handoff
 
+## Latest verified checkpoint, 2026-10-10
+
+Source `0a6f746` integrates independent companion search fields, shared-builder invalidation, literal flag parity and separate worker startup/execution deadlines. Forty focused search/preferences checks and TypeScript passed after integration. Installed-runtime evidence remains bound to `a25ee0b`, not this newer source.
+
+The exact verification installer entrypoint at `a25ee0b` passed full package inspection: 533 entries and 443 required payload files. The full package SHA-256 is `a37a2d03ba2e29f46bc1ac5ac0eb5ecc9bd1f9113a544f1f830c78bd48763162`; Setup is unsigned. An independently accounted process job observed all 46 build processes, no unknown/signing process, zero active children at completion, and unchanged source. This proves that bounded build run, not a fresh-machine bootstrap.
+
+The separate verification installation matched all 443 staged payload hashes. The first installation exit code was not retained and remains unknown. A subsequent maintenance invocation exited zero. The actual installed UI launched on an isolated hidden desktop; native capability status, dirty-close prompt, Cancel retaining a synthetic record, acknowledged encrypted save and local history, and loading the saved record were exercised. Both stored copies lacked the known synthetic plaintext. This is not a general encryption audit.
+
+Normal close FAILED at this installed source. After the clean caption click destroyed the main window, cleanup raised `TypeError: Object has been destroyed` in `BrowserWindow.dispose`; the process remained behind a native error dialog. A background acknowledgement of that dialog then allowed exit zero. That acknowledgement does not make normal close pass. Independent execution reproduced the destroyed-object cleanup and leftover listeners. A repair is in progress. Production registration, shortcuts, updater, full lifecycle and uninstall remain unverified.
+
+A 96-state browser matrix at `a25ee0b` covers home/projects, 1440/320 px, three language modes, two themes and four emulated device-pixel ratios. It recorded zero body overflow, unnamed controls, focus covered by the header, console errors and exceptions. Pixel inspection found no new decisive issue in that scope. Device-pixel-ratio emulation is not native operating-system display scaling. Focused builder interaction also verified disabled Apply for an invalid pattern. Owned teardown and evidence promotion remain pending, so no full visual acceptance is claimed.
+
+The 104-contract inventory remains incomplete with 297 missing or unverified surface requirements. No normal desktop release exists. The public deployment remains `faffef21`, with six projects live and its exact homepage verified. The last verified recovery remote tip before this checkpoint is `f15323780a3b98042b4e132e76f90f12c3390114`. Later source remains local pending preservation. Historical checkpoints below are retained as history, not current acceptance.
+
 The requested deliverable is a retail-focused personal website and an Electron desktop companion with complete coverage of the maintainer's canonical contracts. All browser-supported features must operate on the website itself, including mobile. Native integration is reserved for capabilities unavailable to a browser.
 
 Approved presentation: welcoming professional design, warm neutrals, teal accent, accessible Material Design 3 components. Approved public contact: email and Toronto only. The phone number and original résumé attachment must never be published.
