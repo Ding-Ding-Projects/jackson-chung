@@ -6,6 +6,53 @@ const {execFile}=require('node:child_process');
 const {promisify}=require('node:util');
 const run=promisify(execFile);
 const {validate}=require('./security.cjs');
+const os=require('node:os');
+const CATALOG_SOURCE='https://ollama.com/library';
+async function officialText(url,signal,maximum=4*1024*1024){
+  const parsed=new URL(url);if(!['https://ollama.com','https://registry.ollama.ai'].includes(parsed.origin)||parsed.username||parsed.password)throw Error('Unsupported official source');
+  const response=await fetch(url,{redirect:'error',signal:AbortSignal.any([signal??new AbortController().signal,AbortSignal.timeout(20000)])});if(!response.ok||!response.body)throw Error('Official source unavailable');
+  const reader=response.body.getReader();const parts=[];let bytes=0;try{while(true){const {value,done}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>maximum)throw Error('Official page exceeds bound');parts.push(Buffer.from(value));}}finally{await reader.cancel().catch(()=>{});}const text=Buffer.concat(parts).toString('utf8');return {text,bytes,identity:crypto.createHash('sha256').update(text).digest('hex'),etag:response.headers.get('etag')};
+}
+function parseCatalogPage(html,kind,model,baseUrl=kind==='tags'?`${CATALOG_SOURCE}/${model}/tags`:CATALOG_SOURCE){
+  const links=[...html.matchAll(/(?:href|hx-get)\s*=\s*["']([^"']+)["']/gi)].map(match=>match[1].replaceAll('&amp;','&'));
+  const names=new Set();const pages=new Set();
+  for(const link of links){let url;try{url=new URL(link,baseUrl)}catch{continue}if(url.origin!=='https://ollama.com')continue;
+    const expected=kind==='models'?'/library':`/library/${model}/tags`;
+    if(url.pathname===expected&&[...url.searchParams.keys()].some(key=>['page','cursor','offset'].includes(key)))pages.add(url.href);
+    const match=kind==='models'?url.pathname.match(/^\/library\/([a-zA-Z0-9][a-zA-Z0-9_.-]*)$/):url.pathname.match(/^\/library\/([a-zA-Z0-9][a-zA-Z0-9_.-]*):([a-zA-Z0-9][a-zA-Z0-9_.-]*)$/);
+    if(match&&(kind==='models'||match[1]===model))names.add(kind==='models'?match[1]:`${match[1]}:${match[2]}`);
+  }
+  if(!names.size)throw Error('Official catalog markup changed or source has no verifiable entries');
+  return {names:[...names],pages:[...pages]};
+}
+async function acquireCatalog(load=officialText,signal,progress=()=>{}){
+  const seen=new Set();const identities=[];const models=new Set();const variants=new Set();let bytes=0;
+  async function page(url,kind,model){if(seen.has(url))return null;if(seen.size>=2048)throw Error('Catalog page limit reached; refresh incomplete');seen.add(url);const response=await load(url,signal);bytes+=response.bytes??Buffer.byteLength(response.text);if(bytes>256*1024*1024)throw Error('Catalog transfer limit reached; refresh incomplete');const parsed=parseCatalogPage(response.text,kind,model,url);identities.push({url,sha256:response.identity??crypto.createHash('sha256').update(response.text).digest('hex'),etag:response.etag??null});progress({status:'catalog pages',completed:seen.size,models:models.size,variants:variants.size});return parsed;}
+  const modelPages=[CATALOG_SOURCE];while(modelPages.length){const parsed=await page(modelPages.shift(),'models');if(!parsed)continue;parsed.names.forEach(name=>models.add(name));modelPages.push(...parsed.pages.filter(url=>!seen.has(url)));if(models.size>4096)throw Error('Catalog model bound reached');}
+  const pending=[...models];async function worker(){while(pending.length){const model=pending.shift();const pages=[`${CATALOG_SOURCE}/${model}/tags`];while(pages.length){if(signal?.aborted)throw Error('Catalog cancelled');const parsed=await page(pages.shift(),'tags',model);if(!parsed)continue;parsed.names.forEach(name=>variants.add(name));if(variants.size>100000)throw Error('Catalog variant bound reached');pages.push(...parsed.pages.filter(url=>!seen.has(url)));}}}
+  await Promise.all(Array.from({length:4},worker));
+  const refreshedAt=new Date().toISOString();return validateCatalogCache({source:CATALOG_SOURCE,refreshedAt,lastSuccessfulRefresh:refreshedAt,pageCount:seen.size,modelCount:models.size,completeness:'complete-source-enumeration',responseIdentity:crypto.createHash('sha256').update(JSON.stringify(identities)).digest('hex'),pages:identities,variants:[...variants].sort().map(name=>({name,family:name.split(':')[0],variant:name.split(':')[1],metadata:null}))});
+}
+function validateCatalogCache(value){
+  const invalid=()=>{throw Error('Invalid catalog cache')};
+  if(!value||typeof value!=='object'||value.source!==CATALOG_SOURCE||value.completeness!=='complete-source-enumeration'||!Array.isArray(value.variants)||!value.variants.length||value.variants.length>100000||!Array.isArray(value.pages)||!value.pages.length||value.pages.length>2048||value.pageCount!==value.pages.length||!Number.isInteger(value.modelCount)||value.modelCount<1||value.modelCount>4096||! /^[a-f0-9]{64}$/.test(value.responseIdentity??''))invalid();
+  for(const field of ['refreshedAt','lastSuccessfulRefresh'])if(typeof value[field]!=='string'||!Number.isFinite(Date.parse(value[field]))||new Date(value[field]).toISOString()!==value[field]||Date.parse(value[field])>Date.now()+60000)invalid();
+  if(value.refreshedAt!==value.lastSuccessfulRefresh)invalid();
+  const pages=new Set();const pagePaths=new Set();for(const page of value.pages){if(!page||typeof page.url!=='string'||page.url.length>4096||! /^[a-f0-9]{64}$/.test(page.sha256??'')||(page.etag!==null&&(typeof page.etag!=='string'||page.etag.length>512||/[\x00-\x1f\x7f]/.test(page.etag))))invalid();let url;try{url=new URL(page.url)}catch{invalid()}if(url.origin!=='https://ollama.com'||url.username||url.password||url.hash||! /^\/library(?:\/[a-zA-Z0-9][a-zA-Z0-9_.-]*\/tags)?$/.test(url.pathname)||pages.has(page.url))invalid();pages.add(page.url);pagePaths.add(url.pathname);}
+  if(!pages.has(CATALOG_SOURCE)||crypto.createHash('sha256').update(JSON.stringify(value.pages)).digest('hex')!==value.responseIdentity)invalid();
+  const families=new Set();let previous='';for(const variant of value.variants){if(!variant||typeof variant.name!=='string'||variant.name.length>200||! /^[a-zA-Z0-9][a-zA-Z0-9_.-]*:[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(variant.name)||variant.name<=previous||variant.metadata!==null)invalid();const [family,tag]=variant.name.split(':');if(variant.family!==family||variant.variant!==tag||!pagePaths.has(`/library/${family}/tags`))invalid();families.add(family);previous=variant.name;}
+  if(families.size!==value.modelCount)invalid();return value;
+}
+function hardwareFit(metadata,hardware,overheadBytes){
+  const evidence={metadata,hardware,overheadBytes};const result=(verdict,reason)=>({verdict,reason,evidence,computedAt:new Date().toISOString()});
+  if(!Number.isFinite(metadata?.blobBytes)||metadata.blobBytes<=0||!Number.isFinite(overheadBytes)||overheadBytes<0)return result('Unknown','Exact blob size or configured context overhead unavailable.');
+  const required=metadata.blobBytes+overheadBytes;
+  if(Number.isFinite(hardware?.destinationFreeBytes)&&hardware.destinationFreeBytes<metadata.blobBytes*2)return result('Unlikely','Destination has less than twice the exact blob size for conservative download staging.');
+  if(Number.isFinite(hardware?.ramFreeBytes)&&hardware.ramFreeBytes<required)return result('Unlikely','Available RAM is below blob size plus configured overhead.');
+  if(!metadata.parameterCount||!metadata.quantization||!metadata.contextLength||!Number.isFinite(hardware?.ramFreeBytes)||!Number.isFinite(hardware?.destinationFreeBytes)||!hardware.architecture||hardware.backendSupported!==true||!Number.isFinite(hardware.usableVramBytes))return result('Unknown','Required model, destination, GPU or backend evidence is unavailable.');
+  if(hardware.usableVramBytes>=required&&hardware.ramFreeBytes>=required*1.5)return result('Runs well','Measured resources exceed conservative blob and configured overhead estimates; runtime success is not guaranteed.');
+  return result('Runs with limits','RAM meets the estimate, but GPU capacity or headroom is limited. CPU/offload behavior must be verified.');
+}
 async function readModelList(response){
   if(Number(response.headers.get('content-length'))>1048576)throw Error('Model metadata exceeds 1 MiB');
   const reader=response.body.getReader();let bytes=0;const parts=[];
@@ -21,6 +68,9 @@ function createService({app,getWindow}) {
   const history=path.join(root,'history');
   const git=path.join(process.resourcesPath,'tools','git','cmd','git.exe');
   const tasks=new Map(); const files=new Map(); const pairs=new Map();
+  let catalog=null;let catalogRefresh=null;let catalogFailure=null;
+  async function cachedCatalog(){if(catalog)return catalog;try{const file=path.join(root,'catalog.json');if((await fs.stat(file)).size>32*1024*1024)throw Error('Catalog cache exceeds bound');const value=validateCatalogCache(JSON.parse(await fs.readFile(file,'utf8')));catalog=value;return value;}catch{return catalog}}
+  function refreshCatalog(){if(catalogRefresh)return {id:catalogRefresh};if(tasks.size>=8)throw Error('Too many active tasks');const id=crypto.randomUUID();const controller=new AbortController();const record={controller,chunks:[],done:false,error:null};tasks.set(id,record);catalogRefresh=id;setTimeout(()=>controller.abort(),10*60*1000).unref();(async()=>{try{const result=await acquireCatalog(officialText,controller.signal,chunk=>record.chunks.push(chunk));await fs.mkdir(root,{recursive:true});const temporary=path.join(root,'catalog.tmp');await fs.writeFile(temporary,JSON.stringify(result),'utf8');await fs.rename(temporary,path.join(root,'catalog.json'));catalog=result;catalogFailure=null;record.chunks.push({status:'catalog verified',models:result.modelCount,variants:result.variants.length,pageCount:result.pageCount});}catch{controller.abort();catalogFailure=controller.signal.aborted?'Catalog refresh interrupted or unavailable; last verified catalog retained.':'Catalog refresh unavailable; last verified catalog retained.';record.error=catalogFailure;}finally{record.done=true;catalogRefresh=null;setTimeout(()=>tasks.delete(id),60000).unref();}})();return {id}}
   let queue=Promise.resolve(); let unlockedUntil=0;
   const gitRun=(args)=>run(git,['-c','core.hooksPath=NUL','-c','user.name=Local History','-c','user.email=local@localhost',...args],{cwd:history,windowsHide:true,timeout:15000,maxBuffer:4*1024*1024});
   async function encryptedRead(){try{return safeStorage.decryptString(await fs.readFile(path.join(root,'store.enc')))}catch(e){if(e.code==='ENOENT')return '{}';throw e}}
@@ -41,16 +91,19 @@ function createService({app,getWindow}) {
     if(op==='editor.open'){const target=files.get(p.id);if(!target)throw Error('Select or export a file first');const candidates=[path.join(process.env.LOCALAPPDATA??'','Programs','Microsoft VS Code','Code.exe'),path.join(process.env.ProgramFiles??'','Microsoft VS Code','Code.exe')];for(const editor of candidates){try{await fs.access(editor);await run(editor,['--reuse-window',target],{windowsHide:true,timeout:10000});return {opened:true}}catch{}}return {opened:false,recovery:'Install Visual Studio Code, then retry.'}}
     if(op==='ollama.tags')return readModelList(await ollama('tags'));
     if(op==='ollama.ps')return readModelList(await ollama('ps'));
-    if(op==='ollama.catalog')return {available:false,url:'https://ollama.com/library',recovery:'The official catalog does not expose a stable complete public API. Open the official catalog and enter an exact model identifier.'};
+    if(op==='ollama.catalog'){const value=await cachedCatalog();const offset=Number.isSafeInteger(p.offset)&&p.offset>=0?p.offset:0;return {available:!!value,source:CATALOG_SOURCE,refreshTask:catalogRefresh,lastError:catalogFailure,refreshedAt:value?.refreshedAt??null,lastSuccessfulRefresh:value?.lastSuccessfulRefresh??null,staleAgeSeconds:value?Math.max(0,Math.floor((Date.now()-Date.parse(value.refreshedAt))/1000)):null,pageCount:value?.pageCount??0,completeness:value?.completeness??'unavailable',responseIdentity:value?.responseIdentity??null,total:value?.variants.length??0,variants:value?.variants.slice(offset,offset+100)??[],nextOffset:value&&offset+100<value.variants.length?offset+100:null}}
+    if(op==='ollama.catalog.refresh')return refreshCatalog();
+    if(op==='ollama.hardware'){let gpu=null;try{const info=await app.getGPUInfo('complete');gpu=info.gpuDevice?.map(device=>({model:device.deviceString??null,vendorId:device.vendorId??null,deviceId:device.deviceId??null}))??null;}catch{}return {sampledAt:new Date().toISOString(),architecture:os.arch(),ramTotalBytes:os.totalmem(),ramFreeBytes:os.freemem(),gpu,usableVramBytes:null,backendSupported:null,destinationFreeBytes:null,unavailable:['Usable VRAM and Ollama driver/backend support are not exposed by the verified adapter.','The running Ollama service model-storage destination is not verified, so destination free space is unavailable.']}}
+    if(op==='ollama.model'){if(typeof p.name!=='string'||! /^[a-zA-Z0-9][a-zA-Z0-9_.-]*:[a-zA-Z0-9][a-zA-Z0-9_.-]*$/.test(p.name)||p.name.length>200)throw Error('Invalid official tag');const [model,tag]=p.name.split(':');const source=`https://registry.ollama.ai/v2/library/${model}/manifests/${tag}`;const response=await officialText(source,undefined,1048576);const manifest=JSON.parse(response.text);if(manifest.schemaVersion!==2||!Array.isArray(manifest.layers)||manifest.layers.length>128||manifest.layers.some(layer=>!Number.isSafeInteger(layer.size)||layer.size<0))throw Error('Invalid official manifest');const blobBytes=manifest.layers.reduce((total,layer)=>total+layer.size,0);let details=null;try{details=(await readModelList(await ollama('tags'))).models.find(model=>model.name===p.name)?.details??null;}catch{}const metadata={name:p.name,blobBytes,parameterCount:details?.parameter_size??null,quantization:details?.quantization_level??null,contextLength:null,source,responseIdentity:response.identity,updatedAt:new Date().toISOString()};const hardware=await request('ollama.hardware');const overheadBytes=Number.isSafeInteger(p.overheadBytes)&&p.overheadBytes>=0&&p.overheadBytes<=1024*1024*1024*1024?p.overheadBytes:1024*1024*1024;return {metadata,hardware,fit:hardwareFit(metadata,hardware,overheadBytes)}}
     if(op==='ollama.chat'){if(typeof p.model!=='string'||p.model.length>200||typeof p.prompt!=='string'||p.prompt.length>64000)throw Error('Invalid chat');return task('chat',{model:p.model,messages:[{role:'user',content:p.prompt}]})}
     if(op==='ollama.pull'){if(typeof p.model!=='string'||! /^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,199}$/.test(p.model))throw Error('Invalid model');return task('pull',{model:p.model})}
     if(op==='task.poll'){const t=tasks.get(p.id);if(!t)throw Error('Unknown task');const chunks=t.chunks.splice(0,100);return {chunks,done:t.done&&t.chunks.length===0,error:t.error}}
     if(op==='task.cancel'){tasks.get(p.id)?.controller.abort();return {cancelled:true}}
-    if(op==='pairing.create'){const capabilities=Array.isArray(p.capabilities)?p.capabilities.filter(c=>['ollama.tags','ollama.ps','ollama.catalog','ollama.chat','ollama.pull','task.poll','task.cancel'].includes(c)):[];if(!capabilities.length)throw Error('Select capabilities');const token=crypto.randomBytes(32).toString('base64url');pairs.set(token,{capabilities,created:new Date().toISOString()});return {token,capabilities}}
+    if(op==='pairing.create'){const capabilities=Array.isArray(p.capabilities)?p.capabilities.filter(c=>['ollama.tags','ollama.ps','ollama.catalog','ollama.catalog.refresh','ollama.hardware','ollama.model','ollama.chat','ollama.pull','task.poll','task.cancel'].includes(c)):[];if(!capabilities.length)throw Error('Select capabilities');const token=crypto.randomBytes(32).toString('base64url');pairs.set(token,{capabilities,created:new Date().toISOString()});return {token,capabilities}}
     if(op==='pairing.revoke'){pairs.clear();for(const t of tasks.values())t.controller.abort();return {revoked:true}}
     if(op==='pairing.list')return {count:pairs.size};
     throw Error('Unsupported operation');
   }
   return {request,capabilities:async()=>({version:app.getVersion(),capabilities:['window','encrypted-store','native-dialogs','editor','ollama','pairing'],history:{available:await fs.access(git).then(()=>true,()=>false),origin:'bundled',recovery:'Expected packaged tools/git/cmd/git.exe'}}),authorize:(token,op)=>pairs.get(token)?.capabilities.includes(op)};
 }
-module.exports={createService,readModelList};
+module.exports={createService,readModelList,parseCatalogPage,acquireCatalog,hardwareFit,validateCatalogCache};
