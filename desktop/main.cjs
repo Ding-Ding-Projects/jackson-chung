@@ -39,7 +39,7 @@ if (process.argv.some(a => /^--squirrel-(install|updated|uninstall|obsolete)$/.t
     window = new BrowserWindow({width:1200,height:840,minWidth:360,minHeight:500,frame:false,show:false,webPreferences:{preload:path.join(__dirname,'preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false,webSecurity:true}});
     const trusted = event => event.sender === window.webContents && event.senderFrame === window.webContents.mainFrame && event.senderFrame.url.split('#')[0] === 'app://jackson/index.html';
     createCloseHandshake({window,ipcMain,isTrusted:trusted});
-    ipcMain.handle('native:capabilities',event => {if(!trusted(event)) throw Error('Untrusted renderer'); return {...service.capabilities(),verificationMode:runtimeMode.verification};});
+    ipcMain.handle('native:capabilities',async event => {if(!trusted(event)) throw Error('Untrusted renderer'); return {...await service.capabilities(),verificationMode:runtimeMode.verification};});
     ipcMain.handle('native:request',async(event,op,input)=>{if(!trusted(event)) return {ok:false,error:'Untrusted renderer'}; try{return {ok:true,value:await service.request(op,input)}}catch{return {ok:false,error:'Operation unavailable or invalid. Check capability status and retry.'}}});
     window.webContents.setWindowOpenHandler(({url})=>{try{shell.openExternal(externalUrl(url));}catch{} return {action:'deny'};});
     window.webContents.on('will-navigate',event=>event.preventDefault());
