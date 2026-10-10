@@ -23,3 +23,5 @@ Documentation tabs own separate in-memory article and heading routes. Only the a
 The shared command overlay receives all registered destinations, owns Ctrl+Shift+F, and has a visible opener in the shell. The older shell shortcut does not compete with it. Interaction, focus, privacy and overflow acceptance still require the real built browser or desktop surface.
 
 The public website uses an editorial portfolio header with About, Experience, Projects and Contact. More opens secondary profile sections, documentation and local tools. Profile destinations keep the retained tab state without showing a workspace tab strip. Tool destinations retain their tab controls. Search opened through More returns focus to the visible disclosure summary when closed. The desktop companion retains its separate working interface.
+
+The command palette waits for its own render, the nested search render and the input control render before requesting initial focus. Closing or reopening cancels stale pending focus requests. Focused asynchronous tests cover these render boundaries and cancellation; built acceptance remains separate.

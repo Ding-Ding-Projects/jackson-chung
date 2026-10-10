@@ -1,5 +1,9 @@
 # Current handoff
 
+## Palette focus repair candidate
+
+A fresh live6b runtime check confirmed visible palette opening from More/Search while focus remained on SUMMARY after 500 ms; Escape in that actual state left the palette visible. Escape from inside the input was not exercised. Source now awaits palette, nested search and field render completion before focusing, with generation cancellation on close/reopen. Three asynchronous checks and TypeScript passed. Independent review and pinned built acceptance are pending. This candidate is not claimed deployed. The preceding scoped contract change is on public main at 39291424b0221ca28b826689449bd48fdb92a241; its exact build passed, deployment pending.
+
 ## Verified public portfolio and scoped presentation exception
 
 Public main 6b650fba056c2457d92160407259b6e4cd62c79f deployed successfully in workflow 38069468977. Live index SHA-256 is f0d1bc5fc4f7a9a9c473f17ecb83a3dcf589787d33dd45b87011dffffd6cc5a1. HTTPS asset checks and exact public About homepage readback passed. A fresh isolated browser run inspected its initial whole-window capture and four Home/Projects captures at 1440 English/light and 320 bilingual/dark. Body overflow and unnamed interactive accessibility entries were zero; no profile rail or tab strip was visible. All six actual project URLs matched. All 44 article/language observations had nonempty bodies, routes and heading identifiers, with complete article objects equal to the immutable built inventory. Heading navigation/focus and Cantonese reload persistence passed. Seven owned Edge processes exited, the hidden desktop closed and its debug port disappeared; its profile remains retained. Palette close/focus remains unverified because the previous harness predicate confused a hidden retained host with an open overlay. A bounded follow-up is running. Native keyboard, native OS scaling and formal native-layout-v1 evidence are not claimed.

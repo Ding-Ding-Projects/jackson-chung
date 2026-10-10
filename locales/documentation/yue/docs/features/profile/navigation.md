@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"a160a446332e821c71dd4d4561b1d72d4f8a9aefa2bb742a9aabf7f8f47c3da6","title":"個人頁及文件導覽","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"9f17896f252ef2d69d2212156b4c1b70583fda73811e358acceaeaeba05ce64b","title":"個人頁及文件導覽","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
 # 個人頁及文件導覽
 
 ## 網頁外觀決定
@@ -24,3 +24,5 @@ Markdown 透過安全文字範本呈現。原始 HTML 保持為文字，執行�
 共用指令浮層接收所有已登記目的地，負責 Ctrl+Shift+F，頁面框架亦有可見開啟掣。舊有框架快捷鍵唔會同佢競爭。操作、焦點、私隱同溢出版面接納，仍然要喺實際建置瀏覽器或桌面畫面驗證。
 
 公開網頁採用個人作品集頁首，主要導覽包括關於我、工作經驗、作品同聯絡。更多選單提供其他個人內容、文件同本機工具。個人內容保留分頁狀態，但不顯示工作區分頁列；工具內容仍然提供分頁控制。由更多選單開啟搜尋後，關閉時會將焦點返回仍然可見嘅選單標題。桌面配套保留獨立工作介面。
+
+指令面板會等自己、內層搜尋同輸入控制項完成繪製，先要求初始焦點。關閉或重新開啟會取消舊嘅待處理焦點要求。針對性非同步測試涵蓋呢啲繪製邊界同取消情況；實際建置接納仍然獨立驗證。
