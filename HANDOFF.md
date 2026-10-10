@@ -1,5 +1,13 @@
 # Implementation handoff
 
+## Attention integration checkpoint
+
+Source `a0b0747b0c13ec0527648ad7d55bced720835ac5` integrates five independent optional attention controls, the narrow preference action repair, retained documentation hash refresh, complete-article search suspension and the approved local JSON download route. All 220 tests and TypeScript passed. Exact `build.bat /s` passed with index SHA-256 `a1d68f0faa9e98a50532940a5140f7c1b8b5dba8ffccf9a2ae5a6bd9f75c4ab0`. Built acceptance for these newer changes is in progress, not complete.
+
+The preceding immutable `34e0526` browser candidate confirmed two independent retained reader queries, suspension of adapter and nested-builder workers/timers, preserved query/sample/panel state, resume behavior and documentation focus return. Its repaired builder controls fit their owner at 320 px, but the body still measured 341 px. The newer preference action repair requires remeasurement. That session completed identity-bound browser/server teardown and hidden desktop closure.
+
+Shared workbench startup currently consumes its evaluation timeout. A bounded separate startup-ready handshake is under repair. Intermittent browser timeouts remain failed or partial observations; their exact timing cause was not established. No complete search acceptance, current installer acceptance, production lifecycle, normal desktop release or universal contract completion is claimed. The public deployment remains `faffef21f4c2c2be7fe9c8b70d71c4e37074c409`, including six public organization project links.
+
 ## Latest verified checkpoint, 2026-10-10
 
 Source `b8fc1a0` integrates complete-article regex search into each retained reader. Nineteen combined focused checks, TypeScript and exact `build.bat /s` pass, with index SHA-256 `03b6b57b83a4a8d5123630307bf25cff39b23b43cd6d8230112d65f3480ba9d0`. Independent review confirmed a bounded late nested-builder callback can restart an inactive local search; no query loss or privacy leak was established. A separate real 320 px preference builder overflow is confirmed. Both repairs are assigned. Five attention-mode behaviors are in isolated implementation. The earlier `d65145c` browser candidate completed 96 home/projects states and actual 16-article, three-language body comparisons; documentation geometry and anchors remain pending. Wiki is enabled but its remote returns `Repository not found`, so synchronization remains unverified.
