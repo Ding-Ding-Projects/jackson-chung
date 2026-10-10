@@ -1,5 +1,13 @@
 # Implementation handoff
 
+## Worker and narrow-attention checkpoint
+
+Source `f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8` passed all 232 tests, TypeScript, the canonical public-source scan of 193 tracked paths and exact `build.bat /s`. Built index SHA-256 is `271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67`. Worker startup now has a separate readiness deadline, malformed complete results are validated before rendering, and the expanded attention controls have bounded wrapping styles. The Squirrel lifecycle hook propagates shortcut and registration child failures. Each source repair received independent bounded recheck; new built and installed acceptance remain separate.
+
+At prior source `a0b0747`, five attention switches operated independently, next-action save survived actual reload and clear worked, and focus return reached Projects. Six flags-off preference captures at viewport 320 measured client width 305 and scroll width 305. Expanded next-action controls nevertheless escaped their panel; the subsequent CSS repair still awaits new built proof. An explicitly injected clock surfaced and snoozed the prompt, without proving a real five-minute idle or fifteen-minute wait. The approved-resource click opened an Edge internal download page, so strict single-target access stopped and download bytes plus later anchors were unverified. That session completed owned process and desktop teardown.
+
+The newer isolated browser candidate is running. Separate isolated source lanes are completing the browser-local scheduling editor and the actual production updater workflow. No full contract completion, current installed lifecycle acceptance, normal desktop release or newer live deployment is claimed.
+
 ## Attention integration checkpoint
 
 Source `a0b0747b0c13ec0527648ad7d55bced720835ac5` integrates five independent optional attention controls, the narrow preference action repair, retained documentation hash refresh, complete-article search suspension and the approved local JSON download route. All 220 tests and TypeScript passed. Exact `build.bat /s` passed with index SHA-256 `a1d68f0faa9e98a50532940a5140f7c1b8b5dba8ffccf9a2ae5a6bd9f75c4ab0`. Built acceptance for these newer changes is in progress, not complete.
