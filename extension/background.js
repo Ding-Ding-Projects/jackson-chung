@@ -1,4 +1,4 @@
-const allowed=new Set(['ollama.tags','ollama.ps','ollama.catalog','ollama.chat','ollama.pull','task.poll','task.cancel']);
+const allowed=new Set(['ollama.tags','ollama.ps','ollama.catalog','ollama.catalog.refresh','ollama.hardware','ollama.model','ollama.chat','ollama.pull','task.poll','task.cancel']);
 chrome.runtime.onMessage.addListener((message,sender,respond)=>{
   let url;try{url=new URL(sender.url)}catch{return false}
   if(url.origin!=='https://ding-ding-projects.github.io'||!url.pathname.startsWith('/jackson-chung/')||sender.frameId!==0||!allowed.has(message.operation))return false;
