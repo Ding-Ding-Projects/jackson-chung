@@ -3,9 +3,9 @@ export type Settings = {
   version: 1; locale: Locale; funnyEn: number; funnyYue: number; emojis: boolean;
   theme: 'system'|'light'|'dark'; density: 'comfortable'|'compact'; font: 'system'|'serif'|'mono'; fontSize: number;
   seed: string; reducedMotion: boolean; displayName: string; narration: boolean; voiceEn: string; voiceYue: string; rate: number; pitch: number;
-  dock: 'top'|'bottom'; pins: string[]; focus: boolean; lowStimulation: boolean; timeAwareness: boolean; oneThing: boolean; momentum: boolean;
+  dock: 'top'|'right'|'bottom'|'left'; pins: string[]; focus: boolean; lowStimulation: boolean; timeAwareness: boolean; oneThing: boolean; momentum: boolean;
 };
-export const defaults: Settings = {version:1,locale:'en',funnyEn:5,funnyYue:5,emojis:true,theme:'system',density:'comfortable',font:'system',fontSize:16,seed:'#006b60',reducedMotion:false,displayName:'Jackson Chung',narration:false,voiceEn:'',voiceYue:'',rate:1,pitch:1,dock:'top',pins:[],focus:false,lowStimulation:false,timeAwareness:false,oneThing:false,momentum:false};
+export const defaults: Settings = {version:1,locale:'en',funnyEn:5,funnyYue:5,emojis:true,theme:'system',density:'comfortable',font:'system',fontSize:16,seed:'#006b60',reducedMotion:false,displayName:'Jackson Chung',narration:false,voiceEn:'',voiceYue:'',rate:1,pitch:1,dock:'left',pins:[],focus:false,lowStimulation:false,timeAwareness:false,oneThing:false,momentum:false};
 const key='jc.settings.v1', historyKey='jc.history.v1';
 export type Revision = {id:string; at:string; action:string; settings:Settings};
 let state: Settings = structuredClone(defaults);
@@ -16,8 +16,9 @@ export function validateSettings(value: unknown): Settings {
   const v=value as Record<string,unknown>;
   if(Object.keys(v).some(k=>!(k in defaults)) || Object.keys(defaults).some(k=>!(k in v))) throw Error('Unexpected or missing settings fields.');
   for(const k of Object.keys(defaults) as (keyof Settings)[]) if(typeof v[k]!==typeof defaults[k]) throw Error(`Invalid ${k}.`);
-  if(v.version!==1 || !['en','yue','both'].includes(String(v.locale)) || !['system','light','dark'].includes(String(v.theme)) || !['comfortable','compact'].includes(String(v.density)) || !['system','serif','mono'].includes(String(v.font)) || !['top','bottom'].includes(String(v.dock))) throw Error('Unsupported settings value.');
+  if(v.version!==1 || !['en','yue','both'].includes(String(v.locale)) || !['system','light','dark'].includes(String(v.theme)) || !['comfortable','compact'].includes(String(v.density)) || !['system','serif','mono'].includes(String(v.font)) || !['top','right','bottom','left'].includes(String(v.dock))) throw Error('Unsupported settings value.');
   for(const [k,min,max] of [['funnyEn',1,5],['funnyYue',1,5],['fontSize',12,24],['rate',0.5,2],['pitch',0,2]] as const) if(!Number.isFinite(v[k]) || Number(v[k])<min || Number(v[k])>max) throw Error(`Invalid ${k} range.`);
+  if(!Number.isInteger(v.funnyEn)||!Number.isInteger(v.funnyYue)) throw Error('Humour levels must be integers.');
   if(!/^#[0-9a-f]{6}$/i.test(String(v.seed)) || String(v.displayName).length>80 || String(v.voiceEn).length>300 || String(v.voiceYue).length>300 || !Array.isArray(v.pins) || v.pins.length>30 || v.pins.some(x=>typeof x!=='string'||! /^[a-z0-9-]{1,60}$/.test(x))) throw Error('Invalid appearance or navigation value.');
   return structuredClone(v) as Settings;
 }
@@ -35,9 +36,12 @@ export function updateState(patch:Partial<Settings>, action='Settings changed') 
 }
 export function restoreRevision(id:string){const r=revisions.find(r=>r.id===id);if(r)updateState(r.settings,'Restored settings revision');}
 export function resetSettings(){updateState(structuredClone(defaults),'Reset settings');}
-export function applyAppearance(){const s=state,r=document.documentElement; r.dataset.theme=s.theme;r.dataset.density=s.density;r.dataset.motion=(s.reducedMotion||s.lowStimulation)?'reduced':'normal';r.style.colorScheme=s.theme==='system'?'light dark':s.theme;r.style.setProperty('--md-sys-color-primary',s.seed);r.style.setProperty('--jc-font-size',`${s.fontSize}px`);r.style.fontSize=`${s.fontSize}px`;r.style.fontFamily=s.font==='serif'?'Georgia,serif':s.font==='mono'?'ui-monospace,monospace':'system-ui,sans-serif';}
+export function applyAppearance(){const s=state,r=document.documentElement; r.lang=s.locale==='yue'?'zh-HK':'en';r.dataset.locale=s.locale; r.dataset.theme=s.theme;r.dataset.density=s.density;r.dataset.motion=(s.reducedMotion||s.lowStimulation)?'reduced':'normal';r.style.colorScheme=s.theme==='system'?'light dark':s.theme;r.style.setProperty('--md-sys-color-primary',s.seed);r.style.setProperty('--jc-font-size',`${s.fontSize}px`);r.style.fontSize=`${s.fontSize}px`;r.style.fontFamily=s.font==='serif'?'Georgia,serif':s.font==='mono'?'ui-monospace,monospace':'system-ui,sans-serif';}
 window.addEventListener('storage',e=>{if(e.key===key && e.newValue){try{state=validateSettings(JSON.parse(e.newValue));applyAppearance();listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}catch{persistenceError='Another tab supplied invalid settings; the current settings were kept.';}}});
-export function translate(en:string,yue:string,locale=state.locale){const text=locale==='en'?en:locale==='yue'?yue:`${en} · ${yue}`;return personalText(text);}
+export function translate(en:string,yue:string,locale=state.locale){en=typeof en==='string'?en:'';yue=typeof yue==='string'?yue:en;const text=locale==='en'?en:locale==='yue'?yue:`${en} · ${yue}`;return personalText(text);}
+let localAuthenticated=false;
+export function setLocalAuthenticated(value:boolean){localAuthenticated=value===true;listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}
+window.addEventListener('jc-authenticated',e=>setLocalAuthenticated((e as CustomEvent).detail===true));
 let mappings: Array<{original:string;replacement:string}>=[];
 const vocabularyKey='jc.private-words.v1';
 // Parse duplicate object keys before JSON.parse can erase them.
@@ -51,7 +55,7 @@ export function validateVocabulary(text:string){if(new TextEncoder().encode(text
 export function loadVocabulary(text:string){const valid=validateVocabulary(text);localStorage.setItem(vocabularyKey,JSON.stringify({schemaVersion:1,entries:Object.fromEntries(valid.map(e=>[e.original,e.replacement]))}));mappings=valid;listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}
 export function clearVocabulary(){localStorage.removeItem(vocabularyKey);mappings=[];listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}
 export function hasVocabulary(){return mappings.length>0;}
-export function personalText(text:string){if(!mappings.length)return text;const sorted=[...mappings].sort((a,b)=>b.original.length-a.original.length);const escaped=sorted.map(x=>x.original.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));return text.replace(new RegExp(escaped.join('|'),'gu'),match=>sorted.find(x=>x.original===match)!.replacement);}
+export function personalText(text:string){if(typeof text!=='string')return '';if(!localAuthenticated||!mappings.length)return text;const sorted=[...mappings].sort((a,b)=>b.original.length-a.original.length);const escaped=sorted.map(x=>x.original.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));return text.replace(new RegExp(escaped.join('|'),'gu'),match=>sorted.find(x=>x.original===match)!.replacement);}
 try{const cached=localStorage.getItem(vocabularyKey);if(cached)mappings=validateVocabulary(cached);}catch{try{localStorage.removeItem(vocabularyKey);}catch{/* Storage can be disabled. */}}
 export function exportSettings(){return JSON.stringify({version:1,settings:getState(),history:getHistory(),omitted:['Personal wording and file metadata']},null,2);}
 export function downloadText(name:string,text:string,type='application/json'){const url=URL.createObjectURL(new Blob([text],{type:`${type};charset=utf-8`}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
