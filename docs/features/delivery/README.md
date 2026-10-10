@@ -19,3 +19,7 @@ Installers are unsigned and may display an unknown-publisher or SmartScreen warn
 ## Related articles
 - [Desktop companion](../companion/README.md)
 - [Documentation index](../../README.md)
+
+## Verification installation
+
+See [isolated verification installation](isolated-installation.md) for the separately identified Squirrel package and its exact limitations.
