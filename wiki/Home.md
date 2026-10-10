@@ -22,3 +22,5 @@ Use the website's Documentation and Wiki destinations to browse category indexes
 The public portfolio prioritizes Jackson’s identity, factual experience, selected projects and contact details. Its editorial ink, ivory and burnt-orange presentation is separate from the desktop workspace. Supporting tools and documentation remain available through More.
 
 The owner-approved website presentation exception is limited to the website Material Design contract. Desktop, extension, accessibility and language obligations remain in force. The complete scope decision is documented in the profile navigation article.
+
+- [Browser-local support and recovery](../docs/features/preferences/support-tickets.md)
