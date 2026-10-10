@@ -1,0 +1,6 @@
+'use strict';
+const net=require('node:net');
+const {validSite,validate}=require('./security.cjs');
+const PIPE='\\\\.\\pipe\\jackson-chung-companion';
+function listen(service){const seen=new Set();const server=net.createServer(socket=>{socket.setTimeout(15000,()=>socket.destroy());let data='';socket.on('data',async chunk=>{data+=chunk.toString('utf8');if(Buffer.byteLength(data)>1048576){socket.destroy();return}if(!data.includes('\n'))return;socket.pause();try{const message=JSON.parse(data.trim());if(typeof message.id!=='string'||! /^[a-f0-9-]{36}$/.test(message.id)||seen.has(message.id)||!Number.isFinite(message.timestamp)||Math.abs(Date.now()-message.timestamp)>30000||!validSite(message.origin)||!service.authorize(message.token,message.operation))throw Error('Not authorized');validate(message.operation,message.input);if(seen.size>=4096)throw Error('Request limit reached; restart pairing');seen.add(message.id);socket.end(JSON.stringify({ok:true,value:await service.request(message.operation,message.input)})+'\n')}catch{socket.end(JSON.stringify({ok:false,error:'Pairing required or request invalid'})+'\n')}})});server.on('error',()=>{});server.listen(PIPE);return server}
+module.exports={PIPE,listen};

@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Jackson Chung Local Companion",
+  "version": "0.1.0",
+  "description": "Explicitly paired access to local model capabilities from the Jackson Chung website.",
+  "permissions": ["nativeMessaging", "storage"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{ "matches": ["https://ding-ding-projects.github.io/jackson-chung/*"], "js": ["content.js"], "run_at": "document_start" }],
+  "action": { "default_popup": "pair.html" }
+}
