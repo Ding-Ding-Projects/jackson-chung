@@ -1,0 +1,25 @@
+'use strict';
+const crypto=require('node:crypto');
+const fs=require('node:fs');
+const path=require('node:path');
+const {validateReceipt}=require('./updater.cjs');
+const PROJECT='Ding-Ding-Projects/jackson-chung';
+async function bounded(url,max,fetcher=fetch){
+ const signal=AbortSignal.timeout(600000);let response;
+ for(let hop=0;hop<4;hop++){const target=new URL(url);if(target.protocol!=='https:'||target.username||target.password||!['api.github.com','github.com','release-assets.githubusercontent.com'].includes(target.hostname))throw Error('Unsupported update address');response=await fetcher(url,{redirect:'manual',signal,headers:{Accept:'application/vnd.github+json'}});if(![301,302,303,307,308].includes(response.status))break;const location=response.headers.get('location');await response.body?.cancel();if(!location||hop===3)throw Error('Update redirect limit');url=new URL(location,url).href}
+ if(response.status===404)return null;if(!response.ok||!response.body)throw Error('Release discovery unavailable');const parts=[];let size=0;const reader=response.body.getReader();try{while(true){const {value,done}=await reader.read();if(done)break;size+=value.byteLength;if(size>max)throw Error('Release response exceeds bound');parts.push(Buffer.from(value))}}finally{await reader.cancel().catch(()=>{})}return Buffer.concat(parts);
+}
+async function discover(fetcher=fetch){
+ const raw=await bounded(`https://api.github.com/repos/${PROJECT}/releases/latest`,1048576,fetcher);if(!raw)return null;const release=JSON.parse(raw);if(release.draft!==false||release.prerelease!==false||!Number.isSafeInteger(release.id)||! /^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(release.tag_name)||!Array.isArray(release.assets)||release.assets.length>100)throw Error('Invalid normal release');
+ const feed=`https://github.com/${PROJECT}/releases/download/${release.tag_name}/`;
+ const asset=(name,max)=>{const entries=release.assets.filter(a=>a.name===name);if(entries.length!==1||!Number.isSafeInteger(entries[0].size)||entries[0].size<1||entries[0].size>max||entries[0].browser_download_url!==feed+name)throw Error('Invalid release asset');return entries[0]};
+ asset('build-info.json',1048576);asset('RELEASES',1048576);const build=JSON.parse(await bounded(feed+'build-info.json',1048576,fetcher));if(!/^\d+\.\d+\.\d+$/.test(build.version)||! /^[a-f0-9]{40}$/.test(build.source))throw Error('Invalid release source metadata');const commit=JSON.parse(await bounded(`https://api.github.com/repos/${PROJECT}/commits/${encodeURIComponent(release.tag_name)}`,1048576,fetcher));if(commit.sha!==build.source)throw Error('Release tag source mismatch');
+ const name=`JacksonChung-${build.version}-full.nupkg`,packageAsset=asset(name,1500000000);const index=await bounded(feed+'RELEASES',1048576,fetcher);const rows=index.toString('utf8').trim().split(/\r?\n/).map(row=>row.trim().split(/\s+/));if(rows.length!==1||rows[0].length!==3||rows[0][1]!==name||Number(rows[0][2])!==packageAsset.size||! /^[a-f0-9]{40}$/i.test(rows[0][0]))throw Error('Invalid release index');const bytes=await bounded(feed+name,packageAsset.size,fetcher);const sha1=crypto.createHash('sha1').update(bytes).digest('hex'),sha256=crypto.createHash('sha256').update(bytes).digest('hex');if(bytes.length!==packageAsset.size||sha1!==rows[0][0].toLowerCase()||(packageAsset.digest&&packageAsset.digest!==`sha256:${sha256}`))throw Error('Release payload mismatch');
+ const embedded=require('./update-metadata.cjs').embeddedMetadata(bytes);if(embedded.source!==build.source||embedded.version!==build.version)throw Error('Release embedded source/version mismatch');
+ return validateReceipt({feed,isDraft:false,isPrerelease:false,package:{name,sha1,sha256,size:bytes.length},releaseId:release.id,source:build.source,tag:release.tag_name,verifiedAt:new Date().toISOString(),version:build.version});
+}
+async function verifyStaged(receipt,executable=process.execPath){
+ const root=path.resolve(path.dirname(executable),'..');const packagePath=path.join(root,'packages',receipt.package.name);const real=await fs.promises.realpath(packagePath);if(real.toLowerCase()!==packagePath.toLowerCase())throw Error('Staged package redirected');const handle=await fs.promises.open(real,'r');try{const stat=await handle.stat();if(!stat.isFile()||stat.size!==receipt.package.size)throw Error('Staged package size mismatch');const sha1=crypto.createHash('sha1'),sha256=crypto.createHash('sha256');for await(const chunk of handle.createReadStream({autoClose:false})){sha1.update(chunk);sha256.update(chunk)}if(sha1.digest('hex')!==receipt.package.sha1||sha256.digest('hex')!==receipt.package.sha256)throw Error('Staged package hash mismatch')}finally{await handle.close()}
+ const metadata=path.join(root,`app-${receipt.version}`,'resources','app.asar','dist','build-info.json');const info=await fs.promises.readFile(metadata);if(info.length>1048576)throw Error('Staged source metadata exceeds bound');const build=JSON.parse(info);if(build.source!==receipt.source||build.version!==receipt.version)throw Error('Staged source/version mismatch');return true;
+}
+module.exports={discover,verifyStaged,bounded};
