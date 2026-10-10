@@ -6,6 +6,15 @@ const {execFile}=require('node:child_process');
 const {promisify}=require('node:util');
 const run=promisify(execFile);
 const {validate}=require('./security.cjs');
+async function readModelList(response){
+  if(Number(response.headers.get('content-length'))>1048576)throw Error('Model metadata exceeds 1 MiB');
+  const reader=response.body.getReader();let bytes=0;const parts=[];
+  try{while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>1048576)throw Error('Model metadata exceeds 1 MiB');parts.push(Buffer.from(value));}}finally{await reader.cancel().catch(()=>{});}
+  const value=JSON.parse(Buffer.concat(parts).toString('utf8'));
+  if(!value||!Array.isArray(value.models)||value.models.length>4096)throw Error('Invalid model metadata');
+  for(const model of value.models){if(!model||typeof model!=='object'||typeof model.name!=='string'||model.name.length>200||model.name.length===0)throw Error('Invalid model metadata');for(const key of ['size','size_vram','context_length'])if(model[key]!==undefined&&(!Number.isFinite(model[key])||model[key]<0))throw Error('Invalid model metadata');}
+  return value;
+}
 function createService({app,getWindow}) {
   const {safeStorage,dialog,shell}=require('electron');
   const root=path.join(app.getPath('userData'),'private-data');
@@ -30,8 +39,8 @@ function createService({app,getWindow}) {
     if(op==='file.import'){const result=await dialog.showOpenDialog(getWindow(),{properties:['openFile'],filters:[{name:'Text and JSON',extensions:['txt','json','md','csv']}]});if(result.canceled)return {cancelled:true};const name=result.filePaths[0];if((await fs.stat(name)).size>1048576)throw Error('File too large');const id=crypto.randomUUID();files.set(id,name);return {id,name:path.basename(name),text:await fs.readFile(name,'utf8')}}
     if(op==='file.export'){if(typeof p.text!=='string'||p.text.length>1048576)throw Error('Invalid text');const result=await dialog.showSaveDialog(getWindow(),{defaultPath:'export.json'});if(result.canceled)return {cancelled:true};await fs.writeFile(result.filePath,p.text,'utf8');const id=crypto.randomUUID();files.set(id,result.filePath);return {id,name:path.basename(result.filePath)}}
     if(op==='editor.open'){const target=files.get(p.id);if(!target)throw Error('Select or export a file first');const candidates=[path.join(process.env.LOCALAPPDATA??'','Programs','Microsoft VS Code','Code.exe'),path.join(process.env.ProgramFiles??'','Microsoft VS Code','Code.exe')];for(const editor of candidates){try{await fs.access(editor);await run(editor,['--reuse-window',target],{windowsHide:true,timeout:10000});return {opened:true}}catch{}}return {opened:false,recovery:'Install Visual Studio Code, then retry.'}}
-    if(op==='ollama.tags')return (await ollama('tags')).json();
-    if(op==='ollama.ps')return (await ollama('ps')).json();
+    if(op==='ollama.tags')return readModelList(await ollama('tags'));
+    if(op==='ollama.ps')return readModelList(await ollama('ps'));
     if(op==='ollama.catalog')return {available:false,url:'https://ollama.com/library',recovery:'The official catalog does not expose a stable complete public API. Open the official catalog and enter an exact model identifier.'};
     if(op==='ollama.chat'){if(typeof p.model!=='string'||p.model.length>200||typeof p.prompt!=='string'||p.prompt.length>64000)throw Error('Invalid chat');return task('chat',{model:p.model,messages:[{role:'user',content:p.prompt}]})}
     if(op==='ollama.pull'){if(typeof p.model!=='string'||! /^[a-zA-Z0-9][a-zA-Z0-9_.:/-]{0,199}$/.test(p.model))throw Error('Invalid model');return task('pull',{model:p.model})}
@@ -44,4 +53,4 @@ function createService({app,getWindow}) {
   }
   return {request,capabilities:async()=>({version:app.getVersion(),capabilities:['window','encrypted-store','native-dialogs','editor','ollama','pairing'],history:{available:await fs.access(git).then(()=>true,()=>false),origin:'bundled',recovery:'Expected packaged tools/git/cmd/git.exe'}}),authorize:(token,op)=>pairs.get(token)?.capabilities.includes(op)};
 }
-module.exports={createService};
+module.exports={createService,readModelList};

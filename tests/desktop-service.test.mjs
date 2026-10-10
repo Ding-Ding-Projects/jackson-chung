@@ -6,14 +6,27 @@ import path from 'node:path';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
-async function fixture(encryption=true){
+const {readModelList}=require('../desktop/native-service.cjs');
+test('model metadata readers bound bytes and validate official model lists',async()=>{
+ assert.deepEqual(await readModelList(new Response(JSON.stringify({models:[{name:'example:tag',size:12}]}))),{models:[{name:'example:tag',size:12}]});
+ await assert.rejects(readModelList(new Response('x'.repeat(1048577))),/exceeds/);
+ await assert.rejects(readModelList(new Response('{}')),/Invalid/);
+ await assert.rejects(readModelList(new Response(JSON.stringify({models:[{name:'x',size:-1}]}))),/Invalid/);
+ await assert.rejects(readModelList(new Response('{')));
+});
+async function fixture(encryption=true,fetchImpl=fetch){
  const root=await fs.mkdtemp(path.join(os.tmpdir(),'jc-native-test-'));
  const source=await fs.readFile(new URL('../desktop/native-service.cjs',import.meta.url),'utf8');
  const module={exports:{}};
  const electron={safeStorage:{isEncryptionAvailable:()=>encryption,encryptString:s=>Buffer.from('encrypted:'+s).reverse(),decryptString:b=>Buffer.from(b).reverse().toString().slice(10)},dialog:{},shell:{}};
- vm.runInNewContext(source,{require:id=>id==='electron'?electron:require(id==='./security.cjs'?'../desktop/security.cjs':id),module,Buffer,process:{...process,resourcesPath:path.join(root,'resources')},setTimeout,fetch,AbortSignal,URL},{filename:'native-service.cjs'});
+ vm.runInNewContext(source,{require:id=>id==='electron'?electron:require(id==='./security.cjs'?'../desktop/security.cjs':id),module,Buffer,process:{...process,resourcesPath:path.join(root,'resources')},setTimeout,fetch:fetchImpl,AbortSignal,URL},{filename:'native-service.cjs'});
  return {root,service:module.exports.createService({app:{getPath:()=>root,getVersion:()=>'test'},getWindow:()=>null})};
 }
+test('local model transport never follows redirects and reports service failure',async()=>{
+ let seen;
+ const {root,service}=await fixture(true,async(url,options)=>{seen={url,options};return new Response('',{status:503})});
+ try {await assert.rejects(service.request('ollama.tags'),/rejected/);assert.equal(seen.url,'http://127.0.0.1:11434/api/tags');assert.equal(seen.options.redirect,'error');assert.ok(seen.options.signal);}finally{await fs.rm(root,{recursive:true,force:true})}
+});
 test('encrypted save survives unavailable history and reports its exact recovery',async()=>{
  const {root,service}=await fixture();try{
  const saved=await service.request('store.write',{value:{privateNote:'private sample'}});
