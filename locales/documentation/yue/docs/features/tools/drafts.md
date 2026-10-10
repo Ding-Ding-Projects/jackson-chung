@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"50366ad7412f8e0637b8f0aa4b52e1d653ce8239d8a0ccc849ebf605ecce990d","title":"本機工具的暫存草稿","category":"本機工具","related":["docs-features-preferences-README","docs-features-tools-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"c75218a4a6af9557bd6f91c5638632072d828b8b5294615718a30578e5c8f02e","title":"本機工具的暫存草稿","category":"本機工具","related":["docs-features-preferences-README","docs-features-tools-README"]} -->
 # 本機工具的暫存草稿
 
 轉換器、佇列輸入、手動驗證器表格及新登記表格，都會向共用分頁擁有者登記明確的草稿提供者。提供者只檢查指定欄位及已選檔案的參照。這項整合不會加入表格序列化、密鑰歷史、密鑰匯出或密鑰持久儲存。
