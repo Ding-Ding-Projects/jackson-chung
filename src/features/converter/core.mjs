@@ -24,7 +24,7 @@ export async function pdfTool(inputs, operation, {pages=[],rotation=90,title=''}
   const selected=pages.length?pages:Array.from({length:count},(_,i)=>i);
   if(selected.some(p=>!Number.isInteger(p)||p<0||p>=count))throw new Error('Page numbers must exist in the source.');
   if(operation==='reorder'&&(selected.length!==count||new Set(selected).size!==count))throw new Error('Reorder must contain every page exactly once.');
-  if(operation==='split'){const results=[];for(const p of selected)results.push(await pdfTool(inputs.slice(0,1),'extract',{pages:[p]}));return results;}
+  if(operation==='split'){const results=[];let total=0;for(const p of selected){const result=await pdfTool(inputs.slice(0,1),'extract',{pages:[p]});total+=result.length;if(total>MAX_BYTES)throw new Error('Combined split output exceeds 20 MiB.');results.push(result);}return results;}
   let output;
   if(operation==='rotate'||operation==='metadata'){output=first;if(operation==='rotate'){if(![90,180,270].includes(rotation))throw new Error('Choose 90, 180 or 270 degrees.');for(const p of selected)output.getPage(p).setRotation(degrees((output.getPage(p).getRotation().angle+rotation)%360));}else output.setTitle(title);}
   else {output=await PDFDocument.create();for(const source of operation==='merge'?docs:[first]){const indices=operation==='merge'?source.getPageIndices():selected;for(const page of await output.copyPages(source,indices))output.addPage(page);}}
