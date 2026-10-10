@@ -2,6 +2,8 @@ import {LitElement,html,css} from 'lit';
 import type {FeatureRegistry,FeatureContext,NativeApi} from '../../types';
 import {registerDraftProvider} from '../../state/drafts';
 import {createJsonDraft,createModelDraft} from './draft-controller';
+import {resolveDrafts} from '../../components/draft-confirm';
+import {createCompanionClose} from './close-controller';
 
 /** Browser transport has no local-network access and receives no pairing material. */
 export function browserAdapter(): NativeApi {
@@ -24,6 +26,8 @@ class CompanionPanel extends LitElement {
   private pendingActions=0;private pendingRequests=0;private unregisterDrafts:Array<()=>void>=[];
   private recordDraft=createJsonDraft(async value=>{const result=await this.request('store.write',{value});if(result?.saved!==true)throw Error(this.t('Native save was not acknowledged.','本機儲存未確認。'));this.status=result.historySaved?this.t('Encrypted save and local history recorded.','加密儲存同本機歷史已記錄。'):result.historyRecovery;return result});
   private modelDraft=createModelDraft();
+  private requestClose=createCompanionClose({resolveDrafts:()=>resolveDrafts(undefined,document.activeElement as HTMLElement,this.context?.locale??'en'),canDispose:()=>this.canDispose(),requestClose:()=>this.api.request('window.close')});
+  private async closeCompanion(){const outcome=await this.requestClose();if(outcome==='error'||outcome==='busy'){this.status=outcome==='busy'?this.t('Another operation still prevents closing.','仍有其他操作未完成，暫時不能關閉。'):this.t('The close request could not finish. The workspace remains available; retry when ready.','關閉請求未能完成，工作區仍可使用，準備好後請重試。');this.context?.notify(this.status,'error')}}
   private canDispose(){return this.pendingActions===0&&this.pendingRequests===0&&this.taskIds.size===0&&!this.busy&&this.recordDraft.canDispose()}
   private registerDrafts(){if(this.unregisterDrafts.length||!this.isConnected)return;this.unregisterDrafts.push(registerDraftProvider(this,{id:'companion.records',label:{en:'Local JSON records',yue:'本機 JSON 記錄'},isDirty:()=>this.recordDraft.isDirty(),save:async()=>{await this.recordDraft.save();this.requestUpdate()},discard:()=>{this.recordDraft.discard();this.requestUpdate()},canDispose:()=>this.canDispose()}),registerDraftProvider(this,{id:'companion.model-message',label:{en:'Local model input drafts',yue:'本機模型輸入草稿'},isDirty:()=>this.modelDraft.isDirty(),discard:()=>{this.modelDraft.discard();this.requestUpdate()},canDispose:()=>this.canDispose()}));}
   catalog:any[]=[];catalogInfo:any=null;catalogQuery='';catalogState='all';catalogPage=0;cart:string[]=[];inspections:Record<string,any>={};regexMode=false;catalogSort='name';catalogFamily='';catalogFit='all';
@@ -45,7 +49,7 @@ class CompanionPanel extends LitElement {
   render(){const native=!!(this.context?.native??window.jacksonNative);return html`<section>
     <h2>${this.t('Local companion','本機助手')}</h2>
     <p>${this.t('The website works without the companion. Native dialogs, encrypted local storage and local models need the optional desktop companion. Browser model requests require the paired extension.','網站毋須助手亦可使用。本機對話框、加密儲存同本機模型需要選用桌面助手。瀏覽器模型請求需要已配對擴充功能。')}</p>
-    ${native?html`<nav aria-label="Window actions"><button @click=${()=>this.action(async()=>{await this.request('window.minimize')})}>${this.t('Minimize','最小化')}</button><button @click=${()=>this.action(async()=>{await this.request('window.maximize')})}>${this.t('Maximize / restore','最大化／還原')}</button><button @click=${()=>this.action(async()=>{await this.request('window.close')})}>${this.t('Close','關閉')}</button></nav>`:''}
+    ${native?html`<nav aria-label="Window actions"><button @click=${()=>this.action(async()=>{await this.request('window.minimize')})}>${this.t('Minimize','最小化')}</button><button @click=${()=>this.action(async()=>{await this.request('window.maximize')})}>${this.t('Maximize / restore','最大化／還原')}</button><button @click=${()=>this.closeCompanion()}>${this.t('Close','關閉')}</button></nav>`:''}
     <output role="status" aria-live="polite">${this.status}</output>
     <fieldset><legend>${this.t('Ollama local models','Ollama 本機模型')}</legend>
       <p>${this.t('Connects only to the local Ollama service. No hardware capacity is inferred. Install Ollama and start its service when unavailable.','只連接本機 Ollama 服務，唔會推測硬件容量。未能連接時請安裝 Ollama 並啟動服務。')}</p>
