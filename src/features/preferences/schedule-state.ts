@@ -1,7 +1,7 @@
 import {getState,validateSettings,parseUniqueJson,type Settings} from '../../state/store';
 export type Schedule={id:string;label:string;enabled:boolean;start:string;end:string;from:string;until:string;weekdays:number[];patch:Partial<Settings>};
 export const schedulableFields=['locale','funnyEn','funnyYue','emojis','theme','density','font','fontSize','seed','reducedMotion','displayName','narration','voiceEn','voiceYue','rate','pitch','dock','focus','lowStimulation','timeAwareness','oneThing','momentum','focusTarget'] as const;
-export const appliedScheduleFields=['locale','theme','density','font','fontSize','seed','reducedMotion','dock'] as const;
+export const appliedScheduleFields=['locale','theme','density','font','fontSize','seed','reducedMotion','displayName','dock'] as const;
 export type ScheduledField=typeof schedulableFields[number];
 const actions=['Initial rules','Save rule','Enable rule','Disable rule','Duplicate rule','Reorder rules','Remove rule','Import rules','Restore revision','Undo schedule change'];
 export type ScheduleRevision={id:string;at:string;action:string;rules:Schedule[]};
