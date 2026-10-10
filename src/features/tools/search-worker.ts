@@ -1,0 +1,1 @@
+self.onmessage=e=>{try{const {query,flags,values}=e.data;const expression=new RegExp(query,flags);self.postMessage({matches:values.map((value:string)=>{expression.lastIndex=0;return expression.test(value);})});}catch{self.postMessage({error:true});}};
