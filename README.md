@@ -21,7 +21,7 @@ Descriptions retain each project's development limitations. Inclusion does not c
 
 On Windows, run `build.bat /s` to build the shared static renderer. Run `build-installer.bat /s` to produce the unsigned Squirrel.Windows desktop package. The entrypoints obtain missing supported tooling through verified official routes and propagate real failures. Fresh-machine bootstrap has not been verified.
 
-The public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/), hosted on GitHub Pages. The editorial redesign was verified live at source 6b650fb, with four inspected Home/Projects captures, six exact project links and 44 article/language observations. Palette close/focus remains unverified; the built evidence is recorded below. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
+The public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/), hosted on GitHub Pages. The editorial redesign was verified live at source 6b650fb, with four inspected Home/Projects captures, six exact project links and 44 article/language observations. The later ceafd37 build passed automatic palette input focus, Escape and Close-button closure, and visible opener focus return at 1440 English/light and320 bilingual/dark. Its publication is verified separately. The built evidence is recorded below. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
 
 ## Documentation and verification
 
