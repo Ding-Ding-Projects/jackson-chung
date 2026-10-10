@@ -1,3 +1,4 @@
+import {fileURLToPath} from 'node:url';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -6,7 +7,16 @@ const values=new Map();
 globalThis.localStorage={getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};
 globalThis.window={addEventListener(){},dispatchEvent(){}};
 globalThis.document={documentElement:{dataset:{},style:{setProperty(){}}}};
-const source=ts.transpile(fs.readFileSync(new URL('../src/state/store.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext});
+globalThis.customElements={define(){}};
+const encode=code=>'data:text/javascript;base64,'+Buffer.from(code).toString('base64');
+const litStubUrl=encode('export class LitElement{};export const html=()=>{};export const css=()=>{};');
+const schoolSource=ts.transpile(fs.readFileSync(new URL('../src/state/school.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}).replace("from 'lit'",`from '${litStubUrl}'`);
+const schoolUrl=encode(schoolSource);
+const school=await import(schoolUrl);
+const {build}=await import('esbuild');
+const paletteSource=(await build({entryPoints:[fileURLToPath(new URL('../src/state/palette.ts',import.meta.url))],bundle:true,write:false,format:'esm',platform:'browser'})).outputFiles[0].text;
+const paletteUrl=encode(paletteSource);
+const source=ts.transpile(fs.readFileSync(new URL('../src/state/store.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext}).replace("from './palette'",`from '${paletteUrl}'`).replace("from './school'",`from '${schoolUrl}'`);
 const store=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 test('defaults and settings validation reject unsupported or unsafe values',()=>{assert.equal(store.getState().funnyEn,5);assert.equal(store.getState().funnyYue,5);assert.throws(()=>store.validateSettings({...store.defaults,fontSize:Infinity}));assert.throws(()=>store.validateSettings({...store.defaults,seed:'url(fake)'}));assert.throws(()=>store.validateSettings({...store.defaults,pins:['../escape']}));assert.throws(()=>store.validateSettings({...store.defaults,unknown:true}));});
 test('personal wording validates atomically and never enters exports or history',()=>{const neutral=JSON.stringify({schemaVersion:1,entries:{'Sample original':'Neutral replacement'}});store.loadVocabulary(neutral);assert.equal(store.personalText('Sample original'),'Sample original');store.setLocalAuthenticated(true);assert.equal(store.personalText('Sample original'),'Neutral replacement');assert.throws(()=>store.loadVocabulary('{"schemaVersion":1,"schemaVersion":1,"entries":{}}'));assert.equal(store.personalText('Sample original'),'Neutral replacement');assert.throws(()=>store.validateVocabulary(JSON.stringify({schemaVersion:2,entries:{}})));assert.throws(()=>store.validateVocabulary(JSON.stringify({schemaVersion:1,entries:{a:42}})));assert.throws(()=>store.validateVocabulary('{"schemaVersion":1,"entries":{},"__proto__":{}}'));store.updateState({fontSize:18},'Changed text size');assert.ok(!store.exportSettings().includes('Neutral replacement'));assert.ok(!JSON.stringify(store.getHistory()).includes('Sample original'));store.clearVocabulary();assert.equal(store.personalText('Sample original'),'Sample original');});
@@ -35,3 +45,6 @@ test('local schedule boundaries use their starting weekday and preserve base set
  store.updateState({theme:'light'});schedules.saveSchedules([rule]);assert.equal(schedules.effectiveSettings(new Date(2026,9,12,23)).theme,'dark');assert.equal(store.getState().theme,'light');
  schedules.saveSchedules([]);
 });
+
+test('seed-derived scheme role pairs meet neutral contrast in both themes',async()=>{const {paletteRoles}=await import(paletteUrl);const luminance=hex=>{const rgb=hex.slice(1).match(/../g).map(x=>parseInt(x,16)/255).map(c=>c<=0.04045?c/12.92:((c+0.055)/1.055)**2.4);return rgb[0]*0.2126+rgb[1]*0.7152+rgb[2]*0.0722;};for(const dark of [false,true]){const roles=paletteRoles('#006b60',dark);for(const [a,b] of [['primary','on-primary'],['surface','on-surface'],['primary-container','on-primary-container']]){const x=luminance(roles[a]),y=luminance(roles[b]);assert.ok((Math.max(x,y)+0.05)/(Math.min(x,y)+0.05)>=4.5);}}});
+test('browser-local presentation lock checks credential and suppresses wording',async()=>{await school.enableSchool('neutral test credential');assert.equal(school.getSchoolState().enabled,true);store.loadVocabulary(JSON.stringify({schemaVersion:1,entries:{Neutral:'Replacement'}}));store.setLocalAuthenticated(true);assert.equal(store.personalText('Neutral'),'Neutral');assert.equal(store.translate('English label','Secondary label','yue'),'English label');await assert.rejects(school.disableSchool('incorrect neutral credential'));await school.disableSchool('neutral test credential');assert.equal(school.getSchoolState().enabled,false);school.renameSchool('Study view');assert.equal(school.getSchoolState().name,'Study view');assert.ok(!store.exportSettings().includes('neutral test credential'));store.clearVocabulary();});
