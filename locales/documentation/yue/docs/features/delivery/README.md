@@ -1,4 +1,4 @@
-<!-- documentation-locale: {"sourceSha256":"7985ca3c6774c4483cd2bb05b5cb4bda2efd07928f0687d735ff13b445d79147","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
+<!-- documentation-locale: {"sourceSha256":"27705f9410c53cf98c45fe8b3b3c0d78544cec47e192b75e85ec88d45ea805a8","title":"交付與驗證","category":"交付與驗證","related":["docs-features-companion-README","docs-features-delivery-package-integrity"]} -->
 # 交付與驗證
 
 - [套件內容完整性](package-integrity.md)
@@ -40,4 +40,4 @@
 
 Squirrel 2.0.1 來源支援保留內容迴環路線。Squirrel 會將迴環傳輸地址寫入本機診斷日誌。呢個非秘密地址只提供已公開並核實嘅發行內容，冇認證或機密資源。應用程式唔會透過 IPC 提供該地址。診斷日誌保持私人，唔會加入來源、畫面擷取或發行版本。已安裝傳輸同生命週期驗收仍未核實。
 
-重新啟動批准只適用於一次呈現程式生命週期嘗試。導覽、呈現程式失效、銷毀、逾時、取消或明確撤銷，都會令批准失效。非同步暫存內容核對完成後，安裝會喺呼叫更新器之前即時再核對同一次授權。被拒絕嘅嘗試唔會消耗已下載更新，之後重新批准仍可繼續。
+重新啟動使用按身分限定嘅請求記錄同授權租約，喺對話框同延後核對期間一直保留。更新器會先登記租約，再通知呈現程式。之後嘅一般關閉請求會令舊重新啟動失效，即使新決定係取消或未回答亦一樣。導覽、呈現程式失效、銷毀、逾時同取消，都會令所屬嘗試失效。過時完成、拒絕或清理只可以撤銷原先持有嘅租約，唔會影響較新關閉決定或更新器租約。最終安裝會喺暫存核對完成後，只消耗一次相符批准，期間冇再等候非同步操作就呼叫更新器。之後重新批准仍可繼續。
