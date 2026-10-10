@@ -1,5 +1,9 @@
 # Profile and documentation navigation
 
+## Website presentation decision
+
+The owner explicitly requested a personal portfolio without Material Design styling. The website therefore uses its own editorial typography, colors, spacing and navigation. This presentation exception applies only to `website/material-design`. It does not exempt desktop or extension presentation, accessibility, language support, responsive behavior, functional controls, or any other delivery requirement. The independently retained contract baseline permits only this exact surface and contract pair. Unknown global exemptions and widened surface exceptions are rejected. Missing evidence remains incomplete.
+
 The profile uses fragment destinations for its main sections. Documentation routes use `#docs/<encoded article identifier>/<encoded heading identifier>`. Article identifiers may contain slashes, which are encoded as part of the identifier. Browser back and forward restore the selected article and heading.
 
 The documentation reader loads the locally bundled `documentation.json` manifest. Category buttons open the category index when it exists, otherwise its first bundled article. Article buttons, related reading, relative Markdown links, and same-article heading links use the same navigation path. Heading identifiers are deterministic and repeated headings receive numeric suffixes. Selecting an article focuses its reading surface; selecting a heading focuses and scrolls that heading. Unavailable articles or headings show an explicit status.

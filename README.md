@@ -21,13 +21,13 @@ Descriptions retain each project's development limitations. Inclusion does not c
 
 On Windows, run `build.bat /s` to build the shared static renderer. Run `build-installer.bat /s` to produce the unsigned Squirrel.Windows desktop package. The entrypoints obtain missing supported tooling through verified official routes and propagate real failures. Fresh-machine bootstrap has not been verified.
 
-The public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/), hosted on GitHub Pages. The preceding verified deployment was 386410d; the editorial redesign's built evidence is recorded below. Its new live deployment is verified separately from source and capture checks. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
+The public home is [Jackson Chung](https://ding-ding-projects.github.io/jackson-chung/), hosted on GitHub Pages. The editorial redesign was verified live at source 6b650fb, with four inspected Home/Projects captures, six exact project links and 44 article/language observations. Palette close/focus remains unverified; the built evidence is recorded below. Browser tools keep their files and credentials locally. Native machine access requires the desktop companion and explicit capability grants.
 
 ## Documentation and verification
 
 [Documentation](docs/README.md), [wiki source](wiki/Home.md), [roadmap](ROADMAP.md), and [handoff](HANDOFF.md) distinguish implemented behavior from missing features and unverified evidence. The website bundles every checked-in documentation and wiki article for internal reading.
 
-Local verification at source `cee79f8` includes 167 passing checks and TypeScript. Complete package inspection covers 533 entries and 443 staged payload files, with all 46 build processes independently accounted for. The separate installed verification candidate passed encrypted-record persistence, dirty Save and close, and clean caption close without an error dialog. These bounded results do not establish production integration, updater, uninstall, fresh-machine bootstrap or complete contract acceptance. The completeness checker remains red, with 297 missing or unverified surface requirements.
+Local verification at source `cee79f8` includes 167 passing checks and TypeScript. Complete package inspection covers 533 entries and 443 staged payload files, with all 46 build processes independently accounted for. The separate installed verification candidate passed encrypted-record persistence, dirty Save and close, and clean caption close without an error dialog. These bounded results do not establish production integration, updater, uninstall, fresh-machine bootstrap or complete contract acceptance. The completeness checker remains red, with 296 missing surface-contract evidence rows after the explicitly approved website presentation exception.
 
 [Task and handoff](https://github.com/Ding-Ding-Projects/jackson-chung/issues/1) · [Progress discussion](https://github.com/Ding-Ding-Projects/jackson-chung/discussions/2)
 

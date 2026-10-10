@@ -25,5 +25,12 @@
     "roblox-model-catalogue": "No Roblox experience is implemented by this project.",
     "roblox-visual-realism": "No Roblox experience is implemented by this project."
   },
+  "surfaceExceptions": [{
+    "id": "material-design",
+    "surface": "website",
+    "basis": "explicit-owner-direction",
+    "reason": "The owner explicitly requested a non-Material-Design personal website. This exception changes only the website presentation requirement.",
+    "documentation": "docs/features/profile/navigation.md"
+  }],
   "rows": []
 }

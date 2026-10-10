@@ -1,5 +1,9 @@
-<!-- documentation-locale: {"sourceSha256": "6da265fb3e094986038caf70d02e4b9f5f6b33d1ac7ed70af9f6ed995a509dd9", "title": "個人頁及文件導覽", "category": "功能／個人頁", "related": ["docs-features-profile-README", "docs-features-preferences-README"]} -->
+<!-- documentation-locale: {"sourceSha256":"a160a446332e821c71dd4d4561b1d72d4f8a9aefa2bb742a9aabf7f8f47c3da6","title":"個人頁及文件導覽","category":"功能／個人頁","related":["docs-features-profile-README","docs-features-preferences-README"]} -->
 # 個人頁及文件導覽
+
+## 網頁外觀決定
+
+擁有人明確要求個人作品集唔採用 Material Design 風格。因此網頁採用獨立嘅編排字體、色彩、間距同導覽。呢項外觀例外只適用於 `website/material-design`，唔會豁免桌面或擴充功能嘅外觀、無障礙、語言支援、響應式版面、實際控制項或其他交付要求。獨立保留嘅合約基準只容許呢一對畫面同合約。未知嘅全域豁免同擴大範圍嘅畫面例外都會被拒絕。欠缺證據仍然代表未完成。
 
 個人頁主要部分使用片段目的地。文件路徑格式係 `#docs/<encoded article identifier>/<encoded heading identifier>`。文章識別碼可以包含斜線，斜線會連同識別碼一齊編碼。瀏覽器上一頁同下一頁會還原所選文章同標題。
 

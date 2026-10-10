@@ -5,6 +5,8 @@
     "desktop",
     "extension"
   ],
+  "allowedGlobalScopeNotes": ["encrypted-public-builder", "instructions-prompt-banner", "instructions-portable-editions", "roblox-model-catalogue", "roblox-visual-realism"],
+  "allowedSurfaceExceptions": [{"id":"material-design","surface":"website","basis":"explicit-owner-direction","documentation":"docs/features/profile/navigation.md"}],
   "ids": [
     "language",
     "funny-emoji",

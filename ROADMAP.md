@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Foundation
+- [x] Record the owner-approved website presentation exception with bounded negative validation, preserving all other surface obligations.
 - [ ] Verify and publish the profile-led editorial redesign, preserving secondary tools and accessible navigation.
 - [x] Create the public source repository.
 - [x] Configure GitHub Pages to deploy from the workflow.
