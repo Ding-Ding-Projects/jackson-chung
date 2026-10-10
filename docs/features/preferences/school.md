@@ -2,6 +2,8 @@
 
 The management screen follows English, Cantonese or bilingual visitor preferences while the restriction is off. While enabled, it uses English only and keeps unavailable presentation capabilities out of its copy. A custom name replaces the default name on this control. Previously saved presentation choices are preserved and return after disabling.
 
+Credential and name fields use short floating labels. Complete localized guidance and character limits remain visible outside each field and wrap within the panel. The full guidance is also the accessible name through the supported Material aria-label API. Clicking the associated guidance focuses the field through its public focus method. Actual narrow-layout acceptance requires a fresh built capture; source/template checks alone do not prove it.
+
 ## Credential changes and reset
 
 The first enable operation creates a local credential of 6 through 256 characters. Enabling an already configured restriction needs no new credential; disabling requires the current credential. Change requires the current credential and matching new fields. It replaces the salted PBKDF2 proof while preserving the current enabled state and chosen name. An obsolete credential cannot disable the restriction afterward.
