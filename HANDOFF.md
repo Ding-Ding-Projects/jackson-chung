@@ -1,5 +1,19 @@
 # Current handoff
 
+## Latest preservation state
+
+Public main and deployed source: 386410d126c8eb2f3de94856d3c7c38f70eef96a. Workflow 38051891765 succeeded. The homepage at https://ding-ding-projects.github.io/jackson-chung/ contains six public organization projects. Fresh HTTP checks verified 22 current localized articles, ten requested assets, source metadata, public visibility and the exact About homepage. Documentation content matches the immutable 098563a build except top-level source metadata; byte identity is not claimed.
+
+Actual live verification completed 44 unique article body/title/language/route observations, six settings category-link/heading-focus observations and four inspected Home/Projects captures at 320 pixels bilingual dark and 1440 pixels English light. Body bounds matched and unnamed interactive accessibility entries were zero. Scoped diagnostic lists were empty. Seven owned browser processes exited, its debugging port closed and the hidden desktop closed. Profiles remain retained.
+
+Newer local source febff0bc8b8f1915a5c0241f361c52628f84566d integrates the local fictional Support workflow and 23 localized articles. All 353 tests and TypeScript passed. Exact build.bat /s exited zero, index SHA-256 ac249ff74c74677ca933fa0f6ebaaf2d58cdd970329cb936fbe7addf3c0ed336. This unfinished unit is preserved without deploying it.
+
+Built run18 at 098563a passed the repeated expanded notification builder at 320 pixels bilingual dark, closed history at 1440 and 320 pixels, metadata-backed settings search, thirty explanation identifiers, rate edit/reset/persistence and bounded bilingual provenance disclosures. Eleven genuine originals were inspected. Seven browser and two server processes exited and the hidden desktop closed. Every auxiliary control, cross-context clear, schedule expiry, native keyboard and operating-system display scaling remain unverified.
+
+Built run19 at febff0b verified Support navigation, two public synthetic tickets, select-visible/manual status advancement, reload persistence and category Escape clearing before close/focus return. Two genuine originals were inspected, including the initial whole-window capture before interaction. Expanded picker capture stopped when the strict complete target list did not contain exactly one entry. The historical list and types were not retained, so its cause is unknown. Geometry is retained without expanded pixel acceptance. Export bytes, draft Save/Discard/Cancel, severity Escape, lock recovery, restriction context and article23 acceptance remain unverified. Seven browser and two server processes exited through identity-bound handles and the desktop closed.
+
+The active goal crossed its explicit 90 percent implementation boundary. Start no new lanes, targets or publication operations. Finish already-started verification and preservation, and hand off before 95 percent. The goal remains active and unfinished. Recovery refs preserve source and do not claim production delivery. Retain all four linked worktrees, original evidence and ignored announcement variants. Production registration, installed updates, uninstall, fresh bootstrap, complete codecs, normal desktop release and universal contract completion remain unfinished. Earlier checkpoints below are historical.
+
 ## Current rebuilt candidate at 098563a
 
 Source 098563a4e4e2e2c2b5aca29b30a9336743937142 integrates settings explanations, truthful record provenance, metadata-backed search and the expanded notification-builder containment repair. The preceding settings integration passed all 335 tests and TypeScript. The final notification/settings affected checks passed 25 tests, and exact build.bat /s exited zero. Index SHA-256: d133dd4cbdf6c1b42f936f536909245ac8e4308eb0e68e37ca7adcb5eb59f6cb. All twenty-two English/Cantonese articles have valid inventory/source bindings. Current built interaction is in progress; this source is not claimed deployed.

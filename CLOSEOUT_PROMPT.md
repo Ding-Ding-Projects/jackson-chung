@@ -1,5 +1,15 @@
 # Continuation state
 
+## Latest state superseding historical checkpoints below
+
+Public deployment and remote main are 386410d126c8eb2f3de94856d3c7c38f70eef96a, workflow 38051891765 succeeded. Six projects are live at https://ding-ding-projects.github.io/jackson-chung/. Fresh HTTP checks passed 22 current localized articles, ten requested assets, source metadata, public visibility and exact About homepage. The completed isolated live check passed 44 article observations, six settings link/heading-focus observations and four inspected Home/Projects captures at 320 and 1440 pixels. Seven owned browser processes exited, the debugging port and hidden desktop closed, and its profile was retained.
+
+Local source febff0bc8b8f1915a5c0241f361c52628f84566d adds unfinished Support and article23. All 353 tests and TypeScript passed; exact build.bat /s exited zero, index SHA-256 ac249ff74c74677ca933fa0f6ebaaf2d58cdd970329cb936fbe7addf3c0ed336. Run19 passed two synthetic tickets, selected manual status, reload persistence and category Escape clear/close/focus. Expanded capture stopped at the strict complete-target rejection. Historical target list/types were not saved, so cause is unknown. Two originals inspected. Seven browser and two server processes exited and the hidden desktop closed. Export, draft close, severity Escape, recovery, restriction context and article23 remain unverified. Preserve this source on recovery refs without activating unfinished production changes.
+
+Run18 at 098563a passed repeated expanded notification containment and bounded settings search, explanation/provenance and rate reset/persistence. Eleven originals inspected and owned teardown completed. Full auxiliary permutations, cross-context clear, schedule expiry, native keyboard and operating-system scale remain unverified.
+
+Goal is active and incomplete, past its explicit 90 percent boundary. Start no new lanes or external operations. Finish already-started preservation and hand off before 95 percent. A successor requires supported goal handling and explicit direction. Retain four linked worktrees and all original/ignored evidence. Production lifecycle, updates, uninstall, fresh bootstrap, complete codecs, normal desktop release and the universal inventory remain incomplete. This file records state before its own commit; the private handoff adds its SHA and remote proof.
+
 Build Jackson Chung's public portfolio and separately installable Windows companion with every applicable contract. Browser-capable workflows belong directly on GitHub Pages and support mobile. Latest user steering: include selected public Ding-Ding-Projects projects. Six factual public project links are deployed. Publish Jackson Chung, Toronto and email only; keep the original resume and phone private.
 
 ## Published source
