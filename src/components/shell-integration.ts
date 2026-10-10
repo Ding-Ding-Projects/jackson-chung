@@ -8,3 +8,5 @@ export function observeAppearance(root:HTMLElement,register:(element:HTMLElement
 }
 export function presentationState(settings:Record<string,unknown>|null,school:{enabled?:boolean;name?:string}|null){return {locale:school?.enabled?'en':settings?.locale||'en',dock:['left','right','top','bottom'].includes(String(settings?.dock))?String(settings?.dock):'left',schoolEnabled:!!school?.enabled,schoolName:school?.name||'School mode'};}
 
+export type NativeCloseHandshake={onCloseRequested?:(callback:()=>Promise<boolean>)=>()=>void};
+export function connectNativeDraftClose(native:NativeCloseHandshake|undefined,resolve:()=>Promise<boolean>){if(!native?.onCloseRequested)return()=>{};return native.onCloseRequested(async()=>{try{return await resolve()===true;}catch{return false;}});}
