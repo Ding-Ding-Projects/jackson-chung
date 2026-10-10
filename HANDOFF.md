@@ -1,5 +1,13 @@
 # Implementation handoff
 
+## Completed browser unit awaiting publication
+
+Browser source `f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8` now passed full-body and correlated cross-paragraph search, all three language projections, invalid-result clearing, actual bundled worker timeout/cancellation, independent retained queries, inactive suspension/resume, retained heading/article/history navigation and exact JSON resource fetch/hash comparison. Runtime evidence is retained separately from the 232 passing source tests. The JSON resource returned 200, application/json, 1,402 bytes and SHA-256 `5e32780b0fdb5b03ed562de59dcbc2cc7ab6f6047978d5fa099dfa2a39769eb7`. Browser download completion remains unverified.
+
+The repaired attention surface has 96 inspected composite frames and twelve inspected editor-only frames across 320/1440 CSS viewports, three languages and two themes. Composite frames cover four emulated pixel ratios; editor-only representatives use ratio one. No measured body overflow or button escape was found. Prompt clock injection and emulated pixel ratios are explicit fixture limits, not real idle duration or native operating-system scaling. The 320 bilingual dark shared builder also settled without body overflow. Run10 completed owned teardown; run11 is retained only for a final representative capture and owned teardown.
+
+Pending isolated units are the local schedule editor and School-mode management. Their source checks are distinct from future built acceptance. The updater remains outside the integrated source while continuing discovery, verified-byte delivery and approval-revocation findings are repaired. No normal release exists. Production lifecycle needs a disposable Windows user or VM; a target clarification is pending. The live deployment remains the recorded earlier source until the verified browser unit is published.
+
 ## Worker and narrow-attention checkpoint
 
 Source `f2f3a70fc30e79fa7c52e90e1fe5593087b9b4a8` passed all 232 tests, TypeScript, the canonical public-source scan of 193 tracked paths and exact `build.bat /s`. Built index SHA-256 is `271509345805222567ef59f6b38b853fae272e541adb4811ff9221af7962dc67`. Worker startup now has a separate readiness deadline, malformed complete results are validated before rendering, and the expanded attention controls have bounded wrapping styles. The Squirrel lifecycle hook propagates shortcut and registration child failures. Each source repair received independent bounded recheck; new built and installed acceptance remain separate.
