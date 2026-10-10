@@ -61,4 +61,3 @@ Run `node --test tests/tools*.test.mjs` for synthetic RFC vectors, vault tamper 
 ## Transient drafts
 
 See [Transient local tool drafts](drafts.md) for tab-close providers, partial durable intake recovery and authenticated registration acknowledgement. Unsaved inputs are never serialized by the draft registry.
-
