@@ -12,11 +12,13 @@ The read-only `getSettingsProvenance()` API separates current in-memory state fr
 
 Successful writes to the settings key update the persisted snapshot even if writing history fails afterward. A failed settings write keeps current edits in memory and retains the previously validated snapshot, if available; there is no automatic rollback. History-write success or failure is tracked separately. Neither storage availability nor equality with defaults proves persistence.
 
-The producer supplies explicit edit, import, reset or history-restoration causes. Arbitrary action descriptions do not classify their own cause. This is record-level provenance; the last origin of each individual field is not tracked and the disclosure says so. A malformed same-origin storage event keeps current values but makes persisted provenance unavailable. Removing the settings record restores compiled defaults and marks persistence missing.
+The producer supplies explicit edit, import, reset or history-restoration causes. Arbitrary action descriptions do not classify their own cause. This is record-level provenance; the last origin of each individual field is not tracked and the disclosure says so. A malformed same-origin storage event keeps current values but makes persisted provenance unavailable. Removing the settings record restores compiled defaults and marks persistence missing. A local-storage clear event also clears in-memory history. Only events whose storage area is this origin’s local storage are accepted; session-storage and unrelated-area events cannot reset these values.
 
 ## Effective inputs and limits
 
 For fields with an implemented scheduled consumer, the disclosure identifies the last matching enabled rule containing that field. It shows the current base value again after expiry. Active presentation restrictions override interface and narration language to English. The effective line describes the setting input: device preferences, available voices and downstream presentation behavior may further adjust the rendered result. It does not claim that every field has a scheduled consumer or infer a field’s origin from a matching value.
+
+Category search indexes the same localized labels, purposes, shipped defaults, current base values and effective inputs used by the disclosures. Hidden language and personal-wording metadata is omitted before indexing while presentation restrictions are active.
 
 ## Verification
 
