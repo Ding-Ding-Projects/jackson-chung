@@ -17,3 +17,21 @@ test('personal wording supports canonical empty replacements without cascading',
 test('fractional humour values are rejected and translation falls back safely',()=>{assert.throws(()=>store.validateSettings({...store.defaults,funnyEn:2.5}));assert.throws(()=>store.validateSettings({...store.defaults,funnyYue:4.1}));assert.equal(store.translate(undefined,undefined),'');});
 test('local authentication controls private replacement visibility',()=>{store.loadVocabulary(JSON.stringify({schemaVersion:1,entries:{Public:'Private choice'}}));store.setLocalAuthenticated(false);assert.equal(store.personalText('Public'),'Public');store.setLocalAuthenticated(true);assert.equal(store.personalText('Public'),'Private choice');store.setLocalAuthenticated(false);assert.equal(store.personalText('Public'),'Public');store.clearVocabulary();});
 test('all four dock positions validate, left is the shipped default, and language follows state',()=>{assert.equal(store.defaults.dock,'left');for(const dock of ['left','right','top','bottom'])assert.equal(store.validateSettings({...store.defaults,dock}).dock,dock);store.updateState({locale:'yue'});assert.equal(document.documentElement.lang,'zh-HK');store.updateState({locale:'both'});assert.equal(document.documentElement.lang,'en');assert.equal(document.documentElement.dataset.locale,'both');});
+test('local schedule boundaries use their starting weekday and preserve base settings',async()=>{
+ const storeUrl=`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`;
+ const litStub=`data:text/javascript;base64,${Buffer.from('export class LitElement{};export const html=()=>{};export const css=()=>{};').toString('base64')}`;
+ let scheduleSource=ts.transpile(fs.readFileSync(new URL('../src/features/preferences/schedules.ts',import.meta.url),'utf8'),{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ESNext});
+ scheduleSource=scheduleSource.replace("from 'lit'",`from '${litStub}'`).replace("from '../../state/store'",`from '${storeUrl}'`);
+ globalThis.customElements={define(){}};
+ const originalInterval=globalThis.setInterval;globalThis.setInterval=()=>0;
+ let schedules;try{schedules=await import(`data:text/javascript;base64,${Buffer.from(scheduleSource).toString('base64')}`);}finally{globalThis.setInterval=originalInterval;}
+ const rule={id:'night',label:'Night theme',enabled:true,start:'22:00',end:'08:00',from:'',until:'',weekdays:[1],patch:{theme:'dark'}};
+ assert.equal(schedules.scheduleMatches(rule,new Date(2026,9,12,22,0)),true);
+ assert.equal(schedules.scheduleMatches(rule,new Date(2026,9,13,7,59)),true);
+ assert.equal(schedules.scheduleMatches(rule,new Date(2026,9,13,8,0)),false);
+ assert.equal(schedules.scheduleMatches(rule,new Date(2026,9,12,21,59)),false);
+ assert.throws(()=>schedules.validateSchedules({version:1,rules:[{...rule,end:'22:00'}]}));
+ assert.throws(()=>schedules.validateSchedules({version:1,rules:[rule,rule]}));
+ store.updateState({theme:'light'});schedules.saveSchedules([rule]);assert.equal(schedules.effectiveSettings(new Date(2026,9,12,23)).theme,'dark');assert.equal(store.getState().theme,'light');
+ schedules.saveSchedules([]);
+});
