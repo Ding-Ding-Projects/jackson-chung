@@ -14,7 +14,7 @@ Settings changes create up to 100 local browser snapshots. Restoring appends a r
 
 Destination search defaults to literal text. Explicit regular expressions execute in a terminated disposable worker with a 150 ms timeout, input length and inventory limits. The builder supports literal containment, start, end and whole-word templates with validated flags. The complete advanced regex graph, rich inline setting results, exact-element teleport and bulk selection remain unimplemented.
 
-The appearance lab edits a sample's colour, radius, padding, text size and weight. Its capability inventory states which features only preview and which are planned. It does not claim arbitrary-element editing, persistence, full design-system palette derivation or an anchored production element editor.
+The appearance destination exposes an actual registered-target editor. See the expanded editor section below for supported properties, anchoring and persistence. Complete target coverage and the remaining capability inventory still require verification.
 
 ## Narration
 
@@ -22,7 +22,7 @@ Narration is off by default. Voice pickers enumerate platform voices, update aft
 
 ## Remaining contracts
 
-This first unit does not complete all mandatory product contracts. Shared cross-application School mode and credential storage, schedules and external sources, universal anchored editors, complete regex tooling, tab groups and locks, bulk history controls, advanced date filters, broad export formats, palette inline controls, arbitrary-element teleport, local Git history, all humour categories and per-surface localization coverage, and built interaction/capture evidence remain open. No runtime, responsive, installation, deployment or full completeness verdict is claimed from source checks.
+This first unit does not complete all mandatory product contracts. Native shared cross-application School mode, complete schedules and external sources, universal editor coverage, complete regex tooling, tab groups and locks, bulk history controls, advanced date filters, broad export formats, palette inline controls, arbitrary-element teleport, local Git history, all humour categories and per-surface localization coverage, and built interaction/capture evidence remain open. No runtime, responsive, installation, deployment or full completeness verdict is claimed from source checks.
 
 ## Verification
 
@@ -35,9 +35,9 @@ No HTTP API belongs to this feature, so a Postman collection is not applicable.
 The timed-appearance destination adds daily local theme rules with optional dates, native time and date inputs, enable and remove actions. Its bounded version-1 store holds at most 50 rules. Overnight intervals use their starting day, start is inclusive, end exclusive, equal times are rejected, and later matching rules win. `effectiveSettings` and `jc-effective-state` provide temporary values to the shell without overwriting base settings. Browser local timezone and daylight-saving semantics are disclosed. The rules support validated setting patches internally, but visible controls currently cover theme only. Weekday editing, complete rule editing, undo/history, import/export, other setting controls and external sources remain incomplete.
 ## Local authentication and navigation integration
 
-Personal wording remains dormant on an unauthenticated surface, even when a valid private cache exists. The shared shell must call `setLocalAuthenticated(true)` or dispatch `jc-authenticated` with the boolean `true` only after actual local authentication succeeds; logout must clear that session signal. This signal is memory-only and is never itself evidence of authentication. A missing integration leaves original wording active. The loader ships no private mappings.
+Personal wording remains dormant on an unauthenticated surface, even when a valid private cache exists. The verified local vault producer must call `setLocalAuthenticated(true)` only after actual local authentication succeeds; logout, lock and reset must clear that session signal. Arbitrary DOM authentication events are not accepted. This signal is memory-only and is never itself evidence of authentication. A missing integration leaves original wording active. The loader ships no private mappings.
 
-Navigation supports left, right, top and bottom, with left as the default. The shared shell must consume the persisted `dock` field to place actual navigation. State application sets the document language to `zh-HK` for Cantonese and `en` for English/bilingual, with `data-locale` retaining the full mode. Integer-only humour validation prevents out-of-range copy indexing. Tonal palette derivation and built contrast verification remain incomplete.
+Navigation supports left, right, top and bottom, with left as the default. The shared shell must consume the persisted `dock` field to place actual navigation. State application sets the document language to `zh-HK` for Cantonese and `en` for English/bilingual, with `data-locale` retaining the full mode. Integer-only humour validation prevents out-of-range copy indexing. Tonal palette derivation uses the genuine utility described below; full built contrast verification remains incomplete.
 
 ## Expanded registered-element appearance editor
 
