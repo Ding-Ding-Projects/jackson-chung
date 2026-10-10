@@ -17,3 +17,4 @@ Source-level type checks and the one-page PDF rendering have been inspected. Pub
 ## Related articles
 - [Visitor preferences](../preferences/README.md)
 - [Delivery and verification](../delivery/README.md)
+- [Notifications](notifications.md)

@@ -2,6 +2,8 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { createHash } from 'node:crypto';
+import { assertBuildSource } from './build-source.mjs';
+assertBuildSource();
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
 const source = execFileSync('git', ['rev-parse', 'HEAD'], {encoding:'utf8'}).trim();
 const sourceDate = execFileSync('git', ['show', '-s', '--format=%cI', 'HEAD'], {encoding:'utf8'}).trim();
