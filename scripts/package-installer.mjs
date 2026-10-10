@@ -5,6 +5,7 @@ import {resolve,join} from 'node:path';
 import {prepareAssets} from './package-assets.mjs';
 import {createRequire} from 'node:module';
 import {execFileSync} from 'node:child_process';
+import {capturePayload,verifyPackagePayload} from './package-payload.mjs';
 if(process.platform!=='win32')throw Error('Windows installer production requires Windows.');
 const pkg=JSON.parse(readFileSync('package.json','utf8'));
 const version=process.env.BUILD_VERSION||pkg.version;
@@ -24,12 +25,16 @@ cpSync(assets.launcher,join(appDirectory,'JacksonChungNativeHost.exe'));
 cpSync(assets.config,join(appDirectory,'native-host-config.json'));
 for(const name of ['native-host.cjs','bridge.cjs','security.cjs']){if(!existsSync(join(appDirectory,'resources','app.asar.unpacked','desktop',name)))throw Error(`Native host unpacked module is missing: ${name}`);}
 const output=join(owned,'release');mkdirSync(output);
+const payload=capturePayload(appDirectory);
+writeFileSync(join(owned,'payload-index.json'),JSON.stringify(payload,null,2));
 const require=createRequire(import.meta.url);
 const installerRoot=resolve(require.resolve('electron-winstaller/package.json'),'..');
 if(!existsSync(join(installerRoot,'vendor','7z.exe'))||!existsSync(join(installerRoot,'vendor','7z.dll'))){execFileSync(process.execPath,[join(installerRoot,'script','select-7z-arch.js')],{cwd:installerRoot,stdio:'inherit',windowsHide:true,timeout:30000});}
 if(!existsSync(join(installerRoot,'vendor','7z.exe'))||!existsSync(join(installerRoot,'vendor','7z.dll')))throw Error('Official electron-winstaller architecture selection did not produce 7-Zip payloads.');
-await installer.createWindowsInstaller({appDirectory,outputDirectory:output,authors:'Jackson Chung',exe:'JacksonChung.exe',name:'JacksonChung',version,description:pkg.description,setupExe:'Setup.exe',setupIcon:icon,noMsi:true,signWithParams:undefined});
+await installer.createWindowsInstaller({appDirectory,outputDirectory:output,authors:'Jackson Chung',exe:'JacksonChung.exe',name:'JacksonChung',version,description:pkg.description,setupExe:'Setup.exe',setupIcon:icon,noMsi:true,signWithParams:undefined,additionalFiles:[{src:'JacksonChungNativeHost.exe',target:'lib\\net45'},{src:'native-host-config.json',target:'lib\\net45'},{src:'LICENSES.chromium.html',target:'lib\\net45'},{src:'version',target:'lib\\net45\\version'}]});
 for(const name of ['Setup.exe','RELEASES',`JacksonChung-${version}-full.nupkg`])if(!existsSync(join(output,name)))throw Error(`Squirrel output missing: ${name}`);
+const payloadVerification=verifyPackagePayload(readFileSync(join(output,`JacksonChung-${version}-full.nupkg`)),payload);
+writeFileSync(join(owned,'payload-verification.json'),JSON.stringify({version:1,sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),...payloadVerification},null,2));
 mkdirSync('release',{recursive:true});cpSync(output,resolve('release'),{recursive:true});
 writeFileSync(join(owned,'payload-receipt.json'),JSON.stringify({version,...assets.receipt,installerProduced:true,installedRuntimeVerified:false},null,2));
 console.log(`Unsigned Squirrel.Windows installer produced for ${version}. Native installation and extension registration remain separate verification steps.`);

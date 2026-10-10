@@ -1,5 +1,7 @@
 # Delivery and verification
 
+- [Package payload integrity](package-integrity.md)
+
 The public website is deployed as static output on GitHub Pages. The desktop companion is a separate Windows application. Browser-compatible features belong on the website itself; native access is explicit and optional.
 
 ## Build
