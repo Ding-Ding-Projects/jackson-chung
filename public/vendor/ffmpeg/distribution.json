@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "coreVersion": "0.12.10",
+  "licenseAndSourceVerified": false,
+  "status": "pending-corresponding-source",
+  "files": [],
+  "reason": "Codec binaries are not included. Complete matching source and build provenance must be established before enabling media conversion."
+}
