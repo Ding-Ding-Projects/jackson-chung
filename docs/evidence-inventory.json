@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "records": [
+    {
+      "id": "installed-companion-dirty-close-cee79f8",
+      "active": true,
+      "path": "public/captures/companion-dirty-close-cee79f8.png",
+      "sourceCommit": "cee79f85732f6d783ade29b5ffa01a972a08043d",
+      "artifactSha256": "98e4521fc3045cb6a7d5e0eade6315f95935c7e75453233f5fd1e9f8df49a8eb",
+      "captureSha256": "2395dda8a9b3ad15977bc11866fa3a31e00299cbc5c4b900b879d39661af265d",
+      "screen": "local-companion",
+      "state": "unsaved-synthetic-record-decision",
+      "theme": "light",
+      "viewportWidth": 1200,
+      "viewportHeight": 752,
+      "scale": 1.5,
+      "interactionProofId": "installed-caption-save-and-close",
+      "interactionReceiptSha256": "4d5cf92a4b37ca44e427b7260748cfc162ddb5b9c6ee202ceb3d6114f22dd320",
+      "inspectionStatus": "inspected",
+      "capturedAt": "2026-10-10T08:50:46.246216+00:00",
+      "route": "cheap-lowlevel-headless",
+      "limitations": [
+        "Runtime diagnostics cover the recorded CDP observation interval, not full startup or native-click delivery.",
+        "Verification package excludes production registration, shortcuts, broker and updater.",
+        "Caption close is verified; operating-system keyboard-close acceptance is not."
+      ]
+    }
+  ],
+  "coverage": "One bounded installed verification state. Other surfaces and full contract acceptance remain incomplete."
+}
