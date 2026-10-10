@@ -88,3 +88,15 @@ Host integration APIs:
 This unit guards tab activation, close, reorder and mutation with `tab.<independent-id>`, and appearance mutation/reset with the element ID plus `<id>:property:<css-name>`. The shell still must adopt wrappers and action checks on every relevant destination, group, control, shortcut and future feature. Generic capture interception does not prove disabled-native-control wrapper coverage, immutable DOM mutation resistance, or universal adoption. Native disabled controls need an operable host wrapper. The current wizard and inventory do not claim every mandatory element/state or lock policy input route has built interaction evidence.
 
 Recovery is clearing this website's local storage and its local-lock credential database. These are user-experience locks, not encryption or protection from another person with access to the browser. Missing credential storage fails closed with an actionable message; no fake authentication result grants access.
+
+## Navigation repair and compact strip
+
+Every tab-state save now checks the selected target lock. Closing an active tab selects the most recently used unlocked fallback, or leaves no active tab when none is available. Restoring a locked closed tab checks permission before changing the open/closed inventory. Restored browser metadata never activates a locked saved target. The retained host observes lock changes and hides/inerts locked nodes instead of mounting protected content.
+
+Palette result navigation is limited to the primary query field and result rows. Nested regex inputs, selects and custom-binding editors keep their own Enter and arrow behavior. Escape remains the overlay dismissal. Tab arrows, Home and End use the actual rendered order, excluding filtered and collapsed-group children, and all successful keyboard selections move focus to the rendered tab button.
+
+The strip opens compact by default: an internally scrolling rail plus accessible New, Restore and Manage affordances. Search, its adjacent regex tools, per-tab actions, groups and recent-tab controls are progressively disclosed inside a bounded management region. Vertical rails are height-bounded; horizontal rails own horizontal scrolling. Actual 320 px reflow and new-design height measurements still require built evidence.
+
+The shell passes `.destinationTitles` as an ID-to-localized-string map. New destination tabs record `titleMode: destination`; changing a title records `titleMode: custom`. Explicit custom titles render verbatim. Existing known shipped titles use the destination map, while unknown legacy titles remain unchanged. Search result counts retain numbers rather than translated strings and translate afresh during render, so switching language updates cached results without rerunning the query.
+
+Focused regressions watched locked fallback, locked restore, nested palette Enter, filtered tab arrow order and Home focus fail before their repairs. Positive checks also cover the primary palette query, collapsed groups, custom-label preservation and cached count localization. These are source/handler checks, not browser pixel or assistive-technology acceptance.
