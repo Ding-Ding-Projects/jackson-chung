@@ -1,0 +1,11 @@
+/** Full-document search. Oversized inventories fail as a whole; article bodies are never truncated. */
+export type DocumentSearchRequest={state:{mode:'literal'|'regex';query:string;pattern:string;flags:string};items:Array<{id:string;text:string}>};
+export const DOCUMENT_SEARCH_LIMITS={articles:1000,articleCharacters:1100000,totalCharacters:8000000,queryCharacters:2048,evaluationMs:150,startupMs:3000,deadlineMs:200} as const;
+export function searchDocuments(request:DocumentSearchRequest){
+ const {state,items}=request??{};if(!state||!Array.isArray(items)||items.length>DOCUMENT_SEARCH_LIMITS.articles||!['literal','regex'].includes(state.mode)||typeof state.query!=='string'||typeof state.pattern!=='string'||typeof state.flags!=='string'||state.query.length>2048||state.pattern.length>2048||state.flags.length>8||!/^[dgimsuvy]*$/.test(state.flags))throw Error('bounds');
+ let total=0;const seen=new Set<string>();for(const item of items){if(!item||typeof item.id!=='string'||!item.id||item.id.length>256||seen.has(item.id)||typeof item.text!=='string'||item.text.length>DOCUMENT_SEARCH_LIMITS.articleCharacters||(total+=item.text.length)>DOCUMENT_SEARCH_LIMITS.totalCharacters)throw Error('bounds');seen.add(item.id);}
+ const pattern=state.mode==='literal'?state.query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'):state.pattern;let regex:RegExp;try{regex=new RegExp(pattern,state.flags);}catch{throw Error('syntax');}
+ const started=performance.now(),indices:number[]=[],ids:string[]=[];for(let index=0;index<items.length;index++){if(performance.now()-started>DOCUMENT_SEARCH_LIMITS.evaluationMs)throw Error('deadline');regex.lastIndex=0;if(regex.test(items[index].text)){indices.push(index);ids.push(items[index].id);}}return {indices,ids};
+}
+const scope=globalThis as typeof globalThis&{postMessage?:(data:unknown)=>void;onmessage?:((event:MessageEvent<DocumentSearchRequest>)=>void)|null;document?:unknown};
+if(typeof scope.postMessage==='function'&&typeof scope.document==='undefined'){scope.onmessage=event=>{try{scope.postMessage!({kind:'result',...searchDocuments(event.data)});}catch(error){scope.postMessage!({kind:'error',error:error instanceof Error?error.message:'worker'});}};scope.postMessage({kind:'ready'});}
