@@ -46,7 +46,7 @@ try {
       & node node_modules/electron/install.js
       if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     }
-    & node scripts/package-installer.mjs
+    if ($Remaining -contains '--verification') { & node scripts/package-installer.mjs --verification } else { & node scripts/package-installer.mjs }
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   }
   if (-not $silent -and -not $Installer) {
