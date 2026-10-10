@@ -2,6 +2,14 @@
 
 ## Latest verified checkpoint, 2026-10-10
 
+The repaired `cee79f8` verification candidate now passed actual installed dirty Save and close, relaunch loading the saved synthetic record, and clean caption close. Both close paths exited zero with no remaining windows or error dialog. Maintenance Setup exited zero. All 443 staged installed files and the separately mapped root execution stub matched. All three owned hidden desktops are closed. The genuine dirty-close PNG was inspected, staged byte for byte, reinspected and accepted by the version-1 evidence receipt check. See [installed verification](docs/features/delivery/installed-verification.md) and [the exact inventory](docs/evidence-inventory.json). Source checks at this candidate pass 167 tests and TypeScript. These results supersede the earlier statement that the repaired installed path was pending, without erasing the retained a25 failure.
+
+The immutable a25 browser session additionally passed actual filtered and collapsed tab entry, background Enter/Space activation, command activation, command-list Down navigation and nested regex pattern/sample keyboard behavior. Prospective observation intervals recorded zero errors, but did not continuously span native-key input. Ctrl+Shift+F was posted without a resulting palette, so shortcut delivery/acceptance is unverified. Tab role/selected-state delegation is a separately confirmed accessibility defect under repair. The browser session is still alive pending owned teardown.
+
+Safe local documentation image rendering is preserved separately and awaiting integration/runtime acceptance. The public capture file is prepared locally; live deployment remains unchanged. The last verified recovery tip before this update is `13f6b6c907ceb51e0dae98cc40c1da60d62f896b`. No production integration, updater, uninstall, fresh-machine bootstrap, normal release or full contract completion is claimed.
+
+### Earlier checkpoint details
+
 Source `0a6f746` integrates independent companion search fields, shared-builder invalidation, literal flag parity and separate worker startup/execution deadlines. Forty focused search/preferences checks and TypeScript passed after integration. Installed-runtime evidence remains bound to `a25ee0b`, not this newer source.
 
 The exact verification installer entrypoint at `a25ee0b` passed full package inspection: 533 entries and 443 required payload files. The full package SHA-256 is `a37a2d03ba2e29f46bc1ac5ac0eb5ecc9bd1f9113a544f1f830c78bd48763162`; Setup is unsigned. An independently accounted process job observed all 46 build processes, no unknown/signing process, zero active children at completion, and unchanged source. This proves that bounded build run, not a fresh-machine bootstrap.
