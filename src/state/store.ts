@@ -13,6 +13,9 @@ export type Revision = {id:string; at:string; action:string; settings:Settings};
 let state: Settings = structuredClone(defaults);
 let revisions: Revision[]=[];
 let persistenceError='';
+export type SettingsSource='default'|'stored'|'edit'|'import'|'reset'|'history'|'storage-event'|'unknown';
+export type SettingsProvenance={currentSource:SettingsSource;load:'missing'|'loaded'|'invalid'|'unreadable';persistence:'missing'|'saved'|'invalid'|'unreadable'|'write-failed';persisted:Settings|null;historyWrite:'unknown'|'saved'|'failed'};
+let provenance:SettingsProvenance={currentSource:'default',load:'missing',persistence:'missing',persisted:null,historyWrite:'unknown'};
 export function validateSettings(value: unknown): Settings {
   if(!value || typeof value!=='object' || Array.isArray(value)) throw Error('Expected a settings object.');
   const v={focusTarget:'',narrationLanguage:'en',...value} as Record<string,unknown>;
@@ -24,22 +27,24 @@ export function validateSettings(value: unknown): Settings {
   if(!/^#[0-9a-f]{6}$/i.test(String(v.seed)) || String(v.displayName).length>80 || String(v.voiceEn).length>300 || String(v.voiceYue).length>300 || (v.focusTarget!==''&&!/^[a-z0-9-]{1,60}$/.test(String(v.focusTarget))) || !Array.isArray(v.pins) || v.pins.length>30 || v.pins.some(x=>typeof x!=='string'||! /^[a-z0-9-]{1,60}$/.test(x))) throw Error('Invalid appearance or navigation value.');
   return structuredClone(v) as Settings;
 }
-try { const cached=localStorage.getItem(key); if(cached) state=validateSettings(JSON.parse(cached)); const h=JSON.parse(localStorage.getItem(historyKey)||'[]'); if(Array.isArray(h)) revisions=h.slice(-100).filter(r=>r && typeof r.id==='string' && typeof r.at==='string' && typeof r.action==='string').map(r=>({...r,settings:validateSettings(r.settings)})); } catch { persistenceError='Stored settings could not be read. Defaults are active.'; }
+try{const cached=localStorage.getItem(key);if(cached!==null){try{state=validateSettings(JSON.parse(cached));provenance={...provenance,currentSource:'stored',load:'loaded',persistence:'saved',persisted:structuredClone(state)};}catch{provenance={...provenance,load:'invalid',persistence:'invalid'};persistenceError='Stored settings are invalid. Compiled defaults are active.';}}}catch{provenance={...provenance,load:'unreadable',persistence:'unreadable'};persistenceError='Stored settings could not be read. Compiled defaults are active.';}
+try{const h=JSON.parse(localStorage.getItem(historyKey)||'[]');if(Array.isArray(h))revisions=h.slice(-100).filter(r=>r&&typeof r.id==='string'&&typeof r.at==='string'&&typeof r.action==='string').map(r=>({...r,settings:validateSettings(r.settings)}));}catch{persistenceError=persistenceError||'Settings history could not be read.';}
 const listeners=new Set<()=>void>();
+export function getSettingsProvenance():SettingsProvenance{return structuredClone(provenance);}
 export function getState(): Settings {return structuredClone(state);}
 export function getHistory(): Revision[] {return structuredClone(revisions);}
 export function getPersistenceError(){return persistenceError;}
 export function subscribe(listener:()=>void){listeners.add(listener);return()=>listeners.delete(listener);}
-export function updateState(patch:Partial<Settings>, action='Settings changed') {
+export function updateState(patch:Partial<Settings>, action='Settings changed',source:SettingsSource='edit') {
  const next=validateSettings({...state,...patch}); if(JSON.stringify(next)===JSON.stringify(state)) return;
- state=next; revisions.push({id:crypto.randomUUID(),at:new Date().toISOString(),action,settings:getState()}); revisions=revisions.slice(-100);
- try{localStorage.setItem(key,JSON.stringify(state));localStorage.setItem(historyKey,JSON.stringify(revisions));persistenceError='';}catch{persistenceError='Storage is unavailable or full. This change lasts only in this tab.';}
+ state=next;provenance.currentSource=['edit','import','reset','history','storage-event'].includes(source)?source:'unknown'; revisions.push({id:crypto.randomUUID(),at:new Date().toISOString(),action,settings:getState()}); revisions=revisions.slice(-100);
+ persistenceError='';try{localStorage.setItem(key,JSON.stringify(state));provenance.persistence='saved';provenance.persisted=getState();}catch{provenance.persistence='write-failed';persistenceError='Settings could not be saved. Current changes may last only in this tab.';}try{localStorage.setItem(historyKey,JSON.stringify(revisions));provenance.historyWrite='saved';}catch{provenance.historyWrite='failed';persistenceError=persistenceError||'Settings were saved, but history could not be saved.';}
  applyAppearance();listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));
 }
-export function restoreRevision(id:string){const r=revisions.find(r=>r.id===id);if(r)updateState(r.settings,'Restored settings revision');}
-export function resetSettings(){updateState(structuredClone(defaults),'Reset settings');}
+export function restoreRevision(id:string){const r=revisions.find(r=>r.id===id);if(r)updateState(r.settings,'Restored settings revision','history');}
+export function resetSettings(){updateState(structuredClone(defaults),'Reset settings','reset');}
 export function applyAppearance(settings:Settings=state){const s=getSchoolState().enabled?{...settings,locale:'en' as Locale}:settings,r=document.documentElement; r.lang=s.locale==='yue'?'zh-HK':'en';r.dataset.locale=s.locale; r.dataset.theme=s.theme;r.dataset.density=s.density;r.dataset.motion=(s.reducedMotion||s.lowStimulation||(typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches))?'reduced':'normal';r.dataset.lowStimulation=String(s.lowStimulation);applyPalette(s.lowStimulation?'#68736f':s.seed,s.theme);r.style.setProperty('--jc-font-size',`${s.fontSize}px`);r.style.fontSize=`${s.fontSize}px`;r.style.fontFamily=s.font==='serif'?'Georgia,serif':s.font==='mono'?'ui-monospace,monospace':'system-ui,sans-serif';}
-window.addEventListener('storage',e=>{if(e.key===key && e.newValue){try{state=validateSettings(JSON.parse(e.newValue));applyAppearance();listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}catch{persistenceError='Another tab supplied invalid settings; the current settings were kept.';}}});
+window.addEventListener('storage',e=>{if(e.key!==key)return;if(e.newValue===null){state=structuredClone(defaults);provenance={currentSource:'default',load:'missing',persistence:'missing',persisted:null,historyWrite:'unknown'};persistenceError='The stored settings record was removed. Compiled defaults are active.';}else{try{const next=validateSettings(JSON.parse(e.newValue));state=next;provenance={...provenance,currentSource:'storage-event',load:'loaded',persistence:'saved',persisted:structuredClone(next)};persistenceError='';}catch{provenance={...provenance,load:'invalid',persistence:'invalid',persisted:null};persistenceError='Another tab supplied invalid settings; current values were kept but persisted provenance is unavailable.';}}applyAppearance();listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));});
 export function translate(en:string,yue:string,locale=state.locale){if(getSchoolState().enabled)locale='en';en=typeof en==='string'?en:'';yue=typeof yue==='string'?yue:en;const text=locale==='en'?en:locale==='yue'?yue:`${en} · ${yue}`;return personalText(text);}
 let localAuthenticated=false;
 export function setLocalAuthenticated(value:boolean){localAuthenticated=value===true;listeners.forEach(f=>f());window.dispatchEvent(new CustomEvent('jc-state',{detail:getState()}));}
